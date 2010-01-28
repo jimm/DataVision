@@ -1,0 +1,595 @@
+<!-- include_header UM runreport le DataVision -->
+
+<h1>The DataVision User Interface</h1>
+
+<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+<a id="windows" />
+<h2>Windows</h2>
+
+<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+<a id="designwin" />
+<h3>The Report Design Window</h3>
+
+The Report Design window is the main window used to edit, save, and run a
+report. To the left are section areas which contain one or more labelled
+sections, to the right are the sections containing report fields. The labels,
+sections, and fields all have popup menus that appear when you right-click
+them.
+
+Drag the bars to re-size report sections.
+
+To select a field, single-click it. To select more than one field, hold
+down the shift key while selecting the fields. <note>Not yet
+implemented:</note> You may also select fields by clicking and dragging a
+selection box with the mouse.
+
+Click and drag a field to move it. Drag the edges to re-size it. Moving
+and dragging operate on the current selection. If multiple fields are
+selected they will all be moved or re-sized.
+
+Field commands (format, re-size) operate on the set of currently
+selected fields.
+
+To insert a new section into a section area, right-click on a section label or
+section and select ``Insert Section''.
+
+<!-- ................................................................ -->
+<a id="menus" />
+<h4>Menus</h4>
+
+Fields have popup menus. Sections have popup menus. The section labels
+on the left side have popup menus.
+
+<!-- ................................................................ -->
+<a id="menus-file" />
+<h5>The File Menu</h5>
+
+<b>New</b> Creates a new, empty report and opens the Database Connection
+dialog box (see <a href="#dbconndialog"><sec>The Database Connection
+Dialog</sec></a>).
+
+<b>Open</b> Opens a dialog box that lets you select a report XML file to
+open.
+
+<b>Save</b> Saves the report. If you have not yet specified a report XML
+file because this is a new report, you will be asked to do so.
+
+<b>Save As...</b> Saves the report to a file you specify.
+
+<b>Page Size</b> This submenu lets you select the report's paper size.
+<note>One could argue this belongs in the <guimenu>Report</guimenu> menu,
+but print-related menu items usually appear in an application's
+<guimenu>File</guimenu> menu.</note>
+
+<b>Close</b> Closes the report and the design window. If the file has
+been changed, you will be asked if you want to save the report first.
+
+<b>Quit</b> Closes all reports and quits DataVision. If any file has been
+changed, you will be asked about saving it. If you answer ``Cancel'' to any
+request (instead of saving or confirming that you don't want to save the
+report), DataVision does not quit.
+
+<!-- ................................................................ -->
+<a id="menus-edit" />
+<h5>The Edit Menu</h5>
+
+<b>Undo</b> Not yet implemented.
+
+<b>Cut</b> Deletes the currently selected fields (same as
+<guimenuitem>Delete Selected Fields</guimenuitem>).
+
+<b>Copy</b> Not yet implemented.
+
+<b>Paste</b> Not yet implemented.
+
+<b>Delete Selected Fields</b> Deletes the currently selected fields.
+
+<b>Delete Group</b> Deletes the group containing the selected field. If
+more than one field is selected, the group containing the first (earliest)
+selected field is deleted.
+
+<b>Delete Section</b> Deletes the section containing the selected field.
+If more than one field is selected, the section containing the first
+(earliest) selected field is deleted.
+
+<!-- ................................................................ -->
+<a id="menus-insert" />
+<h5>The Insert Menu</h5>
+
+For more information about the Field Picker window, see <a
+href="#fieldpicker"><sec>The Field Picker Window</sec></a>.
+
+<b>Database Field...</b> Opens the Field Picker window and jumps to the
+Database Fields section. (In a newly created report, there will be no
+database columns in this section yet. Open the ``All Database Fields''
+sections by double-clicking it.)
+
+<b>Text</b> The cursor changes to a text-editing cursor. Click on a
+report section and begin typing to add a text label.
+
+<b>Formula Field...</b> Opens the Field Picker window and jumps to the
+Formula Field section.
+
+<b>Parameter Field...</b> Opens the Field Picker window and jumps to the
+Parameter Field section.
+
+<b>Special Field...</b> Opens the Field Picker window and jumps to the
+Special Field section.
+
+<b>Aggregate Field...</b> Opens the Aggregate dialog on the currently
+selected field. If more than one field is selected, uses the first
+(earliest) selected field. See <a href="#aggrdialog"><sec>The Aggregate
+Dialog</sec></a>.
+
+<b>Line</b> <note>Not yet implemented.</note>
+
+<b>Group...</b> Inserts a new group below all the other groups. This
+menu item is disabled if there are no fields in the report.
+
+To reorder groups or change a group's sort order, select
+<guimenuitem>Group By...</guimenuitem> from the <guimenu>Report</guimenu>
+menu.
+
+<b>Section</b> Inserts a new section after the one containing the
+selected field. If more than one field is selected, the new section is
+inserted below the section containing the first (earliest) selected
+field.
+
+<!-- ................................................................ -->
+<a id="menus-format" />
+<h5>The Format Menu</h5>
+
+<b>Format Field...</b> Opens the Format dialog (see <a
+href="#formatdialog"><sec>The Format
+Dialog</sec></a>).
+
+<b>Border...</b> Opens the Format dialog (see <a
+href="#formatdialog"><sec>The Format
+Dialog</sec></a>) with the border tab displayed.
+
+<b>Position and Size...</b> Opens the Position and Size dialog (see <a
+href="#posdialog"><sec>The Position and Size Dialog</sec></a>).
+
+<b>Align</b> Opens the Align submenu. Selecting a menu item aligns all
+currently selected fields to the top, bottom, left, or right edge of the
+first selected field or snaps all selected fields to the grid.
+
+<b>Size</b> Opens the Size submenu. Selecting a menu item re-sizes all
+currently selected fields to the same width, height, or size (both width
+and height) of the first selected field.
+
+<b>Default Format...</b> Opens the Format dialog (see <a
+href="#formatdialog"><sec>The Format Dialog</sec></a>) so you can edit the
+report's default format and border.
+
+<!-- ................................................................ -->
+<a id="menus-database" />
+<h5>The Database Menu</h5>
+
+<b>Table Linker</b> Opens the Table Linker dialog (see <a
+href="#vislinkerdialog"><sec>The Visual Table Linker Dialog</sec></a>).
+
+<b>SQL Query Text...</b> Opens a dialog containing the SQL query that
+will be used to run the report. This text is not editable. It is, however,
+selectable: you can copy the text and paste it anywhere else.
+
+<b>Connection...</b> Opens the Database Connection dialog (see <a
+href="#dbconndialog"><sec>The Database Connection Dialog</sec></a>).
+
+<!-- ................................................................ -->
+<a id="menus-report" />
+<h5>The Report Menu</h5>
+
+<b>Run</b> Runs the report and displays the results.
+
+<b>Export...</b> Opens a dialog that lets you choose which format to use
+for exporting the report data. When you click <guibutton>OK</guibutton>, a
+File Save dialog box opens to let you specify an output file.
+
+<b>Select Records...</b> Opens a dialog that lets you edit text inserted
+into the WHERE clause of the SQL statement used to generate report data.
+See <a href="#selrecsdialog"><sec>The ``Select Records'' Dialog</sec></a>.
+
+<b>Sort By...</b> Opens the dialog box used to specify which fields should
+be sorted, and in what order. See <a href="#sortbydialog"><sec>The ``Sort
+By'' Dialog</sec></a>. To change the sort order of a group, use the
+<guimenuitem>Group By...</guimenuitem> menu item.
+
+<b>Group By...</b> Opens the dialog box used to specify how records should
+be grouped, and in what order. See <a href="#groupbydialog"><sec>The
+``Group By'' Dialog</sec></a>.
+
+<b>Formula Languages...</b> Opens the dialog box used to select the report's
+default formula scripting language and add new languages. See <a
+href="#scriptlang"><sec>The Formula Languages Dialog</sec></a>.
+
+<b>Summary...</b> Lets you specify the report's author, name, title, and
+description. See <a href="#summarydialog"><sec>The ``Summary''
+Dialog</sec></a>.
+
+<!-- ................................................................ -->
+<a id="menus-help" />
+<h5>The Help Menu</h5>
+
+<b>Help</b> Opens a window on the DataVision User's Manual. The manual
+is displayed as HTML and the links really work.
+
+<b>About DataVision...</b> Opens a dialog that displays the DataVision
+version number and other exciting information.
+
+<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+<a id="fieldpicker" />
+<h3>The Field Picker Window</h3>
+
+When you select one of the field types from the
+<guimenu>Insert</guimenu> menu on the design window, this window opens. It
+contains a tree list containing all database field types except text
+labels. Click and drag a field to add it to the report.
+
+The first item in the window is ``Database Fields'' and the last item is
+``All Database Fields''. In a newly created report, the first ``Database
+Fields'' item will be empty, because it displays database columns that are
+already in the report.
+
+Drag database columns, formulas, parameters, user columns, or special
+fields from the Field Picker window into the report. As an added bonus,
+when you drag a database column into a ``Detail'' section, the name of the
+column will automagically appear in the ``Page Header'' section.
+
+This window also lets you create and edit formulas and parameters.
+Select the appropriate menu item from the <guimenu>Field</guimenu>
+menu.
+
+<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+<a id="reportview" />
+<h3>The Report View</h3>
+
+When you run a report by selecting <guimenuitem>Run
+Report...</guimenuitem> from the <guimenu>Report</guimenu> menu, a report
+view window opens and displays the report output.
+
+From this window you may print the report or export it using one of the
+other layout engines.
+
+See <a href="runreport.html"><sec>Running a Report</sec></a> for more
+information on the Report View window.
+
+<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+<a id="dialogs" />
+<h2>Dialogs</h2>
+
+<!-- ................................................................ -->
+<a id="aggrdialog" />
+<h3>The Aggregate Dialog</h3>
+
+Open by selecting <guimenuitem>Aggregates...</guimenuitem> from a numeric
+field's popup menu or by selecting <guimenuitem>Running Total
+Field...</guimenuitem> from the <guimenu>Insert</guimenu> menu.
+
+This dialog will open. Each group and the report footer are displayed, along
+with a check box and a popup menu for selecting the aggregate type.
+
+<!-- ................................................................ -->
+<a id="formatdialog" />
+<h3>The Format Dialog</h3>
+
+The Format Dialog has two tabs labeled ``Format'' and ``Border''. The
+contents of the ``Format'' tab edit the look of a field (its size, font,
+alignment, etc.) The contents of the ``Border'' tab edit the borders that
+surround a field. <note>These borders are not yet displayed by the GUI,
+though they are output by layout engines such as the LaTeX engine that
+understand them.</note>
+
+The title of the Format Dialog displays the name of the field whose format
+you are editing. If more than one field is selected, a plus sign (``+'')
+appears after the field name and that field is the prototype. Its format
+will be used to populate the Format Dialog. If you are editing the
+report-wide default format, that will be indicated in the title.
+
+The ``Format'' tab lets you edit a fields font family name, text size,
+color, text attributes such as bold, italic, underline, and wrap, text
+alignment, and the printing format of numbers and dates.
+
+<note>Though field colors respect their alpha component, there is no way
+in this dialog to edit that value. You can manually edit the alpha value by
+editing the report XML file and changing the final value of the color
+string. See <a href="xml.html#fieldformats"><sec>Field Formats</sec></a>
+for the format of the color string.</note>
+
+The ``Format'' string needs a bit of explaining. It is used by a Java
+formatting object that is appropriate for the type of field. For numeric
+fields, this string is used as input to a DecimalFormat object. For date
+fields, it is used as input to a SimpleDateFormat object.
+
+For numeric fields, you create a ``picture'' of how you want the number to
+appear. Use either `#' or `0' characters to represent numbers; `#' will
+print blanks if no digit is needed, `0' will print a zero. Add commas or
+decimal points where appropriate. The number of `#' characters you use is
+not important. To print negative numbers by using a leading minus sign (or
+whatever is appropriate for your locale), you need do nothing. To print
+negative numbers by using parenthesis, you need to add the string ``;(#)''
+to the end of your format string.
+
+For a complete and detailed discussion of the numeric format strings,
+see the <a
+href="http://java.sun.com/j2se/1.3/docs/api/java/text/DecimalFormat.html"><class>java.text.DecimalFormat</class>
+documentation</a>.
+
+Here are a few example numeric format strings, using the separator
+characters used in the USA. We will apply each to the number
+1,234.0078.
+
+<dl>
+
+    <dt>#,####</dt><dd> Print with commas but with no decimal places:
+    ``1,234''</dd>
+
+    <dt>####</dt><dd> Print with no commas and no decimal places:
+    ``1234''.</dd>
+
+    <dt>####.#</dt><dd> Print with no commas and one decimal place:
+    ``1234''. No decimal places are printed here because we asked
+    for one decimal place only if it is non-zero.</dd>
+
+    <dt>#,###.00</dt><dd> Print with commas and exactly two decimal places:
+    ``1,234.01''.</dd>
+
+    <dt>$#,###.00</dt><dd> Print as money: ``$1,234.01''.</dd>
+
+    <dt>$#,###.00;(#)</dt><dd> Print as money, but use parenthesis if the
+    amount is negative: ``$1,234.01''.</dd>
+
+</dl>
+
+For date fields, you create a format string that is understandable by
+the <class>SimpleDateFormat</class> class. Briefly, use `y' for year, `M'
+for month, `d' for day, `E' for day of the week, and `h', `m', and `s' for
+hours, minutes, and seconds. Use 'yyyy' for four-character years and 'yy'
+for two-character years. For a complete and detailed discussion of the date
+format strings, see the <a
+href="http://java.sun.com/j2se/1.3/docs/api/java/text/SimpleDateFormat.html"><class>java.text.SimpleDateFormat</class>
+documentation</a>.
+
+Here are a few example date format strings, using the date/time August
+27, 2002, 12:36 PM.
+
+<dl>
+    <dt>yyyy.MM.dd</dt><dd> 2002.08.27</dd>
+
+    <dt>EEE, MMM d, ''yy</dt><dd> Tue, August 27, '02</dd>
+
+    <dt>h:mm a</dt><dd> 12:36 PM</dd>
+
+    <dt>hh 'o''clock' a, zzzz</dt><dd> 12 o'clock PM, Eastern Standard
+    Time</dd>
+
+    <dt>yyyyy.MMMMM.dd GGG hh:mm aaa</dt><dd> 2002.August.27 AD 12:36
+    PM</dd>
+ 
+</dl>
+
+The ``Border'' tab lets you edit the border surrounding a field. You can
+specify top, bottom, left, and right borders. Each is defined by a count
+(zero, one, two, or three lines), a style (line, dashed, or dotted), and a
+thickness in points. Remember: not all layout engines support borders.
+<note>Only the line style works.</note>
+
+<!-- ................................................................ -->
+<a id="posdialog" />
+<h3>The Position and Size Dialog</h3>
+
+<note>To be written.</note>
+
+<!-- ................................................................ -->
+<a id="dbconndialog" />
+<h3>The Database Connection Dialog</h3>
+
+This dialog lets you edit the information needed to connect to the
+database: the driver class name, connection info string, database (schema)
+name, user name, and password. For information about each field in this
+dialog, see <a href="create.html#dbconn"><sec>Connecting to the
+Database</sec></a>.
+
+<!-- ................................................................ -->
+<a id="vislinkerdialog" />
+<h3>The Visual Table Linker Dialog</h3>
+
+Use this dialog to create or edit links (joins) between tables. The top
+of the window displays a list of joins or links between table columns.
+
+New reports start with no joins between any columns. When you first open
+this dialog, the area above the <guibutton>Add</guibutton> and
+<guibutton>Delete Selected</guibutton> buttons will be empty.
+
+To add a new link, click the <guibutton>Add</guibutton> button.
+To delete links, select them with the check boxes on the left side of the
+window and then click <guibutton>Delete Selected</guibutton>.
+
+Each row above the <guibutton>Add</guibutton> and <guibutton>Delete
+Selected</guibutton> buttons represents one link between two database
+fields. To the left and right are combo boxes (drop down menus) that let
+you select database fields. In the middle is a combo box that defines the
+relationship between the two fields (for example, ``equals'' or ``greater
+than'').
+
+To further limit the records retrieved by a report, enter a SQL where
+clause by using the ``Select Records'' dialog (see <a
+href="#selrecsdialog"><sec>The ``Select Records'' Dialog</sec></a>).
+
+<!-- ................................................................ -->
+<a id="parameddialogs" />
+<h3>The Parameter Editor Dialogs</h3>
+
+<note>To be written.</note>
+
+<!-- ................................................................ -->
+<a id="formulaeddialog" />
+<h3>The Formula Editor Dialog</h3>
+
+The main text pane in this window lets you edit the text of a formula. You
+can drag database fields, formulas, parameters, user columns, and special
+fields into this window.
+
+To open a formula editor, double-click on a formula field in the report.
+Within the Field Picker window, select a formula then select
+<guimenuitem>Edit Formula...</guimenuitem> from the
+<guimenu>Field</guimenu> menu.
+
+Formulas are written using a <a href="anatomy.html#bsf"><sec>Bean Scripting
+Framework</sec></a> language. You can select the language using the drop-down
+menu at the top of this dialog.
+
+<!-- ................................................................ -->
+<a id="suppressionproc" />
+<h3>The Suppression Proc Dialog</h3>
+
+A suppression proc determines if a section should be displayed or not. See
+<a href="anatomy.html#suppressionprocs"><sec>Section Suppression
+Procs</sec></a> for details.
+
+The suppression proc dialog is a <a href="#formulaeddialog">formula dialog</a>
+with one difference: a checkbox at the top labeled ``Always Hide''. When this
+checkbox is selected, the section will always be hidden and the text edit area
+of this dialog is diabled. When the checkbox is not selected, the formula
+determines the visibility of the section.
+
+The formula may be empty. If it is (and ``Always Hide'' is not selected),
+the section is always displayed.
+
+Formulas are written using a <a href="anatomy.html#bsf"><span class="sec">Bean
+Scripting Framework</span></a> language. You can select the language using the
+drop-down menu at the top of this dialog.
+
+<!-- ................................................................ -->
+<a id="startupdialog" />
+<h3>The Startup Script Dialog</h3>
+
+The startup script is a formula. This dialog is the same as the <a
+href="#formulaeddialog"><sec>Formula Editor dialog</sec></a>.
+
+The startup script is run at the beginning of each report run. Here, you can
+set script variables that are available to all of the rest of your formulas.
+<note>Note: I think those variables are only available to scripts in the same
+language, but I have to make sure of that.</note>
+
+<!-- ................................................................ -->
+<a id="selrecsdialog" />
+<h3>The ``Select Records'' Dialog</h3>
+
+The main text pane in this window lets you edit text that limits the
+selection of records from the data source. You can drag database fields,
+formulas, parameters, user columns, and special fields into this window.
+
+If the data source is a database, the text is a SQL where clause. If the data
+source is a character-separated file, the text is a <a
+href="anatomy.html#bsf"><sec>BSF</sec></a> script. For more information about
+what can go in the dialog, see <a href="edit.html#selecting"><sec>Selecting
+Records</sec></a>.
+
+<!-- ................................................................ -->
+<a id="sortbydialog" />
+<h3>The ``Sort By'' Dialog</h3>
+
+This dialog lets you select how your data will be sorted. On the left side
+is a list of unsorted user columns and database columns. On the right side
+are the user columns and database columns to sort by.
+
+Move columns by using the buttons in the middle. The buttons with three
+arrows (<guibutton>&gt;&gt;&gt;</guibutton> and
+<guibutton>&lt;&lt;&lt;</guibutton>) move all of the columns at once.
+
+The right ``Sorty By'' column lets you move fields up and down and specify
+the sort order of each field. When a column is selected in this list, the
+the <guibutton>Ascending</guibutton> and <guibutton>Descending</guibutton>
+radio buttons will become enabled.
+
+The left column does not display any user column or database column that
+is used as a group column. You can specify the sort order for those
+columns in the <a href="#groupbydialog">``Group By'' dialog</a>.
+
+<!-- ................................................................ -->
+<a id="groupbydialog" />
+<h3>The ``Group By'' Dialog</h3>
+
+To add a group to a report use either this dialog or the
+<guimenuitem>Group...</guimenuitem> menu item in the
+<guimenu>Insert</guimenu> menu.
+
+To add a group using the ``Group By'' dialog, select a user column or
+database column from the list on the left. Click the button with the
+right-pointing arrow (``&gt;'') to create a new group that uses that
+column. To remove a group, select the group from the list on the right.
+Click the button with the left-pointing arrow (``&lt;'') to remove the
+group from the report. (The group is not removed until you click
+<guibutton>Apply</guibutton> or <guibutton>OK</guibutton>.)
+
+To edit the sort order of a group's values, select the group from the
+list on the right side. The <guibutton>Ascending</guibutton> and
+<guibutton>Descending</guibutton> radio buttons will become enabled, and
+you can change the group's sort order.
+
+To edit the nesting order of a group, select it and click the
+<guibutton>Move Up</guibutton> and <guibutton>Move Down</guibutton>
+buttons.
+
+<!-- ................................................................ -->
+<a id="scriptlang" />
+<h3>The Formula Languages Dialog</h3>
+
+This dialog lets you select the report's default formula scripting language
+and add new languages. See <a
+href="anatomy.html#bsf"><sec>Bean Scripting Framework</sec></a> for
+information about adding a language.
+
+The ``Default Language'' is the scripting language that newly created
+formulas use, unless you select a different language. Changing the default
+language does not affect existing formulas.
+
+When you add new languages in this dialog, they become available in the
+default language drop-down menu and in the <a
+href="#formulaeddialog"><sec>Formula Editor</sec></a> and <a
+href="#startupdialog"><sec>Startup Script</sec></a> dialogs.
+
+Selecting a language from the default language drop-down menu fills the name
+and class fields.
+
+Clicking <guibutton>Add/Modify Language</guibutton> adds a new language/class
+pair to the list of languages or modifies the class of an existing language.
+
+Clicking <guibutton>Test Language</guibutton> checks to see if the class that
+you've entered can be loaded by DataVision. If it can't be loaded, that means
+the language is not on the class path. You are not prevented from adding a
+language that can't be found. This lets you design a report and add the
+language's jar file to the class path later. If you try to run the report and
+use a language that can't be found, you will see an error message. As
+described in <sec>Bean Scripting Framework</sec>, you have to add the
+language's jar to DataVision's class path before you can use the language.
+
+
+<!-- ................................................................ -->
+<a id="summarydialog" />
+<h3>The ``Summary'' Dialog</h3>
+
+This dialog lets you specify the report's name, its title, the author's
+name, and descriptive text. These values may be inserted into a report
+using special value fields.
+
+
+<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+<a id="language" />
+<h2>Language Settings</h2>
+
+If DataVision has been translated into your language, that language
+should be used automatically. The Java runtime sets the default language
+and region when you start DataVision. If you don't see the proper
+translation, use the command line arguments to set the language and region.
+See <a href="rundv.html#runcmd"><sec>Running DataVision from the Command
+Line</sec></a> for a command synopsis.
+
+Tony Tomov, who translated DataVision into Bulgarian, warns that
+Cyrillic characters don't display properly with Java 1.2. Once he upgraded
+to Java 1.3, they displayed fine.
+
+See the file <file>Credits</file> for translators' names.
+
+<!-- include_footer UM runreport le DataVision -->

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <!DOCTYPE report SYSTEM "report.dtd"> -->
+
+<!-- This is an example report that can be used as a subreport. Add -->
+<!-- it to a report, using a join "office.name &lt;= office.name". -->
+<!-- Move the subreport field into a group header section (either -->
+<!-- the existing one or a new one that you create under the -->
+<!-- existing one). Make it taller so it can fit a few lines of text. -->
+
+<!-- For each group, you will see a list of all office name that are -->
+<!-- &gt;= (not &lt;=) the current office name. That's because the left -->
+<!-- "office.name" is replaced by the current value of the office name -->
+<!-- in the master report. The right office.name is the subreport's -->
+<!-- value when its query gets run. -->
+
+<!-- NOTE: this subreport's column names contain a schema name so -->
+<!-- it will work with my PostgreSQL setup. To use it with MySQL, -->
+<!-- for example, you may have to remove the "public." before each -->
+<!-- column name. -->
+
+<report dtd-version="1.2"
+	name="subreport" title="Example Subreport" author="Jim Menard">
+
+  <bean-scripting-framework default-language="Ruby">
+    <language name="Ruby" class="org.jruby.javasupport.bsf.JRubyEngine"/>
+  </bean-scripting-framework>
+
+  <!-- Default orientation is portrait. -->
+  <paper name="US-Letter" />
+
+  <!-- Data source. In this case, a database. -->
+  <!-- When this is imported as a subreport, the driver info is ignored. -->
+  <source>
+
+    <database driverClassName="com.mysql.jdbc.Driver"
+	connInfo="jdbc:mysql://localhost/dv_example"
+	name="dv_example" username="jimm" />
+
+    <query>
+      <sort order="ascending" column="public.office.name" />
+    </query>
+
+  </source>
+
+  <details>
+    <section height="20">
+      <field id="11" type="column" value="public.office.name">
+	<bounds x="10" y="0" width="80" height="20" />
+	<format align="right" />
+      </field>
+    </section>
+  </details>
+
+</report>

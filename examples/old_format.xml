@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+<!-- <!DOCTYPE report SYSTEM "report.dtd"> -->
+
+<!-- This XML file is in the old, pre-versioning format. When read in, -->
+<!-- it will be converted properly. -->
+
+<!-- All sizes are in points (72 points == 1 inch) -->
+
+<report name="example1" title="Example Report" author="Jim Menard">
+
+  <description><![CDATA[]]></description>
+
+  <database driverClassName="org.postgresql.Driver"
+	connInfo="jdbc:postgresql:dv_example" host="localhost" port="5432"
+	name="dv_example" username="jimm" />
+
+  <query>
+    <join from="jobs.fk_office_id" to="office.id" relation="=" />
+    <sort order="ascending" column="jobs.ID" />
+  </query>
+
+  <formulas>
+  <!-- Use Ruby for formula definitions. -->
+  <!-- {jobs.ID} means database column jobs.ID -->
+  <!-- {@hourly rate / 100} means formula with name "hourly..." -->
+  <!-- {%report.title} means calculated value "report.title" -->
+    <formula name="hourly rate / 100"><![CDATA[{jobs.hourly_rate} / 100.0]]></formula>
+    <formula name="plus 1"><![CDATA[{@hourly rate / 100} 1 +]]></formula>
+  </formulas>
+
+  <headers>
+    <section height="42">
+      <field id="1" type="special" value="report.title">
+	<bounds x="100" y="0" width="397" height="28" />
+	<format size="24" align="center" bold="true" />
+	<border>
+	  <edge location="bottom" number="2" />
+	  <edge location="top" number="2" />
+	  <edge location="left" number="2" />
+	  <edge location="right" number="2" />
+	</border>
+      </field>
+      <field id="2" type="special" value="report.date">
+	<bounds x="100" y="28" width="397" height="14" />
+	<format align="center" />
+      </field>
+    </section>
+  </headers>
+
+  <footers>
+  </footers>
+
+  <page>
+
+    <!-- page headers -->
+    <headers>
+      <section height="30">
+	<field id="3" type="text">
+	  <text><![CDATA[Job #]]></text>
+	  <bounds x="10" y="0" width="40" height="20" />
+	  <format align="right" bold="true" underline="true" />
+	</field>
+	<field id="4" type="text">
+	  <text><![CDATA[Title]]></text>
+	  <bounds x="70" y="0" width="320" height="20" />
+	  <format align="left" bold="true" underline="true" />
+	</field>
+	<field id="5" type="text">
+	  <text><![CDATA[Hourly Rate]]></text>
+	  <bounds x="400" y="0" width="100" height="20" />
+	  <format align="right" bold="true" underline="true" />
+	</field>
+      </section>
+    </headers>
+
+    <!-- page footers -->
+    <footers>
+      <section height="50">
+	<field id="6" type="special" value="page.number">
+	  <bounds x="525" y="0" width="40" height="20" />
+	  <format align="right" italic="true"/>
+	  <border>
+	    <edge location="top" number="2"/>
+	  </border>
+	</field>
+      </section>
+    </footers>
+
+  </page>
+
+  <!-- group -->
+  <groups>
+  <group column="office.name">
+    <headers>
+      <section height="30">
+	<field id="7" type="column" value="office.name">
+	  <bounds x="0" y="0" width="250" height="20" />
+	  <format align="left" size="14" bold="true" underline="true" />
+	</field>
+      </section>
+    </headers>
+    <footers>
+      <section height="30">
+	<field id="8" type="text">
+	  <text><![CDATA[Total:]]></text>
+	  <bounds x="350" y="8" width="50" height="20" />
+	  <format align="right" size="14" bold="true" />
+	  <border>
+	    <edge location="top" />
+	  </border>
+	</field>
+	<field id="9" type="subtotal" value="13"><!-- formula in field 13 -->
+	  <bounds x="400" y="8" width="100" height="20" />
+	  <format align="right" size="14" bold="true" format="%.2f" />
+	  <border>
+	    <edge location="top" />
+	  </border>
+	</field>
+      </section>
+    </footers>
+  </group>
+  </groups>
+
+  <!-- details -->
+  <details>
+    <section height="20">
+      <field id="10" type="column" value="jobs.ID">
+	<bounds x="10" y="0" width="40" height="20" />
+	<format align="right" />
+      </field>
+      <field id="11" type="column" value="jobs.title">
+	<bounds x="70" y="0" width="300" height="20" />
+	<format align="left" />
+	<border>
+	  <edge location="right" />
+	</border>
+      </field>
+      <field id="12" type="column" value="jobs.hourly_rate">
+	<bounds x="350" y="0" width="50" height="20" />
+	<format align="right" />
+      </field>
+      <field id="13" type="formula" value="hourly rate / 100">
+	<bounds x="400" y="0" width="100" height="20" />
+	<format align="right" format="%.2f"/>
+      </field>
+      <field id="14" type="formula" value="plus 1">
+	<bounds x="500" y="0" width="75" height="20" />
+	<format align="right" format="%.2f"/>
+      </field>
+    </section>
+  </details>
+
+</report>

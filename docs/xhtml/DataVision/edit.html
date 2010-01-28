@@ -1,0 +1,428 @@
+<!-- include_header UM anatomy runreport DataVision -->
+
+<h1>Editing a Report</h1>
+
+This section briefly describes the most common actions performed when
+editing a report. For a complete description of the DataVision GUI, see <a
+href="gui.html"><sec>The DataVision User Interface</sec></a>.
+
+Fields have popup menus. Sections have popup menus. The section labels
+on the left side have popup menus.
+
+<!-- ================================================================ -->
+<a id="addingfields" />
+<h2>Adding Fields</h2>
+
+To add a database field, formula, parameter, aggregate, or special field
+to a report, select the corresponding menu item from the
+<guimenu>Insert</guimenu> menu. The Field Picker window will open, allowing
+you to select and drag a field from that window onto the report.
+
+The Field Picker window also lets you create new formulas and parameter
+fields. Use the <guimenu>New Formula...</guimenu> or <guimenu>New
+Parameter...</guimenu> menu items from the <guimenu>Field</guimenu>
+menu.
+
+To add a static text label, select <guimenuitem>Text</guimenuitem> from
+the <guimenu>Insert</guimenu> menu. The cursor will turn into a text
+cursor. When you click the mouse in any section, a new editable text label
+will appear.
+
+See <a href="#addaggr"><sec>Aggregates</sec></a> for adding aggregate fields.
+
+To add an image, select <guimenuitem>Image...</guimenuitem> from the
+<guimenu>Insert</guimenu> menu. A dialog box will open, letting you type in
+the URL or file path for the image. (If you type in a relative file path
+like ``example/postgres.xml'' or URL like ``file:example/postgres.xml'', it
+must be relative to the DataVision directory, not to the report XML file.)
+When you enter the URL, the image is inserted into the report in the top
+left corner of the Report Header. From there, you may move the image
+anywhere else in the report. See <a
+href="anatomy.html#imagefield"><sec>image fields</sec></a> for more
+information.
+
+Only image formats understood by the Java Swing interface (GIF, JPEG) may
+be created using the DataVision GUI. That's because I haven't yet written
+the code that will visually represent images that Swing can't understand.
+
+To change how a field is displayed, select <guimenuitem>Format
+Field...</guimenuitem> from the <guimenu>Format</guimenu> menu or from a
+field's popup menu. See <a href="gui.html#formatdialog"><sec>The Format
+Dialog</sec></a> for details.
+
+<!-- ================================================================ -->
+<a id="selectingfields" />
+<h2>Selecting Fields</h2>
+
+To select a field, single-click it. To select more than one field, hold
+down the shift key while selecting the fields.
+
+<note>Not yet implemented:</note> You may also select fields by clicking
+and dragging a selection box with the mouse.
+
+<!-- ================================================================ -->
+<a id="removingfields" />
+<h2>Removing Fields</h2>
+
+To remove a single field, select it and hit the delete or backspace key.
+You may also right-click on the field and select
+<guimenuitem>Delete</guimenuitem> from the popup menu.
+
+To remove a formula or parameter from the report, open the Field Picker
+window, select the formula or parameter, and select
+<guimenuitem>Cut</guimenuitem> from the <guimenu>Edit</guimenu> menu. You
+can only remove formulas and parameters that are not used somewhere in the
+report. If the <guimenuitem>Cut</guimenuitem> menu item is not enabled when
+you select a formula or parameter, that means it is being used somewhere in
+the report.
+
+<!-- ================================================================ -->
+<a id="movingfields" />
+<h2>Moving and Re-sizing Fields</h2>
+
+Click and drag a field to move it. Drag the edges to re-size it. Moving
+and dragging operate on the current selection, so if multiple fields are
+selected they will all be moved or re-sized.
+
+<!-- ================================================================ -->
+
+<a id="addaggr" />
+<h2>Aggregates</h2>
+
+To create a new aggregate field, either right-click on a field and select
+<guimenuitem>Aggregate...</guimenuitem> from the popup menu or select a field
+by single-clicking it and then select <guimenuitem>Aggregate
+Field...</guimenuitem> from the <guimenu>Insert</guimenu> menu. A dialog box
+appears that lets you select where you would like aggregates to appear for
+this field, and what type of aggregate to use where.
+
+The field you want to aggregate must be in the details section. (It can be
+hidden, if you don't want to display its value.) It must be a numeric
+column, a formula, a user column, or a numeric parameter.
+
+<!-- ================================================================ -->
+<a id="parameters" />
+<h2>Parameters</h2>
+
+Double-clicking a parameter field, either in the Report Design window or
+the Field Picker window, opens the dialog box appropriate for the parameter
+type (string, number, or date). Alternately, you can right-click on the
+parameter field in the Report Design window and select
+<guimenuitem>Edit...</guimenuitem> from the popup menu or you can select
+<guimenuitem>Edit Parameter...</guimenuitem> from the
+<guimenu>Field</guimenu> menu in the Field Picker window.
+
+<note>To be written.</note>
+
+<!-- ================================================================ -->
+<a id="formulas" />
+<h2>Formulas</h2>
+
+Formulas are <a href="anatomy.html#bsf"><sec>Bean Scripting
+Framework</sec></a> (BSF) scripts that can contain database fields,
+parameters, and more.
+
+Double-clicking a formula field, either in the Report Design window or
+the Field Picker window, opens the formula editor dialog box. Alternately,
+you can right-click on the formula in the Report Design window and select
+<guimenuitem>Edit...</guimenuitem> from the popup menu or you can select
+<guimenuitem>Edit Formula...</guimenuitem> from the
+<guimenu>Field</guimenu> menu in the Field Picker window.
+
+The main text pane in the dialog box that is opened lets you edit the
+text of the formula. For more information about this dialog see <a
+href="gui.html#formulaeddialog"><sec>The Formula Editor
+Dialog</sec></a>.
+
+For more information about BSF, see <a href="anatomy.html#bsf"><sec>Bean
+Scripting Framework</sec></a>.
+
+
+<!-- ================================================================ -->
+<a id="groups" />
+<h2>Groups</h2>
+
+The sort order of a group determines the order in which a group's values
+are selected. For example, if the ``office.name'' group of a report has
+three possible values (New York, New Jersey, and Chicago) then the sort
+order determines which office's detail records are displayed first. When
+sorted ascending, Chicago's records will be first, then New Jersey and
+finally New York. When sorted descending, New York will be first. This is
+not the same as the sort order of the detail records within a group. (See
+<a href="#sorting"><sec>Sorting Records</sec></a> for information about
+sorting detail records.)
+
+To edit the sort order of a group's values or the nesting order of groups
+within a report, open the <guimenuitem>Group By...</guimenuitem> dialog
+from the <guimenu>Report</guimenu> menu. See <a
+href="gui.html#groupbydialog"><sec>The ``Group By'' Dialog</sec></a> for
+more information about this dialog.
+
+
+<!-- ================================================================ -->
+<a id="subreports" />
+<h2>Subreports</h2>
+
+A subreport is a report within a report. The subreport's query runs each
+time the subreport's field needs to be output.
+
+<a id="addsubreport" />
+<h3>Adding a Subreport</h3>
+
+<ol>
+
+<li>Select ``Sub-Report'' from the ``Insert'' menu.</li>
+
+<li>The table joiner dialog appears. Select the columns that join together
+the two reports. The first column will be filled with the current value in
+the master report. The second will be a SELECT column for the sub-report.
+
+For example, selecting ``office.name <= office.name'' will fill the first
+office.name with the current value of the office name from the master
+report. Let's say the master report's office name value is currently
+'Chicago'. The sub-report's query will then contain a WHERE clause that
+ends with ``... AND 'Chicago' <= office.name''.</li>
+
+<li>When you click ``OK'', a file chooser dialog appears. Select the
+sub-report for importing.</li>
+
+<li>The sub-report is read in. Only the detail section area is read; all the
+headers and footers are ignored.</li>
+
+<li>A new field is inserted into the master report's detail section. It is
+a single field, no matter how many fields are in the sub-report's detail
+section. You can of course move the field anywhere else in the
+report.</li>
+
+</ol>
+
+
+<a id="runsubreport" />
+<h3>When the Report Runs</h3>
+
+When you run the master report, the contents of the sub-report field are
+populated with multiple lines of text, one for each row returned by the
+sub-report. Each line of the text is a simple concatenation of the fields
+in the sub-report's detail section, separated by spaces.
+
+For example, if the sub-report's detail section had three fields
+``name.first'', ``name.middle'', and ``name.last'', each line of the output
+would be ``First Middle Last''.
+
+
+<a id="subreportproblems" />
+<h3>Problems</h3>
+
+The sub-report field does not expand vertically (no DataVision field yet
+knows how to expand itself).
+
+The way of generating the contents of the sub-report field is pretty
+stupid. This should improve in future releases.
+
+
+<!-- ================================================================ -->
+<a id="sorting" />
+<h2>Sorting Records</h2>
+
+Detail records may be sorted using any combination of user columns and
+database columns. The order in which columns are sorted is significant. In
+the example database, job records have an id and a date. Sorting the
+records by date and then id will return the records in a different order
+than sorting them by id and then date.
+
+A column may be sorted in ascending or descending order. Ascending order
+means lower values are first.
+
+To edit the list of sorted columns and their order, open the
+<guimenuitem>Sort By...</guimenuitem> dialog from the
+<guimenu>Report</guimenu> menu. See <a
+href="gui.html#sortbydialog"><sec>The ``Sort By'' Dialog</sec></a> for more
+information about this dialog.
+
+The user columns and database columns used by groups do not appear in the
+``Sort By'' dialog. To change the sort order of groups, use <a
+href="gui.html#groupbydialog"><sec>The ``Group By'' Dialog</sec></a>. See
+<a href="edit.html#groups"><sec>Groups</sec></a> for more information about
+editing groups.
+
+<!-- ================================================================ -->
+<a id="selecting" />
+<h2>Selecting Records</h2>
+
+By default, running a report retrieves and displays all of the records
+from all of the tables in your report. It is often desirable to limit the
+records that are retrieved.
+
+When reading records from a database, you use a SQL WHERE clause to specify
+which records you want to retrieve. (The WHERE clause is also used to
+specify how tables in your SQL query are joined, but we are not concerned
+about that right now. For information about joining tables, see <a
+href="#joining"><sec>Joining Tables</sec></a>.) The SQL specification is
+beyond the scope of this document. See your database's documentation.
+
+When reading records from a comma- or tab-separated file, you select records
+use a <a href="anatomy.html#bsf"><sec>BSF</sec></a> script. The script must
+return a boolean (true/false) value. If the returned value is true, the record
+will be included in the report.
+
+To edit the text of the WHERE clause or BSF script, use the <a
+href="gui.html#selrecsdialog"><sec>Select Records</sec></a> dialog.
+
+The text you enter may contain columns, formulas, and parameters. You can
+type their names (using the proper format) or simply drag them in from the
+<a href="gui.html#fieldpicker"><sec>Field Picker</sec></a> window. Formulas
+look like ``{@My Formula}'' and parameters look like ``{?My Parameter}''.
+
+
+<a id="dbcolnames" />
+<h3>Database Column Names</h3>
+
+You can enter database column names with or without the curly braces. (When
+you drag them from the Field Picker window, the curly braces are used.) The
+curly braces make a difference when the database column's name is not all
+lower case (or all upper case, depending upon your database). Column names
+without curly braces will not be quoted. That means the JDBC driver may
+automatically convert the name to all lower case or all upper case. This
+causes problems when your database was created using mixed-case names, for
+example. See <a href="#namecase"><sec>Database Name Case
+Sensitivity</sec></a> for details.
+
+To summarize: when you need to enter a mixed-case name because the
+table or column name is mixed-case, use quotes around the name.
+
+The quotes go around the parts of the name that need them, not the whole
+name. For example, if the table name is ``table'' and the column name is
+``MyCol'', the quotes don't go around the entire name ``table.MyCol''.
+Instead, you would need to type
+
+<codeblock>
+table.``MyCol''
+</codeblock>
+
+
+
+
+<a id="selparameters" />
+<h3>Parameters</h3>
+
+When using a parameter that is a string, do <em>not</em> enclose the
+parameter in quotes. If you do, you will see an error message like
+``Parameter index out of range'' when you run your report.
+
+If you want to combine a ``like'' string comparison that uses wildcards
+with a parameter value you need to concatenate the parameter with the
+wildcard characters. Here's an example. Let's say you want to run a report
+that only displays records where the ``name'' column starts with a
+user-selected prefix string. You would create a parameter called "Start of
+Name" that will be used to ask the user to enter the start of the name.
+Next you use the Select Records dialog to set the SQL WHERE clause to
+
+<codeblock>
+upper(table.name) like upper({?Start of Name} || '%')
+</codeblock>
+
+The characters ``||'' are the string concatenation operator, at least for
+Oracle and PostgreSQL. The string '%' is the wildcard character that we
+are appending to the end of the user's string. To search for the user's
+string anywhere in the name column, add wildcards to the beginning and the
+end, like this:
+
+<codeblock>
+upper(table.name) like upper('%' || {?Start of Name} || '%')
+</codeblock>
+
+
+<!-- ================================================================ -->
+<a id="joining" />
+<h2>Joining Tables</h2>
+
+When two or more tables appear in your report, you probably want to join
+them together by one or more common columns. To do so, use the <a
+href="gui.html#vislinkerdialog"><sec>Visual Table Linker</sec></a> dialog.
+
+<!-- ================================================================ -->
+<a id="startup" />
+<h2>Startup Script</h2>
+
+The startup script runs at the beginning of the report, before any data is
+read. The script is <a href="anatomy.html#bsf"><sec>Bean Scripting
+Framework</sec></a> (BSF) code, not SQL. Edit the startup script by selecting
+<guimenuitem>Startup Script</guimenuitem> from the <guimenu>Report</guimenu>
+menu. Any variables you set in this script are available to all of the rest of
+your formulas. <note>Note: all the formulas in the same language; I'm not sure
+about other languages.</note>
+
+<!-- ================================================================ -->
+<a id="pagebreaks" />
+<h2>Page Breaks</h2>
+
+Each section can force a page break before it outputs data. To turn a
+section's page break on or off, open its popup menu and select
+<guimenuitem>New Page Before</guimenuitem>. The menu item will be checked
+when this feature is on and unchecked when it is off.
+
+<!-- ================================================================ -->
+<a id="namecase" />
+<h2>Database Name Case Sensitivity</h2>
+
+Some databases support case-sensitive names. In those database, the column
+named ``mycol'' is different from the column named ``MyCol''.
+Unfortunately, the programs that access databases such as JDBC drivers and
+command-line tools like PostgreSQL's psql often confuse the issue by
+changing all names to lower case or upper case internally before sending
+the query to the database. When you type ``select MyCol from MyTable'' it
+sends ``select mycol from my table'' to the database.
+
+If your database was created using names with only lower case (or upper
+case) letters, you may not see any problem. Your queries always work
+because no matter what case you use, the names are converted to all lower
+case (or upper case) and everything is fine.
+
+In order to access a column named ``MyCol'' using a tool that converts the
+names, you have to quote the mixed-case names. For example, the query
+``select MyCol from MyTable'' must be entered as
+
+<codeblock>
+select "MyCol" from "MyTable"
+</codeblock>
+
+The quotes go around the parts of the name that need them, not the whole
+name. For example, the quotes don't go around the entire name
+``MyTable.MyCol''. Instead, you would need to type
+
+<codeblock>
+select ``MyTable''.``MyCol''
+</codeblock>
+
+As of version 0.6.0 of DataVision, database table and column names are
+case-sensitive. All table and column names are quoted if their case does
+not match the case the JDBC driver uses when executing SQL queries
+
+DataVision's internal searches for columns (for example, when loading a
+report XML file) now perform case-sensitive searches. <note>This may break
+reports designed manually, especially if you used all upper-case for your
+table and column names.</note>
+
+Using previous versions of DataVision along with many (most) JDBC drivers,
+it was impossible to query a case-sensitive database. Since DataVision did
+not quote table or column names (unless the name contained a space), the
+JDBC driver would convert all of the names.
+
+Use the <b>-q</b> command line flag to disable this new behavior. Table and
+column names will not be quoted when sent to the database (unless the name
+contains a space) and internal searches for columns will be
+case-insensitive.
+
+Not that if you only used the DataVision GUI to create your report, you
+probably won't see any difference. The table and column names were
+retrieved from the database and saved to the report XML file using the
+correct case.
+
+Any column name within curly braces is automatically quoted by DataVision
+(unless you use <b>-q</b>), so you don't need to add the quotes. Also, if
+you drag a column from the Field Picker window to another window like the
+``Select Records...'' window, the column's name is surrounded by curly
+braces and you don't have to add any quotes.
+
+
+<!-- include_footer UM anatomy runreport DataVision -->

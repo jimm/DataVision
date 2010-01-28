@@ -1,0 +1,9 @@
+<!-- Metadata DTD, for optional use by CharSepSource data sources. -->
+
+<!ELEMENT metadata	column*>
+
+<!ELEMENT column>
+<!ATTLIST column	name		CDATA	#REQUIRED
+			type		(string | number | date)
+			date-format	CDATA
+>

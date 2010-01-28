@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+<title>DataVision</title>
+</head>
+
+<body>
+
+<!-- This example is for an applet that allows report design but doesn't -->
+<!-- run the report. Therefore, we don't need jcalendar.jar or iText.jar.-->
+<!-- This example also doesn't connect to a database, so there's no need -->
+<!-- for a JDBC driver JAR file. -->
+
+<applet code="jimm/datavision/gui/applet/DVApplet.class"
+    archive="lib/DataVision.jar, lib/jruby.jar" width="741" height="400">
+  <param name="report-url" value="http://localhost/~jimm/ncsql.xml" />
+  <param name="save-url" value="http://localhost/~jimm/cgi-bin/save_report.pl" />
+</applet>
+
+</body>
+
+</html>

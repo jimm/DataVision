@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<report dtd-version="1.2"
+	name="example1" title="Example Report" author="Jim Menard">
+
+  <description><![CDATA[]]></description>
+
+  <bean-scripting-framework default-language="Ruby">
+    <language name="Ruby" class="org.jruby.javasupport.bsf.JRubyEngine"/>
+  </bean-scripting-framework>
+
+  <paper name="US-Letter" />
+  
+  <source>
+
+    <charsep sep-char=",">
+      <column name="name" type="string" />
+      <column name="problem" type="string" />
+    </charsep>
+
+  </source>
+
+  <parameters>
+  </parameters>
+
+  <formulas>
+	<formula id="1" name="decodetype"><![CDATA[case {problem}
+when "pc" then "PC Problem"
+when "nw" then "Network Problem" 
+when "pr" then "Printer Problem" 
+when "em" then "Email Problem" 
+when "fr" then "File Restore" 
+when "cr" then "Configuration Request" 
+when "or" then "Office Relocation" 
+when "pw" then "Password" 
+when "nt" then "Notebook Reservation - Traveler"
+when "np" then "Notebook Reservation - Presentation"
+when "ot" then "Other"
+when "ha" then "Hardware Assignment"
+when "cd" then "Create CD-Roms for Client" 
+when "bb" then "Blackberry Problem"
+when "vm" then "Voicemail Problem"
+when "ac" then "Access to Files/Directories"
+else "Unknown"
+end
+]]></formula>
+
+  </formulas>
+
+  <usercols>
+  </usercols>
+
+  <headers>
+  </headers>
+
+  <footers>
+  </footers>
+
+  <page>
+    <headers>
+    </headers>
+    <footers>
+    </footers>
+  </page>
+
+  <groups>
+  <group groupable-id="name" groupable-type="column">
+    <headers>
+	<section height="17">
+	    <field id="100" type="text">
+		<text><![CDATA[Group 1 header]]></text>
+	    </field>
+	    <field id="101" type="column" value="name">
+		<bounds x="0" y="0" width="100" height="16" />
+	    </field>
+	</section>
+    </headers>
+    <footers>
+      <section height="30">
+	<field id="150" type="text">
+	  <text><![CDATA[Group 1 footer]]></text>
+	</field>
+	<field id="151" type="column" value="name">
+	    <bounds x="0" y="0" width="100" height="16" />
+	</field>
+      </section>
+    </footers>
+  </group>
+  <group column="problem">
+    <headers>
+	<section height="17">
+	    <field id="200" type="text">
+		<text><![CDATA[Group 2 header]]></text>
+	    </field>
+	    <field id="201" type="column" value="problem">
+		<bounds x="0" y="0" width="100" height="16" />
+	    </field>
+	    <field id="202" type="formula" value="1">
+		<bounds x="100.0" y="0.0" width="100.0" height="16.0" />
+	    </field>
+	</section>
+    </headers>
+    <footers>
+      <section height="30">
+	<field id="250" type="text">
+	    <text><![CDATA[Group 2 footer]]></text>
+	</field>
+	<field id="201" type="column" value="problem">
+	    <bounds x="0" y="0" width="100" height="16" />
+	</field>
+	<field id="202" type="formula" value="1">
+	    <bounds x="100.0" y="0.0" width="100.0" height="16.0" />
+	</field>
+      </section>
+    </footers>
+  </group>
+  </groups>
+
+  <details>
+    <suppression-proc always="true" />
+  </details>
+
+</report>

@@ -1,0 +1,235 @@
+<!-- include_header FAQ datavision design faq -->
+
+<h1>Running DataVision</h1>
+
+<!-- **************************************************************** -->
+<a id="webapp" />
+<h2>Can I run DataVision as a Web application?</h2>
+
+What do you mean by ``Web application''? If you are asking, ``can I run
+DataVision from a Java application that happens to have a Web component?'',
+then the answer is yes. See <a
+href="../DataVision/embed.html"><sec>Incorporating DataVision Into a Java
+Application</sec></a> in the User's Manual for instructions. See also the
+answer to the question <a href="databases.html#readfromelsewhere"><sec>Can
+DataVision read data from anywhere else?</sec></a>.
+
+You can always run a report from within your application, save the output
+of a layout engine to a file, and serve the file to the user (the HTML
+layout engine may be particularly useful). This is also necessary if you
+want to run a report from a Servlet or JSP page. See <a
+href="../DataVision/embed.html#jsp"><sec>Running DataVision from
+JSP</sec></a> for details.
+
+You could run report files retrieved from a server and display the HTML
+results directly without too much effort by modifying or replacing either
+the HTML or Swing layout engine (but see the previous paragraph).
+
+If your reports had parameters, you would have to ask the user for the
+parameter values first (say, via a Web form), store the values in a
+temporary parameter XML file, then feed that file to the report object. See
+<a href="#paramask"><sec>How do I ask the user for
+parameters?</sec></a>.
+
+To modify DataVision to work as an applet would take a bit of reworking.
+All file access (report XML files, parameter files, and layout engine
+output) would have to be modified to fit in the sandbox security model or
+be eliminated. Using the report design aspects of DataVision would be nigh
+impossible, as they assume a multi-window GUI.
+
+
+<!-- **************************************************************** -->
+<a id="runfromjsp" />
+<h2>Can I run DataVision from JSP?</h2>
+
+Yes. See <a href="../DataVision/embed.html#jsp"><sec>Running DataVision
+from JSP</sec></a> in the User's Manual.
+
+
+<!-- **************************************************************** -->
+<a id="runfromjava" />
+<h2>Can I run DataVision from a Java application?</h2>
+
+Yes. See <a href="../DataVision/embed.html"><sec>Incorporating DataVision
+Into a Java Application</sec></a> in the User's Manual. (The former
+contents of this section were a copy of that section. There's no sense in
+maintaining duplicate information.)
+
+<!-- **************************************************************** -->
+<a id="paramask" />
+<h2>How do I ask the user for parameters?</h2>
+
+See <a href="../DataVision/embed.html#askparam"><sec>Asking for
+Parameter Values</sec></a> in the User's Manual. (The former contents of
+this section were a copy of that section. There's no sense in maintaining
+duplicate information.)
+
+<!-- **************************************************************** -->
+<a id="embeddednada" />
+<h2>Why doesn't my embedded report code do anything?</h2>
+
+
+The <func>Report.run</func> method runs the report in a new, separate
+thread. The <func>Report.runReport</func> method runs the report in the
+same thread from which it is called. (All <func>run</func> does is create a
+new thread and tell it to run <func>runReport</func>.) If you have written
+code like this:
+
+<codeblock>
+public static void main(String[] args) {
+    Report report = new Report();
+    <comment>// ...</comment>
+    report.run();           <comment>// WRONG; new thread can't run</comment>
+}
+</codeblock>
+
+then the report will quit immediately because you have not waited for
+the newly spawned thread to finish running the report. If you want to wait
+for the report to finish, use <func>runReport</func> like this:
+
+<codeblock>
+public static void main(String[] args) {
+    Report report = new Report();
+    <comment>// ...</comment>
+    report.runReport();     <comment>// CORRECT; waits until finished</comment>
+}
+</codeblock>
+
+<!-- **************************************************************** -->
+<a id="joinhang" />
+<h2>Why does DataVision hang when I try to use the Table Linker dialog?</h2>
+
+In older versions of DataVision (before 0.7.10), the Table Linker, Sort By,
+and Group By dialogs had to retrieve the list of all database tables and
+columns. If you have a large database, this can take a long, long time.
+ 
+DataVision was changed to avoid having to ask for all tables and columns.
+Instead, in these dialogs it only displays the columns from tables actually
+used in the report. If a table doesn't appear in one of those dialogs, it's
+probably because that table is not yet used elsewhere in the report.
+
+<note>Advice for versions older than 0.7.10</note>: As a workaround, you
+can create a separate database schema (in the same physical instance) that
+contains aliases to only the tables from the original schema that you need
+in your report. That way, DataVision will only have to read the tables in
+the new, smaller schema.
+
+
+<!-- **************************************************************** -->
+<a id="stopasking" />
+<h2>Why won't it stop asking for a password?</h2>
+
+If DataVision keeps asking you for your password over and over again,
+that is because it was not able to connect to the database sucessfully.
+Your password could be correct but the connection info string could be
+wrong.
+
+Hitting ``Cancel'' will stop the insanity. If no other reports are already
+open, DataVision will quit.
+
+The way this works will change in the future: you will be shown the
+error messages and will be able to open the database connection info dialog
+from the login dialog.
+
+
+<!-- **************************************************************** -->
+<a id="noborders" />
+<h2>Why don't I see borders?</h2>
+
+Not all layout engines implement borders or line output.For a table of layout
+engines and their implemented features, see <a
+href="../DataVision/le.html#supported"><sec>Supported Features</sec></a>.
+
+
+<!-- **************************************************************** -->
+<a id="display" />
+<h2>Why is DataVision trying to connect to the X DISPLAY?</h2>
+
+Some of the layout engines such as Swing and PDF use Java Font objects. In
+order to answer some questions about fonts (for example, what is this
+font's descent), the code needs a FontMetrics object. To get a FontMetrics
+object, you need a graphics context, which DataVision gets by creating an
+AWT Panel object. That's probably what is trying to connect to the display.
+
+
+
+<!-- **************************************************************** -->
+<a id="pathprobs" />
+<h2>What do ClassNotFoundException and ``no suitable driver found'' mean?</h2>
+
+You will see error messages on the command line when you try to run
+DataVision with an incorrect class path. For example, if you see an
+exception error message like
+
+<codeblock>
+java.lang.ClassNotFoundException: oracle.jdbc.driver.OracleDriver
+</codeblock>
+
+with your driver class name instead of
+<code>oracle.jdbc.driver.OracleDriver</code>, that means that you have not
+added your JDBC driver jar file to your class path. Please read the
+Datavision User's Manual, especially <a
+href="../DataVision/install.html#classpath"><sec>Setting the Java Class
+Path</sec></a>.
+
+If you see the message ``no suitable driver found'', then most likely the
+class path is correct but your connection info string is incorrect. See
+your JDBC driver's documentation for the correct format of the connection
+info string.
+
+
+
+<!-- **************************************************************** -->
+<a id="fonterrmsgs" />
+<h2>Font error messages</h2>
+
+On Mac OS X systems running Java 1.4.1, when DataVision opens the designer
+window you may see error messages like this (long lines are wrapped here):
+
+<codeblock>
+2003-07-08 22:14:47.805 java[12191] Font GB18030Bitmap:
+    in _readBasicMetricsForSize, claims 0 max advance but is
+    fixed-pitch.
+2003-07-08 22:14:47.913 java[12191] Warning: Font
+    LucidaSans-TypewriterBold claims fixed-pitch with 0 max advance!
+</codeblock>
+
+These error messages seem to be harmless.
+
+On some Linux systems (for example, Red Hat 7.<var>x</var>), when you
+start DataVision a whole slew of identical error messages are generated
+that look something like this:
+
+<codeblock>
+Font specified in font.properties not found
+[--symbol-medium-r-normal--*-%d-*-*-p-*-adobe-fontspecific]
+</codeblock>
+
+These error messages are harmless. There is at least one way to get rid of
+them: edit the file <file>$JAVA_HOME/jre/lib/font.properties</file> and
+replace all occurrences of ``-adobe-'' with ``-urw''. Note that you may
+need the proper privileges to edit this file.
+
+Tom Van Overbeke (tom.van.overbeke@pandora.be) describes another way to get
+rid of the messages: ``I checked all the fonts.dir available on my system,
+there were a dozen of them. then I grepped through all of them to check for
+"standard symbols l", and i found the entry in the file
+<file>/usr/share/fonts/default/Type1/fonts.dir</file>. The entry was:
+
+<codeblock>
+s050000l.pfb -URW-Standard Symbols
+L-medium-r-normal--0-0-0-0-p-0-urw-fontspecific
+</codeblock>
+
+``and I changed it to:
+
+<codeblock>
+s050000l.pfb -URW-Standard Symbols
+L-medium-r-normal--0-0-0-0-p-0-adobe-fontspecific
+</codeblock>
+
+``Then I quit X, stopped and restarted xfs and restarted X, and it
+worked.''
+
+
+<!-- include_footer FAQ datavision design faq -->

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="jimm/properties/" kind="src" path=""/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/jruby.jar"/>
+	<classpathentry kind="lib" path="lib/jcalendar.jar"/>
+	<classpathentry kind="lib" path="lib/iText.jar"/>
+	<classpathentry kind="lib" path="lib/bsf.jar"/>
+	<classpathentry kind="lib" path="/usr/local/lib/postgresql-8.0-311.jdbc3.jar"/>
+	<classpathentry kind="lib" path="/usr/local/lib/mysql-connector-java-3.1.8-bin.jar"/>
+	<classpathentry kind="lib" path="/usr/local/lib/junit.jar"/>
+	<classpathentry kind="lib" path="jimm/properties"/>
+	<classpathentry kind="output" path="classes"/>
+</classpath>

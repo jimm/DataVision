@@ -1,0 +1,513 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+
+<head>
+  <title>DataVision User's Manual</title>
+  <link rel='stylesheet' href='style.css' type='text/css'>
+
+</head>
+
+<body>
+
+<table width='100%'>
+<tr><td><a href="create.html">&lt;= Previous</a> | <a href="edit.html">Next =&gt;</a> | <a href="DataVision.html">Table of Contents</a></td><td align='right'>
+  <span class='header'>DataVision User's Manual</span>
+</td></tr>
+</table>
+<hr>
+<!-- **************************************************************** -->
+
+<h1>6 The Anatomy of a Report</h1>
+<p>
+A report is made up of a set of standard headers and footers as well as
+the report detail rows. Each part except the details is optional. Each part
+contains one or more sections. Each section can be turned on or off
+(suppressed) and can force a page break.
+</p>
+
+<p>
+The <span class="firstterm">section areas</span> that make up a report are:
+</p>
+
+<ul>
+    <li>Report Header</li>
+    <li>Page Header</li>
+    <li>Group Header</li>
+    <li>Detail</li>
+    <li>Group Footer</li>
+    <li>Report Footer</li>
+    <li>Page Footer</li>
+</ul>
+
+<p>
+Each <span class="firstterm">group</span> has an associated user column or database
+column. Records are grouped by that column's value. Column aggregates (sum,
+min, max, count, average, standard deviation) may appear in group footers and
+in the report footer.
+</p>
+
+<p>
+Section areas (or more simply, &quot;areas&quot;) are made up of one or more
+<span class="firstterm">sections</span>. For example, the Group Header area may
+contain one or more Group Header sections.
+</p>
+
+<p>
+Each section may contains <span class="firstterm">fields</span>. A field may be a
+database column, a calculated formula, static text, an aggregate, a
+special value like the report's title or the current page number, or a
+parameter field that allows you to specify its value at report run time.
+</p>
+
+<p>
+Reports can contain other reports, called
+<span class="firstterm">subreports</span>. The subreport's query runs each time its
+field needs to be output. See <a
+href="#subreport"><span class="sec">Subreports</span></a> below.
+</p>
+
+<!-- ================================================================ -->
+<a name="reportparts">
+<h2>6.1 Report Parts</h2>
+<p>
+The <span class="firstterm">Report Header</span> is printed once at the beginning
+of the report on the first page. Report titles are typically placed here.
+</p>
+
+<p>
+The <span class="firstterm">Page Header</span> is printed at the top of each page
+(but after the Report Header on the first page). Often, column titles are
+placed here. In fact, when you drag a database column into the Detail
+section, a title is automatically placed in the Page Header for you.
+</p>
+
+<p>
+The <span class="firstterm">Group Header</span> is printed before the first row
+of data and again each time a group's value changes. Since groups can be
+nested, the group header for each group is printed in order.
+</p>
+
+<p>
+The <span class="firstterm">Detail</span> area is printed once for each row of data.
+</p>
+
+<p>
+The <span class="firstterm">Group Footer</span> is printed just before a group's
+value changes, and after the last row of data in the report. Since groups
+can be nested, the group footer for each group is printed in reverse order.
+Aggregates may be added here.
+</p>
+
+<p>
+The <span class="firstterm">Report Footer</span> is printed once at the end of
+the report on the last page. This is where end-of-report grand totals
+belong.
+</p>
+
+<p>
+The <span class="firstterm">Page Footer</span> is printed at the bottom of every
+page.
+</p>
+
+<!-- ................................................................ -->
+<a name="suppressionprocs">
+<h3>6.1.1 Section Suppression Procs</h3>
+<p>
+A suppression proc determines if a section should be displayed or not.
+Sections are normally displayed always. If you select &quot;Always hide&quot; (see
+<a href="gui.html#suppressionproc"><span class="sec">The Suppression Proc
+Dialog</span></a>) then the section is always hidden.
+</p>
+
+<p>
+A suppression proc can contain a formula. The formula must return a boolean
+(true/false) value. For every row, the code is run to determine if the entire
+section should be hidden for that row only. When the code returns true, the
+section is hidden.
+</p>
+
+<p>
+For example, the Ruby code
+</p>
+
+<pre class="codeblock">
+({jobs.ID} &amp; 1) == 0
+</pre>
+
+<p>
+will return true when jobs.ID is an even number. If attached to a detail
+section, then all detail records whose jobs.ID is an even number would be
+hidden. That is, only records with odd-numbered job IDs would be displayed.
+</p>
+
+<p>
+<span class="note">Note</span>: Aggregates are updated even for hidden or suppressed detail
+rows. If you want to avoid aggregating rows, don't retrieve them from the
+database or use a formula that returns 0 or some other appropriate value for
+rows you want to ignore and aggregate that value instead.
+</p>
+
+<!-- ================================================================ -->
+<a name="fields">
+<h2>6.2 Fields</h2>
+<p>
+A field is a single unit of information, whether a database column,
+text, or an image.
+</p>
+
+<!-- ................................................................ -->
+<a name="dbcol">
+<h3>6.2.1 Database Column</h3>
+<p>
+A <span class="firstterm">database column</span> field displays the value of a
+column in the database.
+</p>
+
+<!-- ................................................................ -->
+<a name="statictext">
+<h3>6.2.2 Static Text</h3>
+<p>
+A <span class="firstterm">static text</span> field displays a text label.
+</p>
+
+<!-- ................................................................ -->
+<a name="formulafield">
+<h3>6.2.3 Formula Field</h3>
+<p>
+A <span class="firstterm">formula</span> field displays the value of a formula.
+Formulas contains chunks of code that are evaluated when the report runs.
+Formulas may use the values of any other fields, including other formula.
+For more information, see <a href="#formulas"><span class="sec">Formulas</span></a>.
+</p>
+
+<!-- ................................................................ -->
+<a name="aggrfield">
+<h3>6.2.4 Aggregate</h3>
+<p>
+An <span class="firstterm">aggregate</span> field displays an aggregate (sum, min,
+max, count, average, or standard deviation) of all of the values a field takes
+on, either within a group or over the entire report. The values may come from
+any numeric database column or formula.
+</p>
+
+<!-- ................................................................ -->
+<a name="specialvalfield">
+<h3>6.2.5 Special Values</h3>
+<p>
+A <span class="firstterm">special value</span> field contains one of the
+following values:
+</p>
+
+<dl>
+    <dt>Report name</dt> <dd>The report's name, as specified in the <a
+    href="gui.html#summarydialog"><span class="sec">&quot;Summary&quot; Dialog.</span></a>.</dd>
+
+    <dt>Report title</dt> <dd>The report's title, as specified in the
+    &quot;Summary&quot; Dialog.</dd>
+
+    <dt>Author's name</dt> <dd>The report's author, as specified in the
+    &quot;Summary&quot; Dialog.</dd>
+
+    <dt>Report description</dt> <dd>The report's description, as specified
+    in the &quot;Summary&quot; Dialog.</dd>
+
+    <dt>Report run date</dt> <dd>The current date.</dd>
+
+    <dt>Report row number</dt> <dd>The current row number.</dd>
+
+    <dt>Page number</dt> <dd>The current page number.</dd>
+
+    <dt>Group record count</dt> <dd>When put into the detail section, the
+    group count is the number of the current record within the innermost
+    report group (if there are no groups, it will be the record number
+    within the entire report.) When in a group footer, it's the number of
+    rows in the group. When in the report footer, it's the total number of
+    rows in the report.</dd>
+</dl>
+
+<!-- ................................................................ -->
+<a name="paramfield">
+<h3>6.2.6 Parameter Field</h3>
+<p>
+A <span class="firstterm">parameter field</span> displays the value of a
+parameter. Parameters allows you to specify values at report run time.
+Parameters may be used anywhere: in formulas, in the report (as a parameter
+field), or for limiting the records selected from the data (the
+<span class="guimenuitem">Select Records...</span> menu item).
+</p>
+
+<!-- ................................................................ -->
+<a name="imagefield">
+<h3>6.2.7 Image</h3>
+<p>
+An <span class="firstterm">image</span> field displays an image. The value of the
+field is either a file path or a URL. Note that a URL of the form
+&quot;file:examples/postgresql.xml&quot; specifies a relative file path. The path
+is relative to the DataVision runtime working directory, not relative to
+the report XML file.
+</p>
+
+<p>
+Currently, only image fields containing image formats understood by the
+Java Swing interface (GIF, JPEG) are editable using the DataVision GUI. In
+the future you will be able to add any image file format, though it may
+display as a simple rectangle if Swing can't display it. (You can manually
+edit the report XML and add or edit any image field, of course.)
+</p>
+
+<!-- ================================================================ -->
+
+<a name="formulas">
+<h2>6.3 Formulas</h2>
+<p>
+A formula can execute any code supported by the <a href="#bsf"><span class="sec">Bean
+Scripting Framework</span></a> (BSF). Before being evaluated, the following
+substitutions are made to the formula text:
+</p>
+
+<ul>
+
+    <li>{<span class="var">table_name.column_name</span>} is replaced by the current
+    value of the column <span class="var">table_name.column_name</span>.</li>
+    
+    <li>{@<span class="var">id_number</span>} is replaced by the results of evaluating
+    the formula whose id is <span class="var">id_number</span>. (When editing a formula
+    the referenced formula's name is displayed, not its id number. The id
+    number is used internally.)</li>
+    
+    <li>{?<span class="var">id_number</span>} is replaced by the value of the parameter
+    whose id is <span class="var">id_number</span>. (When editing a formula the
+    parameter's name is displayed, not its id number. The id number is used
+    internally.)</li>
+
+    <li>{%<span class="var">special_value_name</span>} is replaced by a special value
+    (report name, report title, author's name, report description, report
+    run date, page number, data row number, or group record count).
+    <span class="var">special_value_name</span> is one of the values listed in <a
+    href="xml.html#xmlfields"><span class="sec">Fields</span></a> and described in <a
+    href="anatomy.html#specialvalfield"><span class="sec">Special Values</span></a>.
+
+    <li>{!<span class="var">id_number</span>} is replaced by the value of the user column
+    whose id is <span class="var">id_number</span>. (When editing a formula the user
+    column's name is displayed, not its id number. The id number is used
+    internally.) See <a href="#usercol"><span class="sec">User Columns</span></a>.</li>
+
+    <li>{|<span class="var">id_number</span>} is replaced by the contents of the detail
+    section of the sub-report whose id is <span class="var">id_number</span>.</li>
+
+</ul>
+
+<!-- ................................................................ -->
+<a name="bsf">
+<h3>6.3.1 Bean Scripting Framework</h3>
+<p>
+The <a href="http://jakarta.apache.org/bsf/">Bean Scripting Framework</a>
+(BSF) is a Java framework for executing scripting languages that can access
+Java objects.
+</p>
+
+<p>
+A report is exposed to all formulas as a global object called &quot;report&quot;. More
+information about what you can do with the report object will appear in future
+documentation, and some changes to the report object may be made to allow for
+access to interesting bits of information.
+</p>
+
+<p>
+Each report has a default language, and each formula can use a different
+language if it wishes. When a report is first created, its default language is
+Ruby. All formulas that do not specify a language use the report's default
+language.
+</p>
+
+<a name="ruby">
+<h4>6.3.1.1 Ruby</h4>
+<p>
+DataVision ships with JRuby, which is a BSF language that implements Ruby.
+Ruby is a scripting language invented by Yukihiro &quot;Matz&quot; Matsumoto. See the
+<a href="http://www.ruby-lang.org/en/">Ruby home page</a> and the <a
+href="jruby.sourceforge.net/">JRuby</a> page for more information.
+</p>
+
+<p>
+Reports created before DataVision 0.9.0 (when the BSF was introduced) will
+continue to work with Ruby and no changes are necessary to continue using
+Ruby.
+</p>
+
+<p>
+In Ruby scripts, the BSF report object is in a global variable called
+<code>$report</code> (&quot;$&quot; identifies global variables in Ruby).
+</p>
+
+<p>
+This document is not an appropriate place for an introduction to Ruby. I
+highly recommend &quot;Programming Ruby&quot; by David Thomas & Andrew Hunt,
+published by Addison Wesley Longman. This book is <a
+href="http://www.rubycentral.com/book/">online</a> and is published
+under the Open Publication license. The second edition of the book, though not
+available for free, is an excellent follow-up well worth the money.
+</p>
+
+<a name="add-other-lang">
+<h4>6.3.1.2 Adding another language</h4>
+<p>
+If you want to use a different language you will have to take a few steps.
+</p>
+
+<ul>
+
+<li>Get the proper jar file for that language.</li>
+
+<li>Put the jar file in DataVision's class path, for example by editing
+datavision.sh or datavision.bat. See <a
+href="install.html#classpath"><span class="sec">Setting the Java Class Path</span></a> for
+details.</li>
+
+<li>Add the language to the list of languages in the report's XML file. See <a
+href="gui.html#scriptlang"><span class="sec">The Formula Languages Dialog</span></a>.</li>
+
+</ul>
+
+
+<!-- ................................................................ -->
+<a name="startup">
+<h3>6.3.2 Startup Script</h3>
+<p>
+There is one special formula that is evaluated at the beginning of each report
+run. It is called the startup script, and can be edited by opening the <a
+href="gui.html#startupdialog"><span class="sec">Startup Script dialog</span></a> from the
+<span class="guimenu">Report</span> menu. Any BSF variables you set in this
+script are available to all of the rest of your formulas. <span class="note">Note: for the
+same language only, I think, not all other BSF languages.</span>
+</p>
+
+<!-- ================================================================ -->
+<a name="parameters">
+<h2>6.4 Parameters</h2>
+<p>
+<span class="note">More needs to be written.</span>
+</p>
+
+<p>
+Create parameters using the Field Picker window. Select <span class="guimenuitem">New
+Parameter...</span> from the <span class="guimenu">Field</span> menu.
+</p>
+
+<p>
+Drag parameters into the &quot;Select Records&quot; dialog or onto the report to
+use them. When a report that contains parameters is run, you will be asked
+to supply values for those parameters.
+</p>
+
+<!-- ................................................................ -->
+<a name="paramexample">
+<h3>6.4.1 Example</h3>
+<p>
+Open the example report, then select <span class="guimenuitem">Select
+Records...</span> from the <span class="guimenu">Report</span> menu. Type
+&quot;office.name = {?String Param}&quot; and click <span class="guibutton">OK</span>. The
+&quot;{?String Param}&quot; is the name of one of the parameters defined in the
+report XML file. (Alternately, you can open the Field Picker window and
+drag the &quot;office.name&quot; database field and the &quot;{?String Param}&quot;
+parameter from the list of items.)
+</p>
+
+<p>
+Run the report. You will be asked to supply a string value. Accept the
+default value, &quot;Chicago&quot;. The report will only display records whose
+office name matches &quot;Chicago&quot;.
+</p>
+
+<!-- ================================================================ -->
+<a name="usercol">
+<h2>6.5 User Columns</h2>
+<p>
+A user column is arbitrary SQL text. The text is insert into the SQL query
+as a column to be retrieved. For example, if you define a user column with
+the text &quot;my_stored_proc({?My Parameter})&quot; then the SQL query will look
+something like
+</p>
+
+<pre class="codeblock">
+select col1, col2, ..., my_stored_proc(<span class="var">the param value</span>)
+from table1, table2, ...
+where ...
+</pre>
+
+<p>
+Before being inserted into the SQL statement, the following
+substitutions are made to the user column text:
+</p>
+
+<ul>
+
+    <li>{<span class="var">table_name.column_name</span>} is replaced by
+    <span class="var">table_name.column_name</span>. Though you can simply add the column
+    name, you shouldn't. DataVision needs that extra hint to figure out
+    what tables and columns are used in the report.</li>
+    
+    <li>{?<span class="var">id_number</span>} is replaced by the value of the parameter
+    whose id is <span class="var">id_number</span>. (When editing a formula the
+    parameter's name is displayed, not its id number. The id number is used
+    internally.)</li>
+
+    <li>{%<span class="var">special_value_name</span>} is replaced by a special value
+    (report name, report title, author's name, report description, report
+    run date, page number, data row number, or group record count).
+    <span class="var">special_value_name</span> is one of the values listed in <a
+    href="xml.html#xmlfields"><span class="sec">Fields</span></a> and described in <a
+    href="anatomy.html#specialvalfield"><span class="sec">Special Values</span></a>.
+
+</ul>
+
+<p>
+Formulas are not allowed within user columns because their values may be
+undefined when the query is run.
+</p>
+
+<!-- ================================================================ -->
+<a name="subreport">
+<h2>6.6 Subreports</h2>
+<p>
+A subreport is a report within a report. The subreport's query runs each
+time the subreport's field needs to be output. Subreports are only allowed
+in reports that have database data sources.
+</p>
+
+<p>
+When you import a subreport, you define one or more joins that link the
+master report to the subreport. The first column of each join will be
+filled with the current value of that column in the master report. The
+second will be a SELECT column for the sub-report. For example, selecting
+&quot;office.name <= office.name&quot; will fill the first office.name with the
+current value of the office name from the master report. Let's say the
+master report's office name value is currently 'Chicago'. The sub-report's
+query will then contain a WHERE clause that ends with &quot;... AND 'Chicago'
+<= office.name&quot;.
+</p>
+
+<p>
+See <a href="edit.html#subreports"><span class="sec">Subreports</span></a> in
+<span class="sec">Editing a Report</span> for instructions on adding a subreport to a
+report.
+</p>
+
+<p>
+<span class="note">Many thanks to Aaron Kardell and Altona Ed, LLC, who funded
+development of subreports in DataVision.</span>
+</p>
+
+
+<!-- **************************************************************** -->
+<hr>
+<table width='100%'>
+<tr><td><a href="create.html">&lt;= Previous</a> | <a href="edit.html">Next =&gt;</a> | <a href="DataVision.html">Table of Contents</a></td><td align='center'>
+&nbsp;
+</td><td align='right'>
+    <span class='footer'>DataVision User's Manual</span>
+</td></tr>
+</table>
+
+</body>
+</html>

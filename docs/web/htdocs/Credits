@@ -1,0 +1,476 @@
+DavaVision was originally developed by Jim Menard (jimm at io.com). The
+project's leader is now Frank W. Zammetti (fzlists at omnytex.com). The following
+people have kindly provided string translations and submitted bug reports, bug
+fixes, and suggestions for improvement. Many thanks to all of them.
+
+================================================================
+
+Translations have come--or are coming--from:
+
+Language (Region)                 Translator(s)
+-----------------                 -------------
+
+bg_BG Bulgarian (Bulgaria)        Tony Tomov &lt;tomovtony at yahoo.com&gt;
+
+de_DE German (Germany)            Herbert Dietlmeier
+                                  &lt;Herbert.Dietlmeier at t-online.de&gt;
+
+en_US English (USA)               Jim Menard &lt;jimm at io.com&gt;
+
+es_MX Spanish (Mexico)            Miguel Angel Rojas Aquino
+                                  &lt;mrojas_aquino at mail.flashmail.com&gt;
+
+fr_FR French (France)             Daniel Essayag and Yaacov Akiba Slama
+                                  &lt;ya at slamail.org&gt;
+
+it_IT Italian (Italy)             Guido Amoruso &lt;guidonte at libero.it&gt;
+
+pt_BR Portuguese (Brazil)         Carlos Silva &lt;silva at carlosilva.com&gt;
+
+nl_NL Dutch (Dutch)               Marcel Jager  &lt;mjager at technocon.com&gt;
+
+pt_PT Portuguese (Portugal)       Sergio Ferreira &lt;sergio at moredata.pt&gt;
+
+ru_RU Russian (Russia)            Igor Osminin &lt;oia at kovgok.ru&gt;
+
+sk_SK Slovakian (Slovakia)        Matej &quot;Mato&quot; Holly &lt;h.matej at krs.sk&gt;
+
+tr_TR Turkish (Turkey)            Ismail Cansiz &lt;icansiz at haysoft.com&gt;
+
+FAQ
+---
+
+Chinese                           flybean &lt;flybean at trilobyte.dhs.org&gt;
+
+================================================================
+
+Bug reports, fixes, and suggestions have come from:
+
+Stephen &lt;stephen at webreserve.com&gt;
+
+    Found bug in new reports: table linker was useless until fields were
+    added to the report.
+
+TonyTomov &lt;ttomov at abs.bg&gt;
+
+    Reported Windows problems that helped improve documentation. Found that
+    the Sun JDBC/ODBC driver for Windows does not implement some optional
+    features required by DataVision. Found bug in new reports: many
+    uninitialized things were written as &quot;null&quot; in the XML. Found special
+    field dragging bug. Found serious SQL generation bugs. Many, many more
+    good suggestions. Found font size change bug. Discussions about
+    arbitrary SQL statements, UNION, etc. Found subtotal creation bugs
+    (null format in original field caused NullPointerException; non-Float
+    values were not properly converted). Found database column title
+    creation bug. Found hidden formula evaluation bug. Found many, many
+    more bugs.
+
+Achim WeÃling &lt;Achim.Wessling at gt-net.de&gt;
+
+    Found Informix driver issues. Found field widget selection bug.
+
+Gareth Cronin &lt;GarethC at kiwiplan.co.nz&gt;
+
+    Found and reported ODBC driver issues.
+
+Konstantin V. Oussanov &lt;ukv at lab321.ru&gt;
+
+    Found and reported Oracle driver issues. Found and fixed null value bug
+    in Field.java. Submitted patches for ResultSet creation for Oracle
+    drivers. Found and submitted patch for command-line argument processing
+    and password handling when creating a report and using a layout engine.
+    Found and fixed line-reading bug. Submitted fix that lets database
+    fields appear in report header.
+
+Tom Van Overbeke &lt;tom.van.overbeke at pandora.be&gt;
+
+    Found cause  of startup font error messages and found the solution.
+    Found field deletion bug. Found working MySQL driver and provided links.
+
+Jaume from Tau Ingenieros &lt;tauinge at menta.net&gt;
+
+    Found fix for printing from report run window. Submitted code to resize
+    page when printing.
+
+John Wilson &lt;tug at wilson.co.uk&gt;
+
+    Author of the MinML2 XML parser previously used by DataVision.
+
+Kai Toedter &lt;kai at toedter.com&gt;
+
+    Author of JCalendar, the calendar Swing widget used by DataVision.
+
+Alex Bogdanov &lt;agb at bogdanov.fsbusiness.co.uk&gt;
+
+    Found problems with WHERE clauses. Made suggestions about making
+    reports more usable for multiple users.
+
+Arash Bijanzadeh &lt;arashb at users.sourceforge.net&gt;
+
+    Suggestion to use TreeMap instead of HashMap in Database to keep tables
+    sorted by name.
+
+Brendon Price &lt;Brendon.Price at sytec.co.nz&gt;
+
+    Found field id creation bug (all newly-created fields had the same id
+    number.) Contributed enhancements and fixes to HTMLLE.
+
+Miguel Angel Rojas Aquino &lt;mrojas_aquino at mail.flashmail.com&gt;
+
+    Suggested code to look for table names without grabbing system tables.
+    Pointed out Oracle date/timestamp issues. Found fixes that greatly
+    improved print quality and layout. Found format dialog crash bug. Found
+    Windows field popup menu bug. Found bug with columns in headers when
+    the query returns zero rows. Found fix (avoid reading same column two
+    times) that allows Progress JDBC driver to read metadata. Documentation
+    improvement suggestions.
+
+William Colls &lt;bcolls at cbnlottery.com&gt;
+
+    Found special field formatting bug.
+
+Marius Hillenbrand &lt;marius.hillenbrand at integration.riess.de&gt;
+
+    Found dialog layout bugs. Found bogus paper name bug and suggested fix.
+
+Aditya Gilra &lt;aditya_gilra at yahoo.com&gt;
+
+    Suggested adding portrait/landscape paper sizes. Found solution to
+    printer exception bug.
+
+David Jones &lt;jonesde at ofbiz.org&gt;
+
+    Added DataVision to the OFBiz project (http://www.ofbiz.org/). Many
+    suggestions including re-using external database connections and
+    passing URLs or InputStreams to the report instead of an XML file name.
+
+Jennifer Taylor &lt;jennifer.taylor at caris.com&gt;
+
+    Found and suggested a fix for reading beyond the end of the database
+    cursor, which caused a problem with the DB2 JDBC driver.
+
+Gabriel Tlalpachicatl &lt;gab571 at netscape.net&gt;
+
+    Found the bug where fields' and lines' &quot;visible&quot; flags weren't being
+    saved to the report XML.
+
+C Wayne Huling &lt;c.w.huling at pobox.com&gt;
+
+    Found command line option parsing bug.
+
+Yaacov Akiba Slama &lt;ya at slamail.org&gt;
+
+    Started the i18n process.
+
+Carlos Silva &lt;silva at carlosilva.com&gt;
+
+    Found XML line tag parsing bug.
+
+Tasneem Talawala &lt;tasneem at netcore.co.in&gt;
+
+    Found XMLDecl tag bug in report XML file output.
+
+Ryan Delany &lt;ryandelany at users.sourceforge.net&gt;
+
+    Reported User Column bug: queries didn't empty their user column info
+    each time, so deleting a user column didn't remove it from the query.
+
+Stefan Hansel &lt;thestefan at users.sourceforge.net&gt;
+
+    Reported group footer output bug: when a group footer is output, make
+    sure all of the footers before (above) it are also output. Offered code
+    to fix. Reported subtotal bug created when previous bug fixed. Wrote
+    code to handle DB2 schema names.
+
+Eddie Carpenter &lt;ecarpenter at itex.co.za&gt;
+
+    User Column bug report and page break ideas. Negative field dimensions
+    bug report. Realized we don't need to select the join's columns. Found
+    bugs with formulas containing user columns. Found date parameter edit
+    bug.
+
+Ertan Oezdil &lt;eoezdil at javacoders.de&gt;
+
+    Request that led to the DesignWin.setExitWhenLastWinClosed method.
+
+Gene Coldwell &lt;coldwell at csptexas.com&gt;
+
+    Contributed money.
+
+Dinesh Rajagopalan &lt;dinesh_rajagopalan at rediffmail.com&gt;
+
+    Found forumla string expression bug.
+
+Brian Johnson &lt;mastermnd at users.sourceforge.net&gt;
+
+    Found PDF layout engine newline bug. Found user column id generation
+    bug. Pointed out missing FLOAT constant in Column.isNumeric(). Found
+    bug in PDF line splitting code. Suggested field name should go in title
+    of FormatWin.
+
+Russell V. Toone &lt;russ at redcon.com&gt;
+
+    Found a bug in Database$ColumnIterator.
+
+Don Wickelgren &lt;dtwickelgren at users.sourceforge.net&gt;
+
+    Reported lack of scroll bars and code pane growth in code edit windows.
+
+Bouska Seznam (Ludek) &lt;bouska at seznam.cz&gt;
+
+    Reported LaTeX page size and other bugs.
+
+Pete Fowler &lt;pfowler at tempo.com.au&gt;
+
+    Reported bad report summary dialog box behavior.
+
+Thorsten Wenzlaff &lt;wenzlaff at users.sourceforge.net&gt;
+
+    Discussions about table and column name case sensitivity.
+
+Steven Findlay &lt;StevenFindlay at noratek.com&gt;
+
+    Reported landscape printing problem.
+
+Gene Coldwell &lt;coldwell at csptexas.com&gt;
+
+    Made a voluntary monitary contribution for DataVision. Thank you, Gene.
+
+Saleem Burhani &lt;pesheek at yahoo.com&gt;
+
+    Pointed out image field path-to-URL translation bug.
+
+Andre Wohnig &lt;a.wohnig at thiesen.com&gt;
+
+    Found bug in Expression code that looks for columns.
+
+Bill Shaw &lt;Bill.Shaw at atrs.state.ar.us&gt;
+
+    Noticed that SQL was not generated when the report contained user
+    columns but no database columns.
+
+Shannon Noe &lt;noe at lim.com&gt;
+
+    Pointed out problems with contents of GPL text and links on legal page.
+
+Riq Willitts &lt;riq at scs.co.uk&gt;
+
+    Found bug in evaluation of hidden formula fields.
+
+Peter van der Kooi &lt;kooi008 at users.sourceforge.net&gt;
+
+    Found bug in SQLTable that made column loading not work in certain
+    cases.
+
+Edwin Ramirez &lt;ramirez at doc.mssm.edu&gt;
+
+    Funded development of DataVision in order to create the applet code.
+    Thank you.
+
+Laura Moloney &lt;laura55 at users.sourceforge.net&gt;
+
+    Helped clarify confusing documentation of suppression proc behavior.
+    Found bug where database connection reset deleted query. Found problem
+    with formula evaluation in group headers. Found bug where reset
+    database connection caused duplicate tables in query.
+
+Jeff Maldonado &lt;jeffmaldonado at hotmail.com&gt;
+
+    Found FieldPickerWin bug that prevented charsep columns from being
+    displayed.
+
+Runako Godfrey &lt;runako at users.sourceforge.net&gt;
+
+    Found and fixed PDF footer layout problems.
+
+Pierre Ernst &lt;pernst at cbnco.com&gt;
+
+    Reported null pointer exception when certain special fields appear in a
+    report and their values are null.
+
+Lixin Fan &lt;LixinF at mailcode.com&gt;
+
+    Found bug in XML layout engine XMLDecl element.
+
+Khadiyd Idris &lt;khad at linuxindo.com&gt;
+
+    Contributed HTML layout engine border code.
+
+Tim Pauwels &lt;Timp at landc.be&gt;
+
+    Suggested creation of Column.equals and many gui code cleanup
+    improvements. Showed that VisTableWin can work with any data source,
+    not just SQL.
+
+Nebojsa Naumovic &lt;naum at cores.co.yu&gt;
+
+    Requested SwingLE.getJFrame. Requested new behavior of group count
+    special field within detail section.
+
+Pascal Pochet &lt;p3consulting at mac.com&gt;
+
+    Contributed Mac OS X wrapper for DataVision and suggestions for command
+    line arguments.
+
+flybean &lt;flybean at trilobyte.dhs.org&gt;
+
+    Chinese translation of the FAQ.
+
+audias, &lt;a194236 at users.sourceforge.net&gt;
+
+    Suggested that Table Linker dialog only list columns in tables used by
+    the report.
+
+Wouter Moerdijk &lt;woutermoerdijk at hotmail.com&gt;
+
+    Found bug where running Swing report from command line would close
+    report window immediately after the report finished running, instead of
+    waiting for the Swing window to be closed.
+
+Koichiro Hara &lt;epsy at air-beat.com&gt;
+
+    Found bug when loading database metadata: code assumed schema name
+    could not be null.
+
+Zed A. Shaw &lt;zed.shaw at ubc.ca&gt;
+
+    Suggestion to allow user columns for group values.
+
+Vij &lt;vijkap at users.sourceforge.net&gt;
+
+    Suggestion to allow user columns for group values.
+
+Daniel Seltzer &lt;dseltzer at h2co3.com&gt;
+
+    Ant build file improvements.
+
+Sylvain Machefert &lt;sylvain_machefert at yahoo.fr&gt;
+
+    Suggested output of SQL when SQLExcpetion thrown.
+
+Lukas Schroeder &lt;lukas at kodics.de&gt;
+
+    Found bug that prevented formulas in WHERE clauses from being evaluated
+    before the query was run. Found bug that prevented parameters from
+    being found within the WHERE clause, when they were inside a formula.
+
+Aaron Kardell &lt;akardell at altonaed.com&gt;
+
+    Aaron and Altona Ed, LLC (www.altonaed.com) funded development of
+    sub-reports. Thank you.
+
+Shailesh Salunkhe &lt;salunkhes at sigmasoft.biz&gt;
+
+    Report DTD fixes.
+
+Mike Christiansen &lt;mikech at users.sourceforge.net&gt;
+
+    Found XML layout engine bug: the output XMLWriter wasn't getting closed
+    properly. Found a PDF layout engine bug: the font name wasn't being
+    selected properly.
+
+Alok Koch &lt;alokko at users.sourceforge.net&gt;
+
+    Fixed code that writes subreports to XML so formulas and user columns are
+    saved. Partial fix to SQL query code so subreports don't cause the same
+    table name to be included in the query more than once.
+
+Johnie Wardlaw &lt;wardlawj at users.sourceforge.jet&gt;
+
+    Improved fix in SQL query code that prevents table name from appearing
+    multiple times when subreports are used.
+
+Marc Wirth &lt;mw at tangro.de&gt;
+
+    Explained why I should change ClassLoader.getSystemResource() to
+    getClass().getClassLoader().getResource().
+
+Kerry McNeil &lt;kerry.mcneil at pierrefoods.com&gt;
+
+    Found bug with two subreports in report.
+
+Fernando Cruz &lt;fdocruz at users.sourceforge.net&gt;
+
+    Noticed that &quot;Select Records...&quot; was not enabled when using CharSepLE.
+
+Vlad Dranovs, &lt;vdranovs at users.sourceforge.net&gt;
+
+    Found bug with CVS parsing: it didn't allow multi-line rows.
+
+Frank W. Zammetti &lt;fzlists at omnytex.com&gt;
+
+    Created logo and splash screen. Fixed delete key bug. Submitted initial
+    version of Bean Scripting Framework code.  Current project lead.
+
+Bob Sidebotham &lt;bob at windsong.bc.ca&gt;
+
+    Found bug in ErrorHandler.splitUp (now in Utils) that caused an infinite
+    loop and OutOfMemoryError.
+
+Fabio Graziosi &lt;fabiog at users.sourceforge.net&gt;
+
+    Found error in Italian translation.
+
+KH Fong &lt;lefeu_1978 at yahoo.com.sg&gt;
+
+    Reported bug in PDF layout engine: wasn't handling null report title or
+    author.
+
+Eryan Yu &lt;earth2 at gmail.com&gt;
+
+    Reported field movement undo bug.
+
+Peter Wilkinson &lt;peter.wilkinson at mantel.com.au&gt;
+
+    Helped diagnose and suggested fix for a problem with table object lookup,
+    which caused an IllegalAccessException error.
+
+sausaurabh77 &lt;saurabh77 at users.sourceforge.net&gt;
+
+    Helped diagnose and suggested fix for a problem with table object lookup,
+    which caused an IllegalAccessException error.
+
+Michael Lee &lt;michaelkmb at users.sourceforge.net&gt;
+
+    One of many people that reported an error in saving field format strings.
+
+Sirio Candini &lt;sirio.candini at regulus.it&gt;
+
+    Found a serious subreport bug; saved subreports were not re-loading
+    correctly, so they wouldn't run properly. Also found that subreports with
+    multiple joines weren't putting &quot;AND&quot; between the joins, and proposed a
+    solution.
+
+edmz &lt;edmz at users.sourceforge.net&gt;
+
+    Found a problem with the startup script editor.
+
+Thomas Sundberg &lt;thomas.sundberg at gamefederation.com&gt;
+
+    Found a bug in the GUI: when a field format was changed, then the report
+    is run, then another field's format was changed, the changed format was
+    not used when you run the report. Saving the report saved the changed
+    format.
+
+Rick Kramer &lt;rkarmer at solve.net&gt;
+
+    Contributed the code that adds a delete menu item to the field picker
+    window's edit menu.
+
+Paul Stuart &lt;pauleyphonic at gmail.com&gt;
+
+    Found a bug in Format.hashCode().
+
+Richard S. Hall &lt;heavy at ungoverned.org&gt;
+
+    Suggested change to allow empty usernames in database connection info.
+
+David Bennett &lt;bensoft at users.sourceforge.net&gt;
+
+    Contributed a patch to eliminate a NPE when copying connection parameters
+    from an existing report file.
+
+Arno Peters &lt;ape at users.sourceforge.net&gt;
+
+    Contributed a patch that corrected a mistake in the implementation of
+    the look &amp; feel changes (liquid vs. system, etc).

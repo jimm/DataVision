@@ -1,0 +1,170 @@
+<!-- include_header FAQ running reports faq -->
+
+<h1>Designing Reports</h1>
+
+<!-- **************************************************************** -->
+<a id="like" />
+<h2>How do I add wildcards to a parameter?</h2>
+
+Wildcards are used in SQL where clauses when comparing strings using the
+``like'' operator. For example, to select all records with a name starting
+with ``Smit'', your query might look something like this:
+
+<codeblock>
+select name, age, shoe_size
+from person
+where upper(person.name) like upper('Smit%')
+</codeblock>
+
+You can use a parameter to let the user specify the string prefix to search
+for (``Smit''). However, parameters may not be inside quotes (see <a
+href="reports.html#paramindex"><sec>What does ``Parameter index out of
+range'' mean?</sec></a>). So what exactly do you put in the WHERE clause?
+
+You have to add the parameter and the wildcard separately, concatenating them
+together using your database's string concatenation operator. For example,
+
+<codeblock>
+upper(person.name) like upper({?Start of Name} || '%')
+</codeblock>
+
+The characters ``<code>||</code>'' are the string concatenation operator, at
+least for Oracle and PostgreSQL. For SQL Server 2000, it's ``<code>+</code>''.
+Check your database documentation. The string '%' is the wildchard character
+that we are appending to the end of the user's string. (Different databases
+may use different wildcard characters.) To search for the user's string
+anywhere in the name column, add wildcards to the beginning and the end, like
+this example using a parameter named ``Anywhere in the Name'':
+
+<codeblock>
+upper(table.name) like upper('%' || {?Anywhere in the Name} || '%')
+</codeblock>
+
+
+<!-- **************************************************************** -->
+<a id="ignore" />
+<h2>How do I ignore unspecified parameters?</h2>
+
+If you put a parameter in the WHERE clause (the ``Select Records'' text),
+then the user must specify a value. If he doesn't, then the parameter will
+be replaced by emptyness, which isn't always what you want.
+
+When the user does not specify a parameter value, it would be nice to be
+able to use some special value like <code>NULL</code> or <code>'%'</code>.
+Here's a trick that will let you do that. Put the parameter into a formula
+and put the formula into the WHERE clause, like ``table.column =
+{@formula}''. You can then add code to the formula that looks for empty
+values and returns whatever you want. For example, here is a formula that
+returns either ``user string'' or ``NULL'':
+
+<codeblock>
+if "{?parameter}".empty?
+    "NULL"
+else
+    "#{?parameter}"
+end
+</codeblock>
+
+<note>Warning: the previous formula is untested.</note>
+
+You can't put the column name in the result of the formula, because the
+return value of this formula is a string and string return values will
+automatically be placed in quotes.
+
+<!-- **************************************************************** -->
+<a id="countrecs" />
+<h2>How do I count the number of records?</h2>
+
+Use the new ``group.count'' <a
+href="../DataVision/anatomy.html#specialvalfield">special value</a>
+or a count aggregate.
+
+<!-- **************************************************************** -->
+<a id="average" />
+<h2>How do I get the average (min, max, etc.) of a field's values?</h2>
+
+There is not yet an easy way to do this. For now, you need to create a formula
+in the group header that sets the total, a formula in the body that adds the
+value of the column to the total, and a formula in the footer that calculates
+the average (min, max, whatever). You can use the group record count special
+value to retrieve the number of records in the group.
+
+I plan to add a way to call aggregate functions (average, max, min, etc.) on
+column values. Some day.
+
+<!-- **************************************************************** -->
+<a id="groupby" />
+<h2>How do I add a GROUP BY clause?</h2>
+
+You don't. DataVision does not use or allow GROUP BY clauses; it uses ORDER
+BY and groups the records itself. This is because we normally want to see
+the detail values for each row. Using GROUP BY ``collapses'' the rows into
+one row. For instance, the example report groups by office name and job
+post date but we want to see all the job listings in the details row.
+Therefore, we can't use GROUP BY. Instead, we ORDER BY the group columns
+and let DataVision recognize group boundaries.
+
+You can use a view or a stored procedure or DataVision's Ruby formulas to
+do what you want. If you can't figure it out, try asking on the DataVision
+mailing list.
+
+
+<!-- **************************************************************** -->
+<a id="arbsql" />
+<h2>Can I edit the SQL?</h2>
+
+No. Some JDBC drivers do not return enough information to allow DataVision
+to determine which colums are being returned by a query. For example, the
+PostgreSQL driver only returns column names, not table or schema names.
+Thus if two tables have the same column name DataVision would have no way
+of knowing which column is being returned.
+
+In order to allow arbitrary SQL DataVision would need to include a full SQL
+parser so it could understand which columns were being returned, which were
+stored procedure calls, etc.
+
+You <em>can</em> modify the query's where clause by using the ``Select
+Records'' dialog, modify the sort order of columns by using the ``Sort By''
+dialog, and modify record grouping by using groups.
+
+To add your own SQL to the SELECT clause, create a user column and edit its
+code. The code you put in the user column becomes a column in the SELECT
+clause of the SQL query. For example, if you define a user column with the
+text ``my_stored_proc({?My Parameter})'' then the SQL query will look
+something like
+
+<codeblock>
+select col1, col2, ..., my_stored_proc(<var>the param value</var>)
+from table1, table2, ...
+where ...
+</codeblock>
+
+Finally, you may be able to create a view that returns the data you want, and
+then write your report against the view.
+
+
+<!-- **************************************************************** -->
+<a id="totpages" />
+<h2>Can I add the total page count to a report?</h2>
+
+No. DataVision does not know how many records or pages there are in the report
+when it is outputting data. That means there is no way to add ``Page X of Y''
+to your report.
+
+Even if DataVision did count the number of records, calculating the number of
+pages would involve outputting all of the records first, because the number of
+pages depends upon the amount of data in each field. DataVision would have to
+generate the entire report, then go back and replace ``Y'' with the number of
+total pages. That would be difficult for some of the layout engines to do.
+
+
+<!-- **************************************************************** -->
+<a id="left-outer" />
+<h2>Can I create a left outer join?</h2>
+
+No, DataVision can't yet handle left outer joins. You need to create a view in
+your database that performs this join for you, and then use that view in your
+report.
+
+
+<!-- include_footer FAQ running reports faq -->

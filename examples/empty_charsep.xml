@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This file can read the data file charsep_data.csv -->
+
+<!-- <!DOCTYPE report SYSTEM "report.dtd"> -->
+
+<!-- All sizes are in points (72 points == 1 inch). -->
+
+<!-- All coordinates and lengths are floating point, but may be truncated -->
+<!-- by layout engines. -->
+
+<!-- Colors are stored as "red;green;blue;alpha". Each component is an -->
+<!-- integer from 0 to 255. -->
+
+<report dtd-version="1.2"
+	name="example1" title="Example Report" author="Jim Menard">
+
+  <description><![CDATA[]]></description>
+
+  <bean-scripting-framework default-language="Ruby">
+    <language name="Ruby" class="org.jruby.javasupport.bsf.JRubyEngine"/>
+  </bean-scripting-framework>
+
+  <!-- Default orientation is portrait. -->
+  <paper name="US-Letter" />
+
+  <!-- Data source. In this case, a comma-separated file. This -->
+  <!-- definition describes the file charsep_data.csv -->
+  
+  <source>
+
+    <!-- The column names happen to be the same as database table.column -->
+    <!-- names, but that's just a coincidence. OK, I'm lazy. -->
+    <charsep sep-char=",">
+      <!-- Define  your column names and types. Remove the ones below. -->
+
+<!-- alternate way to describe columns; this URL must be changed, of course.
+      <metadata-url>http://localhost/~jimm/metadata.xml</metadata-url>
+-->
+
+      <!-- For date columns, we need to define a string that will be used -->
+      <!-- to parse the string so we can turn it into a java.lang.Date -->
+      <!-- object. Actually, you ccould skip the date-format string; the -->
+      <!-- default parse string (yyyy-MM-dd) is the same string. -->
+<!-- Remove these examples and replace with yours. -->
+      <column name="office.name" type="string" />
+      <column name="jobs.ID" type="number" />
+      <column name="jobs.title" type="string" />
+      <column name="jobs.hourly rate" type="number" />
+      <column name="jobs.post_date" type="date" date-format="yyyy-MM-dd" />
+    </charsep>
+
+  </source>
+
+  <headers>
+    <section height="42">
+    </section>
+  </headers>
+
+  <footers>
+    <section height="30">
+    </section>
+  </footers>
+
+  <page>
+
+    <!-- page headers -->
+    <headers>
+      <section height="30">
+      </section>
+    </headers>
+
+    <!-- page footers -->
+    <footers>
+      <section height="42">
+      </section>
+    </footers>
+
+  </page>
+
+  <!-- group -->
+  <groups>
+  </groups>
+
+  <!-- details -->
+  <details>
+    <section height="20">
+    </section>
+  </details>
+
+</report>

@@ -1,0 +1,47 @@
+Installing DataVision
+=====================
+
+This file contains the super-abbreviated set of instructions for
+installing, configuring, and running DataVision. For full instructions, see
+the manual in the docs directory starting at
+docs/DataVision/DataVision.html.
+
+DataVision depends upon JDBC drivers to communicate with databases. You
+must have the correct driver for each type of database (Oracle, PostgreSQL,
+mySQL, ODBC, etc.) that you wish to use.
+
+
+Installing
+----------
+
+Extract the distribution. This creates a directory named
+datavision-<version> (where <version> is the DataVision version number).
+
+    tar -xzf datavision-<version>.tar.gz
+
+Configuring
+-----------
+
+Edit the file datavision.sh (Unix) or datavision.bat (Windows). For each
+JDBC driver you wish to use, add the path to that JDBC driver to the
+CLASSPATH.
+
+Running
+-------
+
+From a GUI, double-click the appropriate script (datavision.sh for Unix,
+datavision.bat for Windows).
+
+From the command line:
+
+	Unix
+
+    cd datavision-<version>
+    ./datavision.sh [xml_file...]
+
+	Windows
+
+    cd datavision-<version>
+    datavision.bat [xml_file...]
+
+There are many command line options documented in the manual.

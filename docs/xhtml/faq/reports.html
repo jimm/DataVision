@@ -1,0 +1,89 @@
+<!-- include_header FAQ design databases faq -->
+
+<h1>Running Reports</h1>
+
+
+<!-- **************************************************************** -->
+<a id="excelexport" />
+<h2>Can I export report data to Excel?</h2>
+
+
+Yes. Use the comma- or tab-separated export formats. Excel can easily read
+either one. A hint: use the extension ``.csv'' for comma-separated files
+and ``.txt'' or ``.tab'' for tab-separated.
+
+<!-- **************************************************************** -->
+<a id="oldwebapp" />
+<h2>Can I run DataVision as a Web application?</h2>
+
+
+<note>This question and its
+answer have <a href="running.html#webapp">moved</a>.</note>
+
+<!-- **************************************************************** -->
+<a id="modsql" />
+<h2>Can I edit the SQL query DataVision generates?</h2>
+
+<note>The answers to this question and</note> <a
+href="design.html#arbsql"><note>``Can I edit the SQL?''</note></a>
+<note>overlapped. The answer found here has been folded into the answer
+to</note> <a href="design.html#arbsql"><note>``Can I edit the
+SQL?''</note></a><note>.</note>
+
+<!-- **************************************************************** -->
+<a id="htmlrelimg" />
+<h2>Why don't I see images in my HTML export?</h2>
+
+When you create an image field using the DataVision GUI, you can specify
+either a URL or a file path. If you specify a file path, it will be saved
+as such and turned into a ``file:'' URL when it is read back in.
+
+If you specify a relative file path, that relative file path will be used
+in the image tag. If you save the HTML output in a different directory than
+the DataVision application, the image won't be displayed because the
+relative path name will be incorrect.
+
+<!-- **************************************************************** -->
+<a id="colorder" />
+<h2>Why are my columns in the wrong order?</h2>
+
+Sometimes fields that are displayed from left to right correctly in the
+Swing report window don't come out in the same order when you use the HTML
+or character (comma- and tab-separated) layout engines.
+
+Because those layout engines can't place columns visually, the fields
+are sorted first by their Y coordinate (height) and then by their X
+coordinate (left-to-right position). That means if one of your columns is
+even one pixel higher than the others, it will be output first.
+
+
+Make sure all the fields in a section have the same Y coordinate. You can
+either use the ``Align'' feature of the GUI to align the fields' tops or
+you can edit the report XML file directly.
+
+Fixing DataVision to handle this situation would be non-trivial. I'd have
+to add some fuzzy logic that said ``this column is close enough to all the
+others that I shouldn't output it first just because it is only one pixel
+higher.''
+
+If you have multiple rows of fields in you section, then you can solve this
+a different way. The HTML layout engine is stupid. It does not deal well
+with multiple lines in the same section.
+
+To solve this problem, split the header into two sections by selecting
+``Insert Section Below''. Put the first line of data in the top section,
+and the second line of data in the bottom section.
+
+
+<!-- **************************************************************** -->
+<a id="paramindex" />
+<h2>What does ``Parameter index out of range'' mean?</h2>
+
+When you define a SQL where clause in the ``Select Records'' dialog, the
+text you create can contain parameters. If your parameter is a string, do
+<em>not</em> enclose it in quotes. If it is enclosed in quotes, you will
+see the error message ``Parameter index out of range'' when you run the
+report.
+
+
+<!-- include_footer FAQ design databases faq -->

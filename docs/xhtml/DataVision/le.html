@@ -1,0 +1,179 @@
+<!-- include_header UM gui xml DataVision -->
+
+<h1>Layout Engines</h1>
+
+DataVision uses <firstterm>layout engines</firstterm> to generate
+different output formats. A layout engine is responsible for creating
+output when a report runs. That output may be a file, a window on a screen,
+or an interpretive dance (<note>not yet implemented</note>).
+
+<!-- ================================================================ -->
+<a id="list" />
+<h2>Available Layout Engines</h2>
+
+<b>DocBook</b> This engine produces a DocBook document with a
+<file>.sgml</file> file name extension.
+
+<b>HTML</b> The HTML layout engine produces an HTML file. It contains a
+single table that displays the report data.
+
+<b>Java Swing</b> This layout engine does not produce a file. Rather, it
+displays the results of the report in a GUI window. This is the layout
+engine used when you select <guimenuitem>Run Report...</guimenuitem> from
+the <guimenu>Report</guimenu> menu.
+
+<b>LaTeX</b> This layout engine produces a <file>.tex</file> file
+containing LaTeX2e commands. These commands can be further processed to
+create a <file>.dvi</file> file containing device independent display
+commands. Many different programs are available to display this file, print
+it, or turn this file into PDF, HTML, text, PostScript, and more.
+
+The only paper sizes supported by the LaTeX layout engine are those
+supported by LaTeX2e: A4, A5, B5, US Letter, US Legal, and Executive. Any
+other paper selection in DataVision will use the default LaTeX paper size,
+which is US Letter.
+
+<b>Excel</b> Generates a Microsoft Excel file.  Uses the Jakarta POI
+library (so subject to its abilities and limitations).
+
+<b>PDF</b> This one generates a PDF file with a <file>.pdf</file> file
+name extension. It uses Bruno Lowagie's iText Java library.
+
+The only fonts supported by the PDF layout engine are the 14 Type 1
+``base'' fonts:
+
+<ul>
+  <li>Courier</li>
+  <li>Courier-Bold</li>
+  <li>Courier-BoldOblique</li>
+  <li>Courier-Oblique</li>
+  <li>Helvetica</li>
+  <li>Helvetica-Bold</li>
+  <li>Helvetica-BoldOblique</li>
+  <li>Helvetica-Oblique</li>
+  <li>Times-Roman</li>
+  <li>Times-Bold</li>
+  <li>Times-Italic</li>
+  <li>Times-BoldItalic</li>
+  <li>Symbol</li>
+  <li>ZapfDingbats</li>
+</ul>
+
+The Java font family name is used to pick the PDF font. The family can be the
+font name ("Helvetica", "Arial") or a logical name ("sansserif", "serif",
+"monospace"). "Helvetica" or "sansserif" map to Helvetica, "Courier" or
+"monspace" map to Courier, "Symbol" and "ZapfDingbats" map to themselves, and
+everything else (including "serif", for example) maps to Times.
+
+<b>Tab- and comma-delimited</b> Generates either tab- or comma-delimited
+ASCII data files. Comma-delimited file names usually use end with
+<file>.csv</file>; tab-delimited files often end with <file>.txt</file> or
+<file>.tab</file>.
+
+<b>XML</b> The XML layout engine produces---surprise---XML. Aside from
+being buzzword of the month, XML is a useful text-based data format.
+
+<!-- ================================================================ -->
+<a id="supported" />
+<h2>Supported Features</h2>
+
+This tables shows which layout engines support which features. ``Y'' = yes,
+``N'' = no, ``P'' = partial support, ``T'' = text only (for example, an
+image's URL instead of the image itself).
+
+<center>
+<table border="1">
+<tr>
+    <th>Name</th>
+    <th>Images</th>
+    <th>Borders</th>
+    <th>Lines</th>
+    <th>Formatting</th>
+    <th>Color</th>
+    <th>Alpha (Transparency)</th>
+</tr>
+<tr>
+    <td>Char Sep<br />(tab, comma)</td>
+    <td class="le-feature-cell">N</td>
+    <td class="le-feature-cell">N</td>
+    <td class="le-feature-cell">N</td>
+    <td class="le-feature-cell">N</td>
+    <td class="le-feature-cell">N</td>
+    <td class="le-feature-cell">N</td>
+</tr>
+<tr>
+    <td>DocBook</td>
+    <td class="le-feature-cell">N</td>
+    <td class="le-feature-cell">N</td>
+    <td class="le-feature-cell">N</td>
+    <td class="le-feature-cell">P</td>
+    <td class="le-feature-cell">N</td>
+    <td class="le-feature-cell">N</td>
+</tr>
+<tr>
+    <td>HTML</td>
+    <td class="le-feature-cell">Y</td>
+    <td class="le-feature-cell">P</td>
+    <td class="le-feature-cell">N</td>
+    <td class="le-feature-cell">Y</td>
+    <td class="le-feature-cell">Y</td>
+    <td class="le-feature-cell">N</td>
+</tr>
+<tr>
+    <td>LaTeX</td>
+    <td class="le-feature-cell">N</td>
+    <td class="le-feature-cell">Y</td>
+    <td class="le-feature-cell">Y</td>
+    <td class="le-feature-cell">Y</td>
+    <td class="le-feature-cell">N</td>
+    <td class="le-feature-cell">N</td>
+</tr>
+<tr>
+    <td>PDF</td>
+    <td class="le-feature-cell">Y</td>
+    <td class="le-feature-cell">Y</td>
+    <td class="le-feature-cell">Y</td>
+    <td class="le-feature-cell">P</td>
+    <td class="le-feature-cell">Y</td>
+    <td class="le-feature-cell">N</td>
+</tr>
+<tr>
+    <td>Swing</td>
+    <td class="le-feature-cell">Y</td>
+    <td class="le-feature-cell">Y</td>
+    <td class="le-feature-cell">N</td>
+    <td class="le-feature-cell">Y</td>
+    <td class="le-feature-cell">Y</td>
+    <td class="le-feature-cell">Y</td>
+</tr>
+<tr>
+    <td>XML</td>
+    <td class="le-feature-cell">T</td>
+    <td class="le-feature-cell">N</td>
+    <td class="le-feature-cell">N</td>
+    <td class="le-feature-cell">N</td>
+    <td class="le-feature-cell">N</td>
+    <td class="le-feature-cell">N</td>
+</tr>
+<tr>
+    <td>Excel</td>
+    <td class="le-feature-cell">?</td>
+    <td class="le-feature-cell">?</td>
+    <td class="le-feature-cell">?</td>
+    <td class="le-feature-cell">?</td>
+    <td class="le-feature-cell">?</td>
+    <td class="le-feature-cell">?</td>
+</tr>
+</table>
+</center>
+
+<!-- ================================================================ -->
+<a id="createnew" />
+<h2>Creating a New Layout Engine</h2>
+
+UTSL (<note>Use The Source, Luke</note>). The best documentation for
+creating a layout engine is the Java API documentation for the
+<class>LayoutEngine</class> class and the source code for the other layout
+engines.
+
+<!-- include_footer UM gui xml DataVision -->

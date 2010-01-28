@@ -1,0 +1,187 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+
+<head>
+  <title>DataVision User's Manual</title>
+  <link rel='stylesheet' href='style.css' type='text/css'>
+
+</head>
+
+<body>
+
+<table width='100%'>
+<tr><td><a href="DataVision.html">&lt;= Previous</a> | <a href="install.html">Next =&gt;</a> | <a href="DataVision.html">Table of Contents</a></td><td align='right'>
+  <span class='header'>DataVision User's Manual</span>
+</td></tr>
+</table>
+<hr>
+<!-- **************************************************************** -->
+
+<h1>1 Introduction</h1>
+<!-- BEGIN OVERVIEW -->
+
+<p>
+DataVision is an Open Source reporting tool similar to Crystal Reports.
+Reports can be designed using a drag-and-drop GUI. They may be run, viewed,
+and printed from the application or exported as HTML, XML, PDF, Excel, LaTeX2e,
+DocBook, or tab- or comma-delimited text files. The output files produced
+by LaTeX2e and DocBook can in turn be used to produce PDF, text, HTML,
+PostScript, and more.
+</p>
+
+<p>
+DataVision is written in Java and runs almost anywhere. It can generate
+reports from databases or text data files. Any database with an available
+JDBC driver should work: Oracle, PostgreSQL, MySQL, Informix, hsqldb,
+Microsoft Access, Progress, and more. Columns read from text files can be
+separated by any character.
+</p>
+
+<p>
+Report descriptions are stored as XML files. This means you can not only
+use the DataVision GUI but you may also edit reports using your favorite
+text editor.
+</p>
+
+<p>
+DataVision was developed by Jim Menard (<a
+href="mailto:jimm@io.com">jimm@io.com</a>). The project's leader is now Frank
+W. Zammetti (<a href="fzlists@omnytex.com">fzlists@omnytex.com</a>). The latest version of
+DataVision can be found on the <a
+href="http://datavision.sourceforge.net/">DataVision Web page</a>. New
+releases are also announced on <a href="http://freshmeat.net/">Freshmeat</a>
+and on the DataVision <a
+href="http://sourceforge.net/mail/?group_id=33343">mailing list</a>.
+</p>
+
+<!-- END OVERVIEW -->
+
+<!-- ================================================================ -->
+<a name="changes">
+<h2>1.1 Recent Changes</h2>
+<!-- BEGIN RECENT CHANGES -->
+
+<p>
+Other than updating the version number, there are no changes
+-in DataVision between 1.2.0rc2 and the 1.2.0 release.
+</p>
+
+<p>
+Here is a summary of the changes in DataVision version 1.2.0rc2
+since version 1.2.0.rc1.
+</p>
+
+<ul>
+
+    <li> Build the tarball tree under ${tmp} not under ../
+         Avoids trashing working dir named datavision-<version> </li>
+
+    <li> Merge first 3 lines of intro.html source file, so that
+         the resulting HTML output validates. </li>
+
+    <li> Updated Derby library (derby.jar) to version 10.3.2.1 </li>
+
+    <li> Updated sqlitejdbc driver to version v044.
+         Also used Pure Java version so the driver will 
+         work on all platforms, not just Windows. </li>
+
+    <li> Set source and target parameters to 1.4 for all
+         Ant javac tasks.  
+         This should allow resulting compiled bytecode to
+         be run on all Java runtimes from 1.4 to the present. </li>
+
+    <li> DataVision now requires Java version 1.4 or higher.
+         Install instructions edited to reflect new dvclasspath
+         variable rather than classpath. </li>
+
+</ul>
+
+<p>
+Here is a summary of the changes in DataVision version 1.2.0rc1
+since version 1.1.0.
+</p>
+
+<ul>
+
+    <li> Updated COPYING file to reference ASL 2.0 </li>
+
+    <li> Include Bundle-Name: and Numble-Version: attributes in
+         manifest file.  Generate the manifest automatically. </li>
+
+    <li> Output DataVision version before the usage message. </li>
+
+    <li> Generate datavision_version.txt automatically. </li>
+
+    <li> Allow Ruby versionNumber.rb to deal with a version
+         suffix (such as rc1). </li>
+
+    <li> Set version to 1.2.0rc1 ready for release candidate. </li>
+
+    <li> Removed -u look and feel switch from code.  Removed
+         liquidlnf.jar file from lib directory.  Reverted default look
+         and feel to "default".  Fixes bug 1923244 Cut and Paste on OS
+         X does not work. </li>
+
+    <li> Allow column set retrieval in Dervy and SQLite again.  (Fixes
+         issue introduced by r136 use of beforeFirst()). </li>
+
+    <li> Added URLs to download locations for third party
+         libraries. </li>
+
+    <li> Allow sorted reports to work again. </li>
+
+    <li> Re-enable use of the first column of every table, a fix to
+         FWZ's fix for SQlite issue enumerating columns. </li>
+
+     <li> Fix for Tracker Issue 1777081 regarding quoting issues.  Now
+          DV uses getIdentifierQuoteString() to decide which quote
+          character to quote identifiers with. </li>
+
+    <li> Switched to modified .bat and .sh files, courtesy of Jonathan
+         Marsden. </li>
+
+    <li> Corrected mistakes in a few language files where it said "CSS-based XLS"
+      instead of the correct "CSS-based HTML" export option and layout engine
+      specification.  Also added that string to one file that was missing it. </li>
+
+    <li> Addressed issue reported by Byron Hurder dealing with SQLite not showing
+      database columns.  Also as part of this, added new sqlite_example.xml
+      report, and test database (unfortunately the database has to be in the
+      root directory rather than /examples where I'd prefer it be, just so
+      that it can be found when DataVision is run... might just need to
+      specify the path differentlyin the connection string, but nothing I
+      tried seem to work, so we'll live with the file being somewhere it
+      would be better off not being). </li>
+
+    <li> Bug #865491 was fixed.  Check SVN commit messages on 12/23/2007 for
+      details (a bunch of files needed to be modified to address this).
+      Commit message is also a part of the bug ticket for reference. </li>
+
+    <li> Applied patch #1816739 from Marcel Jager who provided Dutch translations.
+      Thank you Marcel! </li>
+
+    <li> Applied patch #1463294 from David Bennett do address an issue when using
+      JavaScript as your formula language.  Thanks David! </li>
+
+    <li> Added the ObjectSource and related example code.  This allows you to run
+      a report against an ArrayList (where each element is a row) of
+      ArrayLists (where each element is a column).  This works very much like
+      CharSepSource does, except that you define the data, as well as the
+      columns, in code.  See the example for usage details. </li>
+
+</ul>
+
+<!-- END RECENT CHANGES -->
+
+<!-- **************************************************************** -->
+<hr>
+<table width='100%'>
+<tr><td><a href="DataVision.html">&lt;= Previous</a> | <a href="install.html">Next =&gt;</a> | <a href="DataVision.html">Table of Contents</a></td><td align='center'>
+&nbsp;
+</td><td align='right'>
+    <span class='footer'>DataVision User's Manual</span>
+</td></tr>
+</table>
+
+</body>
+</html>

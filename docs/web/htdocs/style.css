@@ -1,0 +1,195 @@
+body {
+	background: #e3e3e3;
+}
+p {
+	text-align: justify;
+}
+
+h1 {
+	font-size: 2em
+}
+div.header, th {
+	background: #666666;
+	color: white;
+}
+div.header {
+	border: black;
+	border-style: solid;
+	border-width: thin;
+	border-color: black;
+	height: 170px;
+}
+div.header a:link {
+	text-decoration: none;
+	color: white;
+}
+div.header a:visited {
+	text-decoration: none;
+	color: white;
+}
+div.header a:hover {
+	text-decoration: none;
+	color: white;
+}
+div.header a:active {
+	text-decoration: none;
+	color: white;
+}
+span.home-icon {
+	float: left;
+/*	padding: 0.1em; */
+	padding: 0.5em;
+}
+span.header-version {
+	font-size: 0.4em;
+	color: #9999ff;
+}
+span.sf-logo {
+	float: right;
+}
+div.site-title {
+	font-size: 2.5em;
+	font-weight: bold;
+	padding-left: 0.5em;
+	padding-top: 0.5em;
+	padding-right: 0.5em;
+	padding-bottom: 0em;
+}
+span.site-subtitle {
+	font-size: 0.4em;
+	font-style: italic;
+}
+div.page-title {
+/*	float: right; */
+	margin: 0;
+	font-size: 1em;
+	font-weight: bold;
+	padding: 0.5em;
+}
+div.menu {
+	font-size: 0.8em;
+	float: left;
+	background: #d8d8d8;
+	padding: 1em;
+/*	margin-top: 80px; */
+	margin-top: 20px;
+/*	margin-left: -195px; */
+	margin-left: 0px;
+	margin-right: 35px;
+	width: 8em;
+	border: black;
+	border-style: solid;
+	border-width: thin;
+	border-color: black;
+}
+div.menu ul {
+	list-style-type: none;
+	list-style-position: inside;
+	margin-left: -1em;
+	padding-left: 2em;
+	text-indent: -1em;
+}
+div.menu ul li {
+	test-align: left;
+}
+/*
+div.menu li:before {
+	content: "- ";
+}
+*/
+div.content {
+	padding: 0.5em;
+	text-align: justify;
+	padding-left: 10em;
+	padding-top: 0;
+	padding-right: 2em;
+/*	background: #ddddff; */
+}
+div.footer {
+	font-size: 0.75em;
+	font-style: italic;
+}
+
+/* resume */
+span.my-name {
+	font-size: 2em;
+	font-weight: bold;
+}
+div.versions {
+	font-size: 0.8em;
+	font-style: italic;
+}
+span.company {
+	font-size: 1.5em;
+	font-weight: bold
+}
+span.dates {
+	font-weight: bold
+}
+span.job-title {
+	font-weight: bold
+}
+span.job-client {
+	font-weight: bold
+}
+span.job-skill {
+	font-weight: bold
+}
+span.prof-org {
+	font-weight: bold
+}
+span.proj {
+	font-weight: bold
+}
+span.mag-name {
+	font-style: italic
+}
+
+span.screen-title {
+	font-weight: bold
+}
+
+/* articles */
+.article-title, .article-subtitle, .article-author {
+	text-align: center;
+}
+.article-title {
+	font-size: 3em;
+}
+.article-subtitle, .article-author {
+	font-size: 1.5em;
+}
+pre.code, code {
+	font-family: monaco, courier, monospace;
+	font-size: 0.8em;
+}
+pre.code {
+	background-color: #eeeeee;
+	border-style: solid;
+	border-width: thin;
+	border-color: #000000;
+	padding-left: 1em;
+	padding-bottom: 1em;
+	width: 40em;
+	margin-left: 50px;
+}
+.listing-title {
+	font-weight: bold;
+	font-size: 1.2em;
+}
+.listing-summary {
+	font-style: italic;
+}
+.cmd {
+	font-weight: bold;
+}
+p.article-origin {
+	font-style: italic;
+}
+p.article-origin span.citation {
+	font-weight: bold;
+}
+span.newsdate {
+	font-style: italic;
+	font-weight: bold;
+}

@@ -1,0 +1,160 @@
+<!-- include_header UM intro rundv DataVision -->
+
+<h1>Installing DataVision</h1>
+
+This section walks you through the installation process. Before creating
+or running reports, you need to perform a few one-time operations:
+
+<ol>
+    
+    <li>Install Java.</li>
+
+    <li>Install DataVision.</li>
+
+    <li>Find and install JDBC drivers for each database you will be
+    using.</li>
+  
+    <li>Determine and set the proper Java class path to use when launching
+    DataVision (not always necessary).</li>
+  
+</ol>
+
+For each database you add after installing and configuring DataVision,
+you will have to perform the last two steps again.
+
+<!-- ================================================================ -->
+<a id="reqs" />
+<h2>Requirements</h2>
+
+Aside from JDBC database drivers, DataVision requires Java version 1.4
+or higher to run.  The instructions for installing Java are beyond the
+scope of this document. For more information, see <a
+href="http://java.sun.com/">Sun's Java site</a>.
+
+<!-- ================================================================ -->
+<a id="installing" />
+<h2>Installing DataVision</h2>
+
+Extract the distribution from the archive file named
+<file>datavision-<var>version</var>.tar.gz</file> (where
+<file><var>version</var></file> is a version number like ``1.2.0''). When
+you do, a directory named <dir>datavision-<var>version</var></dir> is
+created. You may create or move this directory anywhere you wish.
+
+To extract the DataVision distribution from the command line, type
+<command>tar -xzf datavision-<var>version</var>.tar.gz</command>.
+
+To extract the DataVision distribution from a GUI-based program such as
+WinZip, open the file <file>datavision-<var>version</var>.tar.gz</file> by
+clicking or double-clicking the file or from within the running
+application. What happens next will depend upon your operating system and
+supporting applications. The directory may be extracted automatically for
+you; you may be asked where to put it first. Alternately, the DataVision
+archive may be opened and you may need to extract all the files
+yourself.
+
+<!-- ================================================================ -->
+<a id="jdbc" />
+<h2>Finding and Installing JDBC Drivers</h2>
+
+DataVision depends upon JDBC drivers to communicate with databases. You
+must have the correct driver for each type of database (Oracle, PostgreSQL,
+MySQL, hsqldb, ODBC, etc.) that you wish to use. 
+
+Many drivers may be found by looking on the database developer's Web
+site. Here is a list of useful URLs.
+
+<ul>
+    
+    <li><a href="http://java.sun.com/products/jdbc/">The Sun JDBC
+    page</a>.</li>
+    
+    <li><a href="http://www.oracle.com/">Oracle</a>.</li>
+
+    <li><a href="http://www.postgresql.org/">PostgreSQL</a>.</li>
+
+    <li><a href="http://www.mysql.com/">MySQL</a>.</li>
+
+    <li>MySQL JDBC drivers at <a
+    href="http://www.mysql.com/">mysql.com</a>; get the latest version of
+    the MM.MySQL driver from that project's <a
+    href="http://sourceforge.net/project/showfiles.php?group_id=15923">SourceForge
+    downloads page</a>.</li>
+    
+    <li><a href="http://hsqldb.sourceforge.net/">hsqldb</a>.</li>
+    
+    <li>Other: ODBC drivers are easy to find for Windows platforms, harder
+    for Unix. To find JDBC drivers, try searching for phrases like ``mysql
+    jdbc driver linux'' or ``odbc jdbc driver linux'' on a search engine
+    such as <a href="http://www.google.com/">Google</a>.</li>
+
+</ul>
+
+See <a href="create.html#dbconn"><sec>Connecting to the
+Database</sec></a> for more information about particular drivers, including
+some issues that users have found.
+
+<!-- ================================================================ -->
+<a id="classpath" />
+<h2>Setting the Java Class Path</h2>
+
+A <firstterm>class path</firstterm> is a list of directories or
+<firstterm>jar files</firstterm> that Java searches to find all the files
+it needs. (<note>The class path does not need to know about your data
+files. It tells the Java run time where to find the class files, images,
+and properties files DataVision needs to run.</note>) Though there is a
+built-in class path that Java already knows about, that class path does not
+include the whereabouts of your JDBC drivers or DataVision itself.
+
+The files <file>datavision.sh</file> (Unix) and
+<file>datavision.bat</file> (Windows) set the class path before
+running DataVision. You may need to edit the appropriate one and add
+the path to your JDBC database drivers.  These files already set the
+classpath used by DataVision to include all .jar files in the
+<code>./lib</code> directory under the DataVision directory, so if all
+your JDBC drivers are there, you do not need to edit the DataVision
+classpath at all.
+
+<!-- ................................................................ -->
+<a id="cpwindows" />
+<h3>Editing the Class Path (Windows)</h3>
+
+If necessary, open the file <file>datavision.bat</file> with a text
+editor such as Notepad. We are going to edit the line that looks like
+
+<codeblock>
+set DVCLASSPATH=
+</codeblock>
+
+Add a semicolon (;) and then the full path to each of your JDBC driver
+files not in your <code>.\lib</code> directory to this line,
+separating each with a semicolon.  For example, if you have installed
+the JDBC driver jar file <file>jdbc.jar</file> in the folder
+<dir>c:\foo</dir>, your line will look like
+
+<codeblock>
+set DVCLASSPATH=<string>;c:\foo\jdbc.jar&quot;</string>
+</codeblock>
+
+<!-- ................................................................ -->
+<a id="cpunix" />
+<h3>Editing the Class Path (Unix)</h3>
+
+If necessary, open the file <file>datavision.sh</file> with your
+favorite text editor.  We are going to edit the line that looks like
+
+<codeblock>
+dvclasspath=<string>&quot;&quot;</string>
+</codeblock>
+
+Append a colon (:) and the full path to each of your JDBC driver files
+not in <code>./lib</code> to this line, separating each with a
+colon. For example, if you have installed the JDBC driver jar file
+<file>jdbc.jar</file> in the folder <dir>$HOME/foo</dir>, your line
+will look like
+
+<codeblock>
+classpath=<string>:$HOME/foo/jdbc.jar</string>
+</codeblock>
+
+<!-- include_footer UM intro rundv DataVision -->

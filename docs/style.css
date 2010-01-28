@@ -1,0 +1,91 @@
+/* Layout */
+body {
+  color: black;
+  background: white;
+  margin-left: 10%;
+  margin-right: 10%
+}
+h1 {
+  margin-left: -8%
+}
+h2, h3, h4, h5, h6 {
+  margin-left: -4%;
+}
+
+/* Block styles */
+span.toc-chapter {
+  font-weight: bold
+}
+span.note {
+  font-style: italic
+}
+span.codeblock-title {
+  font-weight: bold
+}
+pre {
+  font-family: monospace
+}
+pre.codeblock {
+  background: #eeeeee;
+  padding: 0.5em;
+  border: thin solid #000000
+}
+
+span.comment {
+  font-style: italic;
+  color: #660000
+}
+span.string {
+  color: #006600
+}
+
+span.header {
+  font-weight: bold
+}
+span.footer {
+  font-weight: bold
+}
+span.file {
+  font-family: monospace
+}
+span.dir {
+  font-family: monospace
+}
+span.var {
+  font-style: italic
+}
+span.envar {
+  font-family: monospace
+}
+span.firstterm {
+  font-style: italic
+}
+span.func {
+  font-family: monospace
+}
+span.class {
+  font-family: monospace
+}
+span.guimenu {
+  font-weight: bold
+}
+span.guimenuitem {
+  font-style: italic
+}
+span.guibutton {
+  font-weight: bold
+}
+span.command {
+  font-family: monospace;
+  font-weight: bold
+}
+span.sec {
+  font-style: italic
+}
+td.codeblock {
+  background: #eeeeee;
+  border: thin solid #000000
+}
+td.le-feature-cell {
+  text-align: center
+}

@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This is a report using an NCDatabase data source. These data -->
+<!-- sources have no connection (thus "NC") and can't run reports. -->
+<!-- The metadata is stored in this XML file. These sources are -->
+<!-- useful for running DataVision as a design-only tool that -->
+<!-- can't run any reports. -->
+
+
+<!-- <!DOCTYPE report SYSTEM "report.dtd"> -->
+
+<!-- All sizes are in points (72 points == 1 inch). -->
+
+<!-- All coordinates and lengths are floating point, but may be truncated -->
+<!-- by layout engines. -->
+
+<!-- Colors are stored as "red;green;blue;alpha". Each component is an -->
+<!-- integer from 0 to 255. -->
+
+<report dtd-version="1.2"
+	name="example1" title="Example Report" author="Jim Menard">
+
+  <description><![CDATA[]]></description>
+
+  <bean-scripting-framework default-language="Ruby">
+    <language name="Ruby" class="org.jruby.javasupport.bsf.JRubyEngine"/>
+  </bean-scripting-framework>
+
+  <!-- Default orientation is portrait. -->
+  <paper name="US-Letter" />
+
+  <usercols>
+    <usercol id="1" name="Short Title"><![CDATA[substr(jobs.title, 1, 8)]]></usercol>
+  </usercols>
+
+  <!-- Data source. In this case, an ncsql ("Not Connected to SQL") -->
+  <!-- data source. -->
+  
+  <source>
+
+    <!-- Define nc-database data source. Default quote-string is -->
+    <!-- double quote, so this quote-string attribute is redundant. -->
+    <!-- The column names happen to be the same as database table.column -->
+    <!-- names, but that's just a coincidence. OK, I'm lazy. -->
+    <nc-database quote-string="&quot;">
+      <!-- We need to define column names and types. We can either use a -->
+      <!-- metadata-url element or a list of column elements. The -->
+      <!-- metadata-url must point to an XML file that follows the -->
+      <!-- DTD file ../metadata.dtd. -->
+
+<!-- alternate way to describe columns; this URL must be changed, of course.
+      <metadata-url>http://localhost/~jimm/metadata.xml</metadata-url>
+-->
+
+      <!-- For date columns, we need to define a string that will be used -->
+      <!-- to parse the string so we can turn it into a java.lang.Date -->
+      <!-- object. Actually, you ccould skip the date-format string; the
+      <!-- default parse string (yyyy-MM-dd) is the same string. -->
+      <column name="jobs.ID" type="number" />
+      <column name="jobs.title" type="string" />
+      <column name="jobs.fk_office_id" type="number" />
+      <column name="jobs.company" type="string" />
+      <column name="jobs.location" type="string" />
+      <column name="jobs.description" type="string" />
+      <column name="jobs.visible" type="string" />
+      <column name="jobs.post_date" type="date" date-format="yyyy-MM-dd" />
+      <column name="jobs.hourly rate" type="number" />
+      <column name="office.id" type="number" />
+      <column name="office.name" type="string" />
+      <column name="office.abbrev" type="string" />
+      <column name="office.fax" type="string" />
+      <column name="office.email" type="string" />
+      <column name="office.visible" type="string" />
+    </nc-database>
+
+    <!-- The where clause in a charsep data source is a Ruby script. -->
+    <!-- It should return a boolean value. -->
+    <!-- The query MUST come after the charsep element. -->
+    <query>
+      <join from="jobs.fk_office_id" to="office.id" relation="=" />
+      <sort order="ascending" column="jobs.ID" />
+      <where><![CDATA[{office.name} != 'Chicago']]></where>
+    </query>
+  </source>
+
+  <parameters>
+    <parameter id="1" type="string" name="String Param"
+      question="What string do you like?" arity="single">
+      <default><![CDATA[Chicago]]></default>
+    </parameter>
+    <parameter id="2" type="numeric" name="Number Range"
+      question="Roughly how old are you?" arity="range">
+      <default><![CDATA[10]]></default>
+      <default><![CDATA[120]]></default>
+    </parameter>
+    <parameter id="3" type="numeric" name="Number List"
+      question="Pick a number, any number." arity="list-single">
+      <default><![CDATA[1.2]]></default>
+      <default><![CDATA[3.4]]></default>
+      <default><![CDATA[]]></default>
+    </parameter>
+    <parameter id="4" type="numeric" name="Pick One"
+      question="Pick as many numbers as you like." arity="list-multiple">
+      <default><![CDATA[1]]></default>
+      <default><![CDATA[2]]></default>
+      <default><![CDATA[3]]></default>
+      <default><![CDATA[4]]></default>
+      <default><![CDATA[5]]></default>
+      <default><![CDATA[6]]></default>
+      <default><![CDATA[7]]></default>
+      <default><![CDATA[8]]></default>
+      <default><![CDATA[9]]></default>
+      <default><![CDATA[10]]></default>
+    </parameter>
+    <parameter id="5" type="boolean" name="Yes/No"
+      question="Do you breathe regularly?" arity="single">
+      <default>yes</default>
+    </parameter>
+    <parameter id="6" type="date" name="Date"
+      question="When did you last take a shower?" arity="single">
+    </parameter>
+  </parameters>
+
+  <formulas>
+  <!-- Use RPN for formula definitions. THIS WILL CHANGE. -->
+  <!-- {jobs.ID} means database column jobs.ID -->
+  <!-- {@1} means formula with id "1" -->
+  <!-- {%report.title} means calculated value "report.title" -->
+
+    <!-- The first formula checks for nil hourly rate. If so, it -->
+    <!-- returns nil (which will become an empty NULL value). -->
+    <formula id="1" name="hourly rate / 100"><![CDATA[{jobs.hourly rate}.nil? ? nil : {jobs.hourly rate} / 100.0]]></formula>
+    <formula id="2" name="refs f1"><![CDATA[{@1}]]></formula>
+  </formulas>
+
+  <headers>
+    <section height="42">
+      <!-- This file URL is relative to the DataVision directory. -->
+      <!-- It could also be a full URL or a file path. -->
+<!--
+      <field id="15" type="image" value="file:examples/Home16.gif">
+	<bounds x="8" y="8" width="16" height="16" />
+      </field>
+-->
+      <field id="1" type="special" value="report.title">
+	<bounds x="100" y="0" width="397" height="28" />
+	<format size="24" align="center" bold="true"
+	    name="Helvetica" color="0;0;255;255" />
+	<border>
+	  <edge location="bottom" number="2" />
+	  <edge location="top" number="2" />
+	  <edge location="left" number="2" />
+	  <edge location="right" number="2" />
+	</border>
+      </field>
+      <field id="2" type="special" value="report.date">
+	<bounds x="100" y="28" width="397" height="14" />
+	<format align="center" name="Helvetica" color="0;0;255;127"
+	 format="yyyy-MM-dd" />
+      </field>
+    </section>
+  </headers>
+
+  <footers>
+    <section height="30">
+      <field id="16" type="text">
+	<text><![CDATA[Grand Total:]]></text>
+	<bounds x="250" y="8" width="150" height="20" />
+	<format align="right" size="14" bold="true" />
+	<border>
+	  <edge location="top" />
+	</border>
+      </field>
+      <field id="17" type="sum" value="13"><!-- formula in field 13 -->
+	<bounds x="400" y="8" width="100" height="20" />
+	<format align="right" size="14" bold="true" format="$#,###.00" />
+	<border>
+	  <edge location="top" />
+	</border>
+      </field>
+    </section>
+  </footers>
+
+  <page>
+
+    <!-- page headers -->
+    <headers>
+      <section height="30">
+	<field id="3" type="text">
+	  <text><![CDATA[Job #]]></text>
+	  <bounds x="10" y="0" width="40" height="20" />
+	  <format align="right" bold="true" underline="true" />
+	</field>
+	<field id="4" type="text">
+	  <text><![CDATA[Title]]></text>
+	  <bounds x="70" y="0" width="320" height="20" />
+	  <format align="left" bold="true" underline="true" />
+	</field>
+	<field id="5" type="text">
+	  <text><![CDATA[Hourly Rate]]></text>
+	  <bounds x="400" y="0" width="100" height="20" />
+	  <format align="right" bold="true" underline="true" />
+	</field>
+      </section>
+    </headers>
+
+    <!-- page footers -->
+    <footers>
+      <section height="50">
+	<field id="6" type="special" value="page.number">
+	  <bounds x="475" y="0" width="90" height="20" />
+	  <format align="right" italic="true" format="Page 0" />
+	  <border>
+	    <edge location="top" number="2"/>
+	  </border>
+	</field>
+      </section>
+    </footers>
+
+  </page>
+
+  <!-- group -->
+  <groups>
+  <group column="office.name">
+    <headers>
+      <section height="30">
+	<field id="7" type="column" value="office.name">
+	  <bounds x="0" y="0" width="250" height="20" />
+	  <format align="left" size="14" bold="true" underline="true" />
+	</field>
+      </section>
+    </headers>
+    <footers>
+      <section height="30">
+	<field id="8" type="text">
+	  <text><![CDATA[Total:]]></text>
+	  <bounds x="340" y="8" width="60" height="20" />
+	  <format align="right" size="14" bold="true" />
+	  <border>
+	    <edge location="top" />
+	  </border>
+	</field>
+	<field id="9" type="sum" value="13"><!-- formula in field 13 -->
+	  <bounds x="400" y="8" width="100" height="20" />
+	  <format align="right" size="14" bold="true" format="$#,###.00" />
+	  <border>
+	    <edge location="top" />
+	  </border>
+	</field>
+      </section>
+    </footers>
+  </group>
+  </groups>
+
+  <!-- details -->
+  <details>
+    <section height="20">
+      <field id="10" type="column" value="jobs.ID">
+	<bounds x="10" y="0" width="40" height="20" />
+	<format align="right" />
+      </field>
+      <field id="11" type="column" value="jobs.title">
+	<bounds x="70" y="0" width="275" height="20" />
+	<format align="left" />
+	<border>
+	  <edge location="right" />
+	</border>
+      </field>
+      <field id="12" type="column" value="jobs.hourly rate">
+	<bounds x="350" y="0" width="50" height="20" />
+	<format align="right" />
+      </field>
+      <field id="13" type="formula" value="1">
+	<bounds x="400" y="0" width="100" height="20" />
+	<format align="right" format="$#,###.00"/>
+      </field>
+      <field id="14" type="formula" value="2">
+	<bounds x="500" y="0" width="75" height="20" />
+	<format align="right" format="#,###.##"/>
+      </field>
+    </section>
+  </details>
+
+</report>

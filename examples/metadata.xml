@@ -1,0 +1,14 @@
+<!-- See ../metadata.dtd -->
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+      <!-- We need to define column names and types. For date columns, -->
+      <!-- we need to define a string that will be used to parse the -->
+      <!-- string so we can turn it into a java.lang.Date object -->
+      <!-- Actually, you ccould skip the date-format string; the default -->
+      <!-- parse string (yyyy-MM-dd) is the same string. -->
+  <column name="office.name" type="string" />
+  <column name="jobs.ID" type="number" />
+  <column name="jobs.title" type="string" />
+  <column name="jobs.hourly rate" type="number" />
+  <column name="jobs.post_date" type="date" date-format="yyyy-MM-dd" />
+</metadata>

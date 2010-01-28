@@ -1,0 +1,45 @@
+<!-- include_header UM xml glossary DataVision -->
+
+<h1>Parameter Value XML Files</h1>
+
+When a report needs parameter values to run, there needs to be a way to
+specify those parameter values when the report is run ``headless'' (without
+opening the design window). To do this, create a small XML file and specify
+the parameter values inside it. See <a
+href="rundv.html#usage"><sec>Usage</sec></a> for the command line argument
+format or <a href="#askparam"><sec>Asking for Parameter Values</sec></a>
+for a complete description of the three different ways to set parameter
+values.
+
+The parameter value XML file has a very simple format. For an example
+XML file, see <file>examples/parameters.xml</file>. Here is the DTD, also
+found in <file>parameter.dtd</file>.
+
+<codeblock>
+&lt;!ELEMENT parameters parameter*&gt;&lt;/p&gt;
+
+<comment>&lt;!--
+  -- A parameter has an id and contains one or more values.
+  -- The id matches a parameter id number in a report XML
+  -- file. The number of values should match the parameter's
+  -- arity (single, range, or multiple) and type (string,
+  -- number, date, or boolean).
+  --&gt;</comment>
+&lt;!ELEMENT parameter value*&gt;
+&lt;!ATTLIST parameter id CDATA #REQUIRED&gt;&lt;/p&gt;
+
+<comment>&lt;!--
+  -- A value is a text value. For booleans, &quot;t&quot;, &quot;true&quot;, &quot;y&quot;,
+  -- and &quot;yes&quot; are all interpreted as &quot;true&quot;. Anything else
+  -- is interpreted as &quot;false&quot;. Case is not significant.
+  --
+  -- Dates must be in YYYY-MM-DD format.
+  --&gt;</comment>
+&lt;!ELEMENT value (#PCDATA)&gt;
+</codeblock>
+
+If you are embedding DataVision in your own Java program and want to
+know how to ask the user for parameter values, see <a
+href="embed.html#askparam"><sec>Asking for Parameter Values</sec></a>.
+
+<!-- include_footer UM xml glossary DataVision -->

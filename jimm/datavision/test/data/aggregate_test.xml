@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report dtd-version="1.2" name="Unnamed" title="Untitled"
+	author="">
+
+    <description><![CDATA[]]></description>
+
+    <bean-scripting-framework default-language="Ruby">
+	<language name="Ruby" class="org.jruby.javasupport.bsf.JRubyEngine"/>
+    </bean-scripting-framework>
+
+    <paper name="US-Letter" orientation="portrait" />
+
+    <database driverClassName="org.postgresql.Driver"
+	    connInfo="jdbc:postgresql:dv_example"
+	    name="public" username="jimm" />
+
+    <query>
+    </query>
+
+    <parameters>
+    </parameters>
+
+    <formulas>
+    </formulas>
+
+    <usercols>
+    </usercols>
+
+    <headers>
+	<!-- One way of hiding a section. -->
+	<section height="20.0">
+	  <suppression-proc hide="true" />
+	</section>
+    </headers>
+
+    <footers>
+	<section height="20.0">
+	    <field id="24" type="sum" value="19">
+		<bounds x="53.0" y="0.0" width="120.0" height="16.0" />
+		<format size="11.0" bold="true" align="left" format="#.##" />
+	    </field>
+	</section>
+    </footers>
+
+    <page>
+	<headers>
+	    <!-- Another way of hiding a section. -->
+	    <section height="20.0" suppressed="true">
+	    </section>
+	</headers>
+	<footers>
+	    <section height="20.0" suppressed="true">
+	    </section>
+	</footers>
+    </page>
+
+    <groups>
+
+	<group groupable-id="aggregate_test.col1" groupable-type="column">
+	    <headers>
+		<section height="20.0">
+		    <field id="21" type="column" value="aggregate_test.col1">
+			<bounds x="0.0" y="0.0" width="120.0" height="16.0" />
+			<format size="11.0" bold="true" align="left" />
+		    </field>
+		</section>
+	    </headers>
+	    <footers>
+		<section height="20.0">
+		    <field id="23" type="sum" value="19">
+			<bounds x="53.0" y="0.0" width="120.0" height="16.0" />
+			<format size="11.0" bold="true" align="left" format="#.##" />
+		    </field>
+		</section>
+	    </footers>
+	</group>
+
+	<group column="aggregate_test.col2">
+	    <headers>
+		<section height="20.0">
+		    <field id="22" type="column" value="aggregate_test.col2">
+			<bounds x="0.0" y="0.0" width="120.0" height="16.0" />
+			<format size="11.0" bold="true" align="left" />
+		    </field>
+		</section>
+	    </headers>
+	    <footers>
+		<section height="20.0">
+		    <field id="25" type="sum" value="19">
+			<bounds x="53.0" y="0.0" width="120.0" height="16.0" />
+			<format size="11.0" bold="true" align="left" format="#.##" />
+		    </field>
+		</section>
+	    </footers>
+	</group>
+
+	<group groupable-id="aggregate_test.col3" groupable-type="column">
+	    <headers>
+		<section height="20.0">
+		    <field id="26" type="column" value="aggregate_test.col3">
+			<bounds x="0.0" y="0.0" width="120.0" height="16.0" />
+			<format size="11.0" bold="true" align="left" />
+		    </field>
+		</section>
+	    </headers>
+	    <footers>
+		<section height="20.0">
+		    <field id="27" type="sum" value="19">
+			<bounds x="53.0" y="0.0" width="120.0" height="16.0" />
+			<format size="11.0" bold="true" align="left" format="#.##" />
+		    </field>
+		</section>
+	    </footers>
+	</group>
+    </groups>
+
+    <details>
+	<section height="17.0">
+	    <field id="19" type="column" value="aggregate_test.value">
+		<bounds x="53.0" y="0.0" width="120.0" height="16.0" />
+	    </field>
+	</section>
+    </details>
+
+</report>

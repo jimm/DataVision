@@ -1,0 +1,283 @@
+<!-- include_header UM install embed DataVision -->
+
+<h1>Starting DataVision</h1>
+
+You can run DataVision from either your favorite window manager or the
+command line. If you start DataVision from the command line, you may run a
+report without ever opening the DataVision GUI screens. In either case, you
+will have to supply a database password if one is required for access to
+the database.
+
+When you start DataVision without specifying an existing report XML
+file, a new, empty report will be opened.
+
+<!-- ================================================================ -->
+<a id="launch" />
+<h2>Launching DataVision</h2>
+
+To start DataVision and create a new report, launch the file
+<file>datavision.sh</file> (Unix) or <file>datavision.bat</file> (Windows)
+by single- or double-clicking its icon (whichever is appropriate for your
+window manager). An empty report design window will appear and a database
+connection dialog box will open. See <a
+href="create.html#dbconn"><sec>Connecting to the Database</sec></a> for
+help filling out that dialog box.
+
+To open an existing DataVision file or files, drag them on top of the
+<file>datavision.sh</file> icon.
+
+<!-- ================================================================ -->
+<a id="runcmd" />
+<h2>Running DataVision from the Command Line</h2>
+
+To start DataVision from the command line, run the either script
+<file>datavision.sh</file> (Unix) or batch file <file>datavision.bat</file>
+(Windows). It sets the Java class path and runs DataVision, passing all
+command line arguments to the application.
+
+<!-- ................................................................ -->
+<a id="usage" />
+<h3>Usage</h3>
+
+<b>datavision.sh</b>
+[<b>-c</b> <var>file</var> | <b>-d</b> <var>file</var>
+ | <b>-E</b> <var>file</var> | <b>-f</b> <var>file</var>
+ | <b>-h</b> <var>file</var> | <b>-t</b> <var>file</var>
+ | <b>-l</b> <var>file</var> | <b>-x</b> <var>file</var> | <b>-w</b>]
+[<b>-s</b> <var>delim_char</var>]
+[<b>-r</b> <var>parameter_value_xml_file</var>]
+[<b>-n</b> | <b>-p</b> <var>db_password</var> |
+<b>-e</b> <var>data_file</var>]
+[<b>-a</b> <var>data_file_sep_char</var>]
+[<b>-g</b> <var>lang_code</var>]
+[<b>-i</b> <var>region_code</var>]
+[<b>-q</b>]
+[<b>-R</b> <var>path</var>]
+[<b>-O</b> <var>path</var>]
+[<var>xml_file</var>...]
+
+
+The first group of options tell DataVision to run the XML report file(s)
+without opening the report design GUI. Each option character represents a
+layout engine:
+
+<dl>
+    <dt><b>-c</b> <var>file</var></dt><dd> character-delimited file; default
+    delimiter character is a comma; use the <b>-s</b> option to specify a
+    different character</dd>
+
+    <dt><b>-d</b> <var>file</var></dt><dd>  DocBook</dd>
+
+    <dt><b>-E</b> <var>file</var></dt><dd>  Excel (note this is a
+      capital letter 'E', there is an unrelated option for lower-case 'e')</dd>
+
+    <dt><b>-f</b> <var>file</var></dt><dd>  PDF</dd>
+
+    <dt><b>-h</b> <var>file</var></dt><dd>  HTML</dd>
+
+    <dt><b>-t</b> <var>file</var></dt><dd>  CSS-based HTML</dd>
+
+    <dt><b>-l</b> <var>file</var></dt><dd>  LaTeX2e</dd>
+
+    <dt><b>-x</b> <var>file</var></dt><dd>  XML</dd>
+
+    <dt><b>-w</b></dt><dd>  Swing</dd>
+</dl>
+
+If you specify a layout engine you must also specify at least one XML file.
+The output file name for each report is either the optional <var>file</var>
+argument or, if that is not used, the name is created by replacing the
+<var>xml_file</var> file name's extension with one appropriate for the
+specified layout engine. The Swing layout engine doesn't produce an output
+file. See <a href="le.html"><sec>Layout Engines</sec></a> for more information
+about the output produced by each layout engine. <note>Specifying an output
+file name along with multiple report XML files makes no sense because each
+report will be output to the same file name, overwriting the previous output.
+This is most likely not what you want.</note>
+
+The <b>-s</b> option lets you specify a separator character for the
+character-delimited file layout engine. The default delimiter character is
+a comma. You may have to quote or escape your separator on the command
+line, especially if it is a space, tab, or other character that is special
+to the shell.
+
+The <b>-p</b>, <b>-n</b>, and <b>-e</b> options determine what kind of
+data source DataVision will use. These three options are mutually
+exclusive. The <b>-p</b> option lets you specify the database connection
+password; the report XML file must specify a database. The <b>-n</b> option
+tells DataVision to use the database defined in the report XML file, but
+that a password is either unnecessary or it is the empty string. Finally,
+the <b>-e</b> option tells DataVision to read data from a
+character-separated file. The default separator character is defined in the
+report XML, but may be overridden by using the <b>-a</b> option.
+
+If you specify a non-Swing layout engine you must specify a data source
+by using one of the <b>-p</b>, <b>-n</b>, or <b>-e</b> options. When you
+use the Swing layout engine and do not specify either of these options,
+DataVision will use its standard database password dialog box to ask you
+for the password.
+
+If you do not specify a layout engine and do not specify the <b>-p</b>,
+<b>-n</b>, or <b>-e</b> option, you will be asked for the database password
+when the report is opened for editing.
+
+If there are parameters in your report and you are running a ``headless''
+report (you specified a layout engine; the design window will not open),
+then you need to specify the values of the parameters that appear in the
+report. To do this, you create a small XML file and specify the parameter
+values inside it. Pass this file on the command line using the <b>-r</b>
+option. See <a href="param.html"><sec>Parameter Value XML Files</sec></a>.
+For an example file, see <file>parameters.xml</file> in the
+<dir>examples</dir> directory.
+
+If you are opening a new report for editing in the GUI (no XML file was
+specified on the command line), a database connection dialog box will
+appear before the report design window opens. See <a
+href="create.html#dbconn"><sec>Connecting to the Database</sec></a> for
+information about the database connection dialog.
+
+The <b>-g</b> and <b>-i</b> options let you override your system's default
+language and region. This affects the selection of the application's
+display strings such as menu items and dialog box prompts. Each option's
+value is a two letter code. <var>lang_code</var> is a two-letter language
+code (for example, ``en'' for English, ``fr'' for French).
+<var>region_code</var> is a two-letter region or country code; examples
+include ``US'' for the United States and ``FR'' for France. Both values are
+case-insensitive.
+
+Normally, database table and column names are quoted when necessary (when
+the case of the name does not match the case the JDBC driver uses when it
+performs a query). Using the <b>-q</b> flag turns off this quoting, except
+for names that contain spaces which are always quoted.
+
+The <b>-R</b> and <b>-O</b> options let you specify a starting
+reporting and/or output directory on the command
+line. Also, report and output directories are
+remembered using the java preferences API which stops
+the JFileChooser directory being started in the users
+home directory each time. This is very helpful for shared
+report repositories.
+
+<!-- ................................................................ -->
+<h3>Examples</h3>
+
+Create a new report and start editing it:
+
+<codeblock>
+datavision.sh
+</codeblock>
+
+Open an existing report and start editing it:
+
+<codeblock>
+datavision.sh report_file.xml
+</codeblock>
+
+Open an existing report that requires no password, run it and generate
+the LaTeX file report_file.tex:
+
+<codeblock>
+datavision.sh -l -n report_file.xml
+</codeblock>
+
+Open an existing report that asks for parameter values but requires no
+password, run it and generate the LaTeX file my_output.tex:
+
+<codeblock>
+datavision.sh -l my_output.tex -r parameters.xml -n report_file.xml
+</codeblock>
+
+Open an existing report that requires the password ``fred'', run it and
+generate the comma-separated file output.csv:
+
+<codeblock>
+datavision.sh -c output.csv -p fred report_file.xml
+</codeblock>
+
+Open an existing report that requires the password ``fred'', run it and
+generate the tab-separated file report_file.tab:
+
+<codeblock>
+datavision.sh -c -s &quot;&nbsp;&quot; -p fred report_file.xml
+</codeblock>
+
+(There should be a tab character between the double quotes.)
+
+Open an existing report that reads data from the file <file>data.csv</file>
+and outputs it to PDF. The comma separator character defined in the report
+XML file will be used.
+
+<codeblock>
+datavision.sh -f -e data.csv report_file.xml
+</codeblock>
+
+<!-- ================================================================ -->
+<a id="fontprobs" />
+<h2>Font Display Problems</h2>
+
+<b>Report Output</b> If you don't see the font you expect in report output,
+make sure the layout engine you are using supports that font. In the
+sections <a href="le.html#list"><sec>Available Layout Engines</sec></a> and
+<a href="le.html#supported"><sec>Supported Features</sec></a>, the layouts
+and their  available fonts or formatting options are discussed.
+
+<b>DataVision GUI</b> Many languages uses non-Latin characters. For
+example, Bulgarian uses Cyrillic characters. If these characters do not
+display properly, you may need to upgrade your version of Java. Tony Tomov
+(tomovtony@yahoo.com), our Bulgarian translator, did not see Cyrillic
+characters properly until he upgraded to Java 1.3. When he upgraded to Java
+1.4, he noticed that Cyrillic support had improved.
+
+<!-- ================================================================ -->
+<a id="fonterr" />
+<h2>Font Error Messages</h2>
+
+On Mac OS X, after upgrading to Java 1.4.1 via the Apple software update
+tool I have started seeing the same error message every time I launch
+DataVision (the long lines have been broken up):
+
+<codeblock>
+2003-06-11 17:09:10.864 java[4080] Font GB18030Bitmap: in
+_readBasicMetricsForSize, claims 0 max advance but is fixed-pitch.
+2003-06-11 17:09:10.942 java[4080] Warning: Font LucidaSans-TypewriterBold
+claims fixed-pitch with 0 max advance!
+</codeblock>
+
+These error messages appear harmless.
+
+On some Linux systems (for example, Red Hat 7.<var>x</var>), when you
+start DataVision a whole slew of identical error messages are generated
+that look something like this:
+
+<codeblock>
+Font specified in font.properties not found
+[--symbol-medium-r-normal--*-%d-*-*-p-*-adobe-fontspecific]
+</codeblock>
+
+These error messages are harmless. There is at least one way to get rid of
+them: edit the file <file>$JAVA_HOME/jre/lib/font.properties</file> and
+replace all occurrences of ``-adobe-'' with ``-urw''. Note that you may
+need to be root to edit this file.
+
+Tom Van Overbeke (tom.van.overbeke@pandora.be) describes another way to get
+rid of the messages: ``I checked all the fonts.dir available on my system,
+there were a dozen of them. then I grepped through all of them to check for
+"standard symbols l", and i found the entry in the file
+<file>/usr/share/fonts/default/Type1/fonts.dir</file>. The entry was:
+
+<codeblock>
+s050000l.pfb -URW-Standard Symbols
+L-medium-r-normal--0-0-0-0-p-0-urw-fontspecific
+</codeblock>
+
+``and I changed it to:
+
+<codeblock>
+s050000l.pfb -URW-Standard Symbols
+L-medium-r-normal--0-0-0-0-p-0-adobe-fontspecific
+</codeblock>
+
+``Then I quit X, stopped and restarted xfs and restarted X, and it
+worked.''
+
+<!-- include_footer UM install embed DataVision -->

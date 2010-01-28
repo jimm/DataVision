@@ -1,0 +1,39 @@
+TranslateOMatic is a program for translating application strings. It
+displays the English strings and lets you edit your translations for each
+string.
+
+The program reads the properties found in DataVision.jar and, on exit,
+creates new files in the same directory as that jar file. If you start up
+TranslateOMatic again, it will read your strings from the new files
+(instead of the older version in DataVision.jar). Those files are what you
+can send to me (preferably within a .zip or .tar.gz file). You can create
+new tranlsations, too.
+
+Use the script bin/translate.sh or bin\translate.bat to launch
+TranslateOMatic. You need to specify your language and country codes on the
+command line. For example,
+
+    bin/translate.sh es MX
+
+You don't have to explicitly save your work; the strings are automatically
+saved when you exit TranslateOMatic. They are not saved directly into
+DataVision.jar, but into three separate, new .properties files.
+
+Try the default character encoding (ISO-8859-1) first. Run TranslateOMatic
+and quit, letting it save your strings to the files. Run TranslateOMatic
+again and look at your strings. If they do not look right, you can specify
+an encoding on the command line, like this:
+
+    translate.sh es MX UTF-8
+
+Possible values are US_ASCII, ISO-8859-1 (the default), UTF-8, UTF-16BE,
+UTF-16LE, or UTF-16.
+
+Another script (bin/translation_to_jar.sh or bin\translation_to_jar.bat)
+puts the new properties files back into DataVision.jar. That is not
+necessary if you are just translating, but is useful if you want to run
+DataVision and see the strings you have translated.
+
+I plan to make a few improvements to TranslateOMatic. For example, it
+lets you edit strings in the menu file that should not be translated (the
+"action" and "radio_group" strings, for example).

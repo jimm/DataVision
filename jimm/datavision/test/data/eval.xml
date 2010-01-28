@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This file can read the data file charsep_data.csv -->
+
+<!-- <!DOCTYPE report SYSTEM "report.dtd"> -->
+
+<!-- All sizes are in points (72 points == 1 inch). -->
+
+<!-- All coordinates and lengths are floating point, but may be truncated -->
+<!-- by layout engines. -->
+
+<!-- Colors are stored as "red;green;blue;alpha". Each component is an -->
+<!-- integer from 0 to 255. -->
+
+<!-- You will have to edit the image URL below. Search for "file:" -->
+
+<report dtd-version="1.2"
+	name="example1" title="Example Report" author="Jim Menard">
+
+  <description><![CDATA[]]></description>
+
+  <bean-scripting-framework default-language="Ruby">
+    <language name="Ruby" class="org.jruby.javasupport.bsf.JRubyEngine"/>
+  </bean-scripting-framework>
+
+  <!-- Default orientation is portrait. -->
+  <paper name="US-Letter" />
+
+  <!-- Data source. In this case, a comma-separated file. This -->
+  <!-- definition describes the file charsep_data.csv -->
+  
+  <source>
+
+    <!-- The column names happen to be the same as database table.column -->
+    <!-- names, but that's just a coincidence. OK, I'm lazy. -->
+    <charsep sep-char=",">
+      <column name="table.group" type="number" />
+      <column name="table.amount" type="number" />
+    </charsep>
+
+  </source>
+
+  <formulas>
+    <formula id="1" name="header"><![CDATA[sum = 0; count = 0]]></formula>
+    <formula id="2" name="detail"><![CDATA[sum += {table.amount}; count += 1]]></formula>
+    <formula id="3" name="footer"><![CDATA[sum / count]]></formula>
+  </formulas>
+
+  <!-- group -->
+  <groups>
+  <group groupable-id="table.group" groupable-type="column">
+    <headers>
+      <section height="30">
+      <field id="1" type="formula" value="1">
+	<bounds x="8" y="8" width="16" height="16" />
+      </field>
+      </section>
+    </headers>
+    <footers>
+      <section height="30">
+      <field id="3" type="formula" value="3">
+	<bounds x="8" y="8" width="16" height="16" />
+      </field>
+      </section>
+    </footers>
+  </group>
+  </groups>
+
+  <!-- details -->
+  <details>
+    <section height="20">
+      <field id="100" type="column" value="table.group">
+	<bounds x="0" y="0" width="40" height="20" />
+      </field>
+      <field id="101" type="column" value="table.amount">
+	<bounds x="100" y="0" width="40" height="20" />
+      </field>
+      <field id="2" type="formula" value="2">
+	<bounds x="200" y="0" width="40" height="20" />
+      </field>
+    </section>
+  </details>
+
+</report>

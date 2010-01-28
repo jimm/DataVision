@@ -1,0 +1,210 @@
+<!-- Version 1.2 -->
+<!-- NOTE: THIS DTD IS ONLY A GUIDE. IT MAY NOT BE CORRECT. -->
+<!-- DON'T TRUST IT. -->
+
+<!-- All sizes are in points (72 points == 1 inch) -->
+
+<!-- Color is stored as "red;green;blue;alpha". Each component is an -->
+<!-- integer from 0 to 255. -->
+
+<!ELEMENT report	(description, bean-scripting-framework?, formula?,
+			 paper, field?, usercols?, source, subreports?,
+			 parameters?, formulas?, headers?, footers?, page?,
+			 groups?, details)
+>
+<!ATTLIST report	dtd-version	CDATA	""
+			name		CDATA	""
+			title		CDATA	""
+			author		CDATA	""
+>
+
+<!ELEMENT bean-scripting-framework	language*>
+<!ATTLIST bean-scripting-framework
+			default-language CDATA	#REQUIRED>
+
+<!ELEMENT language EMPTY>
+<!ATTLIST language
+			name		CDATA	#REQUIRED
+			class		CDATA	#REQUIRED
+>
+
+<!-- With description, PCDATA is text of report description -->
+<!ELEMENT description	(#PCDATA)>
+
+<!-- Default paper orientation is portrait, but I've forgotten how to -->
+<!-- specify that in a DTD. -->
+<!ELEMENT paper EMPTY>
+<!ATTLIST paper		name		CDATA	#REQUIRED
+	  orientation	(portrait|landscape) "portrait"
+>
+
+<!ELEMENT parameters	(parameter*)>
+<!ELEMENT parameter	(default*)>
+<!ATTLIST parameter	id		CDATA	#REQUIRED
+			type		(boolean
+					|string
+					|numeric
+					|date)	#REQUIRED
+			name		CDATA	#REQUIRED
+			question	CDATA	#REQUIRED
+			arity		(single
+					|range
+					|list-single
+					|list-multiple)	#REQUIRED
+>
+
+<!ELEMENT default	(#PCDATA)>
+
+<!ELEMENT formulas	(formula*) >
+
+<!-- With formula, PCDATA is text of formula -->
+<!ELEMENT formula	(#PCDATA)>
+<!-- If language is not given, it defaults to report's default lanuage -->
+<!ATTLIST formula	id		CDATA	#REQUIRED
+			name		CDATA	#REQUIRED
+			language	CDATA
+>
+
+<!ELEMENT usercols	(usercol*) >
+
+<!-- With user-defined columns, PCDATA is text of formula -->
+<!ELEMENT usercol	(#PCDATA)>
+<!ATTLIST usercol	id		CDATA	#REQUIRED
+			name		CDATA	#REQUIRED
+>
+
+<!ELEMENT source	(database|charsep) query?>
+
+<!ELEMENT database EMPTY >
+<!ATTLIST database	driverClassName	CDATA	#REQUIRED
+			connInfo	CDATA	#REQUIRED
+			name		CDATA	#REQUIRED
+			username	CDATA	#REQUIRED
+>
+
+<!-- subreport-joins only appear within a query inside a subreport -->
+<!ELEMENT query		(join|where|sort|subreport-joins)*>
+
+<!-- subreport-joins only appear within a query inside a subreport -->
+<!ELEMENT subreport-joins	join*>
+
+<!ELEMENT join EMPTY >
+<!ATTLIST join		from		CDATA	#REQUIRED
+			to		CDATA	#REQUIRED
+			relation	CDATA	#REQUIRED
+>
+
+<!-- With where clause, PCDATA is text of where clause -->
+<!ELEMENT where		(#PCDATA)>
+
+<!ELEMENT sort EMPTY >
+<!ATTLIST sort		column		CDATA	#REQUIRED
+			order		(ascending|descending)	"ascending"
+>
+
+<!ELEMENT charsep	(column*|metadata-url)>
+<!ATTLIST charsep	sep-char	CDATA	#IMPLIED
+>
+
+<!ELEMENT column EMPTY >
+<!ATTLIST column	name		CDATA	#REQUIRED
+			type		(string | number | date)
+			date-format	CDATA
+>
+
+<!-- With metadata-url, PCDATA is the URL from which we read an XML file -->
+<!-- describing columns (same as using inline "column" elements). -->
+<!-- See metadata.dtd for the format of that file. -->
+<!ELEMENT metadata-url	(#PCDATA) >
+
+<!ELEMENT subreports	subreport*>
+<!ELEMENT subreport	query details>
+<!ATTLIST subreport	id		CDATA	#REQUIRED>
+
+<!ELEMENT page		(headers?,footers?) >
+
+<!ELEMENT headers	(section*) >
+
+<!ELEMENT footers	(section*) >
+
+<!ELEMENT groups	(group*) >
+
+<!ELEMENT group		(headers?, footers?)>
+<!-- column is deprecated, replaced by groupable-id and -->
+<!--  groupable-type. For now, both will work. -->
+<!ATTLIST group		column		CDATA	#REQUIRED
+			groupable-id	CDATA	#REQUIRED
+			groupable-type	CDATA	#REQUIRED
+			sort-order	(asc|desc)
+>
+
+<!ELEMENT details	(section*)>
+
+<!ELEMENT section	((field|line)*|suppression-proc?) >
+<!ATTLIST section	height		CDATA	#REQUIRED
+			pagebreak	(true|false) "false"
+>
+
+<!ELEMENT suppression-proc (formula?) >
+<!ATTLIST suppression-proc state	(hide|show|proc) #REQUIRED
+>
+
+<!ELEMENT field		(bounds|format|border)*>
+<!ATTLIST field		type		(column
+					|formula
+					|parameter
+					|text
+					|special
+					|image
+					|sum
+					|average
+					|count
+					|min
+					|max
+					|stdev)
+						#REQUIRED
+			value		CDATA	#REQUIRED
+>
+<!ATTLIST field		visible		(true|false) "true"
+>
+
+<!ELEMENT bounds	EMPTY>
+<!ATTLIST bounds	x		CDATA	#REQUIRED
+			y		CDATA	#REQUIRED
+			width		CDATA	#REQUIRED
+			height		CDATA	#REQUIRED
+>
+
+<!ELEMENT format	EMPTY>
+<!ATTLIST format	font		CDATA #IMPLIED
+			size		CDATA #IMPLIED
+			bold		CDATA #IMPLIED
+			italic		CDATA #IMPLIED
+			underline	CDATA #IMPLIED
+			wrap		CDATA #IMPLIED
+			color		CDATA #IMPLIED
+			align		(left|right|center) "right"
+>
+
+<!-- A border has from one to four edges -->
+<!ELEMENT border (edge?,edge?,edge?,edge?) >
+<!ATTLIST border	color		CDATA #IMPLIED
+>
+
+<!ELEMENT edge		EMPTY>
+<!ATTLIST edge		location	(top|left|bottom|right)	#REQUIRED
+			style		(line|dot|dash) "line"
+			thickness	CDATA #IMPLIED
+			number		CDATA #IMPLIED
+>
+
+<!ELEMENT line		(point,point) >
+<!ATTLIST line		thickness	CDATA #IMPLIED
+			color		CDATA #IMPLIED
+			visible		(true|false) "true"
+>
+
+<!ELEMENT point		EMPTY>
+<!ATTLIST point		x		CDATA	#REQUIRED
+			y		CDATA	#REQUIRED
+>

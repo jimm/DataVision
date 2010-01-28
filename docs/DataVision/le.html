@@ -1,0 +1,231 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+
+<head>
+  <title>DataVision User's Manual</title>
+  <link rel='stylesheet' href='style.css' type='text/css'>
+
+</head>
+
+<body>
+
+<table width='100%'>
+<tr><td><a href="gui.html">&lt;= Previous</a> | <a href="xml.html">Next =&gt;</a> | <a href="DataVision.html">Table of Contents</a></td><td align='right'>
+  <span class='header'>DataVision User's Manual</span>
+</td></tr>
+</table>
+<hr>
+<!-- **************************************************************** -->
+
+<h1>10 Layout Engines</h1>
+<p>
+DataVision uses <span class="firstterm">layout engines</span> to generate
+different output formats. A layout engine is responsible for creating
+output when a report runs. That output may be a file, a window on a screen,
+or an interpretive dance (<span class="note">not yet implemented</span>).
+</p>
+
+<!-- ================================================================ -->
+<a name="list">
+<h2>10.1 Available Layout Engines</h2>
+<p>
+<b>DocBook</b> This engine produces a DocBook document with a
+<span class="file">.sgml</span> file name extension.
+</p>
+
+<p>
+<b>HTML</b> The HTML layout engine produces an HTML file. It contains a
+single table that displays the report data.
+</p>
+
+<p>
+<b>Java Swing</b> This layout engine does not produce a file. Rather, it
+displays the results of the report in a GUI window. This is the layout
+engine used when you select <span class="guimenuitem">Run Report...</span> from
+the <span class="guimenu">Report</span> menu.
+</p>
+
+<p>
+<b>LaTeX</b> This layout engine produces a <span class="file">.tex</span> file
+containing LaTeX2e commands. These commands can be further processed to
+create a <span class="file">.dvi</span> file containing device independent display
+commands. Many different programs are available to display this file, print
+it, or turn this file into PDF, HTML, text, PostScript, and more.
+</p>
+
+<p>
+The only paper sizes supported by the LaTeX layout engine are those
+supported by LaTeX2e: A4, A5, B5, US Letter, US Legal, and Executive. Any
+other paper selection in DataVision will use the default LaTeX paper size,
+which is US Letter.
+</p>
+
+<p>
+<b>Excel</b> Generates a Microsoft Excel file.  Uses the Jakarta POI
+library (so subject to its abilities and limitations).
+</p>
+
+<p>
+<b>PDF</b> This one generates a PDF file with a <span class="file">.pdf</span> file
+name extension. It uses Bruno Lowagie's iText Java library.
+</p>
+
+<p>
+The only fonts supported by the PDF layout engine are the 14 Type 1
+&quot;base&quot; fonts:
+</p>
+
+<ul>
+  <li>Courier</li>
+  <li>Courier-Bold</li>
+  <li>Courier-BoldOblique</li>
+  <li>Courier-Oblique</li>
+  <li>Helvetica</li>
+  <li>Helvetica-Bold</li>
+  <li>Helvetica-BoldOblique</li>
+  <li>Helvetica-Oblique</li>
+  <li>Times-Roman</li>
+  <li>Times-Bold</li>
+  <li>Times-Italic</li>
+  <li>Times-BoldItalic</li>
+  <li>Symbol</li>
+  <li>ZapfDingbats</li>
+</ul>
+
+<p>
+The Java font family name is used to pick the PDF font. The family can be the
+font name ("Helvetica", "Arial") or a logical name ("sansserif", "serif",
+"monospace"). "Helvetica" or "sansserif" map to Helvetica, "Courier" or
+"monspace" map to Courier, "Symbol" and "ZapfDingbats" map to themselves, and
+everything else (including "serif", for example) maps to Times.
+</p>
+
+<p>
+<b>Tab- and comma-delimited</b> Generates either tab- or comma-delimited
+ASCII data files. Comma-delimited file names usually use end with
+<span class="file">.csv</span>; tab-delimited files often end with <span class="file">.txt</span> or
+<span class="file">.tab</span>.
+</p>
+
+<p>
+<b>XML</b> The XML layout engine produces---surprise---XML. Aside from
+being buzzword of the month, XML is a useful text-based data format.
+</p>
+
+<!-- ================================================================ -->
+<a name="supported">
+<h2>10.2 Supported Features</h2>
+<p>
+This tables shows which layout engines support which features. &quot;Y&quot; = yes,
+&quot;N&quot; = no, &quot;P&quot; = partial support, &quot;T&quot; = text only (for example, an
+image's URL instead of the image itself).
+</p>
+
+<center>
+<table border="1">
+<tr>
+    <th>Name</th>
+    <th>Images</th>
+    <th>Borders</th>
+    <th>Lines</th>
+    <th>Formatting</th>
+    <th>Color</th>
+    <th>Alpha (Transparency)</th>
+</tr>
+<tr>
+    <td>Char Sep<br>(tab, comma)</td>
+    <td class="le-feature-cell">N</td>
+    <td class="le-feature-cell">N</td>
+    <td class="le-feature-cell">N</td>
+    <td class="le-feature-cell">N</td>
+    <td class="le-feature-cell">N</td>
+    <td class="le-feature-cell">N</td>
+</tr>
+<tr>
+    <td>DocBook</td>
+    <td class="le-feature-cell">N</td>
+    <td class="le-feature-cell">N</td>
+    <td class="le-feature-cell">N</td>
+    <td class="le-feature-cell">P</td>
+    <td class="le-feature-cell">N</td>
+    <td class="le-feature-cell">N</td>
+</tr>
+<tr>
+    <td>HTML</td>
+    <td class="le-feature-cell">Y</td>
+    <td class="le-feature-cell">P</td>
+    <td class="le-feature-cell">N</td>
+    <td class="le-feature-cell">Y</td>
+    <td class="le-feature-cell">Y</td>
+    <td class="le-feature-cell">N</td>
+</tr>
+<tr>
+    <td>LaTeX</td>
+    <td class="le-feature-cell">N</td>
+    <td class="le-feature-cell">Y</td>
+    <td class="le-feature-cell">Y</td>
+    <td class="le-feature-cell">Y</td>
+    <td class="le-feature-cell">N</td>
+    <td class="le-feature-cell">N</td>
+</tr>
+<tr>
+    <td>PDF</td>
+    <td class="le-feature-cell">Y</td>
+    <td class="le-feature-cell">Y</td>
+    <td class="le-feature-cell">Y</td>
+    <td class="le-feature-cell">P</td>
+    <td class="le-feature-cell">Y</td>
+    <td class="le-feature-cell">N</td>
+</tr>
+<tr>
+    <td>Swing</td>
+    <td class="le-feature-cell">Y</td>
+    <td class="le-feature-cell">Y</td>
+    <td class="le-feature-cell">N</td>
+    <td class="le-feature-cell">Y</td>
+    <td class="le-feature-cell">Y</td>
+    <td class="le-feature-cell">Y</td>
+</tr>
+<tr>
+    <td>XML</td>
+    <td class="le-feature-cell">T</td>
+    <td class="le-feature-cell">N</td>
+    <td class="le-feature-cell">N</td>
+    <td class="le-feature-cell">N</td>
+    <td class="le-feature-cell">N</td>
+    <td class="le-feature-cell">N</td>
+</tr>
+<tr>
+    <td>Excel</td>
+    <td class="le-feature-cell">?</td>
+    <td class="le-feature-cell">?</td>
+    <td class="le-feature-cell">?</td>
+    <td class="le-feature-cell">?</td>
+    <td class="le-feature-cell">?</td>
+    <td class="le-feature-cell">?</td>
+</tr>
+</table>
+</center>
+
+<!-- ================================================================ -->
+<a name="createnew">
+<h2>10.3 Creating a New Layout Engine</h2>
+<p>
+UTSL (<span class="note">Use The Source, Luke</span>). The best documentation for
+creating a layout engine is the Java API documentation for the
+<span class="class">LayoutEngine</span> class and the source code for the other layout
+engines.
+</p>
+
+<!-- **************************************************************** -->
+<hr>
+<table width='100%'>
+<tr><td><a href="gui.html">&lt;= Previous</a> | <a href="xml.html">Next =&gt;</a> | <a href="DataVision.html">Table of Contents</a></td><td align='center'>
+&nbsp;
+</td><td align='right'>
+    <span class='footer'>DataVision User's Manual</span>
+</td></tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,262 @@
+<!-- include_header UM embed anatomy DataVision -->
+
+<h1>Creating a New Report</h1>
+
+To create a new report, either start DataVision without specifying a
+report XML file or select <guimenuitem>New</guimenuitem> from the
+<guimenu>File</guimenu> menu.
+
+Reports retrieve data from <firstterm>data sources</firstterm>. A data
+source can be either a database or a comma- or tab-separated file. Each
+data source has a different way of specifying the metadata (tables,
+columns, and column data types) available for reports.
+
+A database data source reads table and column metadata from the database.
+
+A ``charsep'' data source reads column metadata from the report XML file,
+either directly or indirectly. See <a
+href="xml.html#element-charsep"><sec>charsep</sec></a> for the gory details.
+When using a charsep data source, the ``Select Records'' text which is
+normally added to a SQL query's WHERE clause is instead evaluated as a <a
+href="anatomy.html#bsf"><sec>Bean Scripting Framework</sec></a> script. The
+result is used to determine if a record is used or ignored.
+
+<note>Not yet implemented:</note> When you first create a new report,
+DataVision asks you which kind of data source you will be using.
+
+<!-- ================================================================ -->
+<a id="dbconn" />
+<h2>Connecting to a Database</h2>
+
+When you first create a new report, a dialog box will appear asking you
+how to connect to the database. Either copy this information from an
+existing report (everything but the password, which is not stored with a
+report) or specify the information directly. In either case, you will be
+asked to supply a database password each time you open a report.
+
+To copy the database connection information, click the <guibutton>Copy
+Settings...</guibutton> button. An ``Open File'' dialog box will let you
+choose a report XML file from which the settings will be copied.
+
+There are five pieces of information you need to supply: the JDBC driver
+class name, the connection info string, the database name, your database
+user name, and your database password. When saving a report, all but the
+password are stored in the report XML file.
+
+<b>JDBC driver class name</b> You should be able to find the JDBC driver
+class name from your database driver documentation. There are examples for
+some databases below.
+
+<b>Connection info string</b> You should be able to find the JDBC
+connection info string from your database driver documentation. It will
+probably contain either the name of the database schema or the ``sid''.
+Sometimes it is the same as the database name. As an example, to connect to
+my PostgreSQL database named ``jobs'' I use the driver class name
+<class>org.postgresql.Driver</class> and the connection info string
+``jdbc:postgresql:jobs'' (without the quotes).
+
+<b>Database name</b> Sometimes called the schema name, the database name
+refers to a set of database tables. (This isn't the name ``Oracle'' or
+``PostgreSQL''.) When DataVision asks the database for the list of table
+names, it uses the database name to specify which tables to return.
+
+<b>Database user name</b> This is the user name you use to connect to
+the database. It is not necessarily the same as your computer login
+name.
+
+<b>Database password</b> You must enter the database password each time
+you open a report.
+
+<!-- ................................................................ -->
+<a id="postgresql" />
+<h3>PostgreSQL</h3>
+
+The document <a href="http://jdbc.postgresql.org/doc.html">PostgreSQL
+JDBC Documentation</a> describes the format of the connection string.
+
+<ul>
+
+    <li>jdbc:postgresql:<var>database</var></li>
+
+    <li>jdbc:postgresql://<var>host</var>/<var>database</var></li>
+
+    <li>jdbc:postgresql://<var>host</var>:<var>port</var>/<var>database</var></li>
+
+</ul>
+
+If left out, <var>host</var> defaults to localhost (not 127.0.0.1) and
+<var>port</var> to PostgreSQL's default port number (normally 5432, but
+configurable at build time).
+
+The database name (or schema name) in newer versions of PostgreSQL seems to
+default to ``public''. You may want to try that in the database name field.
+I admin that ``Schema Name'' may have been a better name for that field.
+For example, my connection info string is ``jdbc:postgresql:dv_example''
+and the database name I use is ``public''.
+
+<!-- ................................................................ -->
+<a id="mysql" />
+<h3>MySQL</h3>
+
+The old MM.MySQL driver is now the official driver for MySQL. It's name and
+Web locations have changed. It is now called Connector/J and it is
+available at <a href="http://www.mysql.com/products/connector-j/">the
+Connector/J Web site</a>.
+
+<b>Older notes:</b>
+
+If you use either the <file>mm.mysql-2.0.X-bin.jar</file> or
+<file>mysql_comp.jar</file> drivers, the driver class name should be
+``org.gjt.mm.mysql.Driver''.
+
+The format of the connection string must be
+``jdbc:mysql://<var>host</var>/<var>database</var>''. The host name is not
+optional. If the MySQL database is on the same machine as DataVision, use
+the host name ``localhost''.
+
+One user reported trouble with the MySQL JDBC drivers until he switched
+to version 2.0.11. The latest version of the MySQL JDBC driver is available
+on its <a
+href="http://sourceforge.net/project/showfiles.php?group_id=15923">SourceForge
+project page</a>.
+
+<!-- ................................................................ -->
+<a id="oracle" />
+<h3>Oracle</h3>
+
+Try the driver class name ``oracle.jdbc.driver.OracleDriver''.
+
+The connection info string will depend upon the type of JDBC driver you are
+using. For the thin driver, try
+``jdbc:oracle:thin:@<var>host</var>:1521:<var>sid</var>''. <var>host</var>
+can be ``localhost'' or ``127.0.0.1'' if the Oracle database is running on
+the same computer. 1521 is the default port number; that will only be
+different if the Oracle database was configured to use a different one. The
+``sid'' is a string that identifies where to find the database. It is not
+necessarily the same as the database name.
+
+<!-- ................................................................ -->
+<a id="odbc" />
+<h3>ODBC</h3>
+
+The vanilla JDBC-ODBC bridge should work just fine.
+
+From a post on the Usenet news group comp.lang.java.databases:
+
+<blockquote>
+
+The <a href="http://industry.java.sun.com/products/jdbc/drivers">Sun driver
+list</a> contains all the SQLServer JDBC drivers. You might want to have a
+look at the Merant DataDirect JDBC drivers. Free eval type 3 and 4 drivers
+are available at <a
+href="http://www.merant.com/datadirect/">www.merant.com/datadirect</a>.
+
+</blockquote>
+
+I have read that Microsoft is developing a type-4 JDBC driver. It was in
+beta as of February 2002, and was available for download from their SQL
+Server pages.
+
+<!-- ................ -->
+<a id="easysoft" />
+<h4>Easysoft</h4>
+
+John Kos of <a href="http://www.easysoft.com/">Easysoft</a> writes:
+
+<blockquote>
+
+The Easysoft JDBC-ODBC Bridge server software is predominantly used to
+access Windows databases such as MS Access and SQL Server or databases
+hosted on other platforms for which a JDBC driver is not available i.e.
+ISAM files. In these circumstances the server component will be installed
+on a Windows device. (Note: unlike the Sun bridge Easysoft is a type 3
+driver and therefore DataVision can run on any remote device, no local ODBC
+driver is required).
+
+To configure DataVision you will need:
+
+<dl>
+
+<dt><var>SERVER</var></var></dt>
+<dd>the name of the Windows server hosting the Easysoft JDBC-ODBC
+Bridge</dd>
+
+<dt><var>DSN</var></dt>
+<dd>the name of the target datasource on server_name</dd>
+
+<dt><var>LOGIN</var></dt>
+<dd>a Windows user for <var>SERVER</var> (with correct privs)</dd>
+
+<dt><var>PASSWORD</var></dt>
+<dd>the Windows password for the above user</dd>
+
+</dl>
+
+<b>Adding the driver to the class path</b>
+
+Copy the file <file>EJOB.jar</file> to the client device and add to the
+<code>CLASSPATH</code> by editing <file>Datavision.bat</file>. By default
+<file>EJOB.jar</file> will be found in <file><dir>C:\Program
+Files\Easysoft\Easysoft JDBC-ODBC Bridge\jars\</dir>EJOB.jar</file>.
+
+<b>Establishing the connection</b>
+
+<dl>
+
+<dt>Driver Name</dt><dd>easysoft.sql.JobDriver</dd>
+
+<dt>Connection Info</dt>
+<dd>jdbc:easysoft://<var>SERVER</var>/<var>DSN</var>:logonuser=<var>LOGIN</var>:logonpassword=<var>PASSWORD</var></dd>
+
+<dt>Database Name</dt><dd><var>DSN</var></dd>
+
+<dt>Username</dt><dd><var>LOGIN</var></dd>
+
+<dt>Password</dt><dd><var>PASSWORD</var></dd>
+
+</dl>
+
+
+</blockquote>
+
+<!-- ................................................................ -->
+<a id="informix" />
+<h3>Informix</h3>
+
+One user reports success with a jar file named <file>ifxjdbc.jar</file>.
+This jar file is available from <a
+href="http://www.informix.com/evaluate/">www.informix.com/evaluate</a>,
+though you must be registered.
+
+<!-- ================================================================ -->
+<a id="addingfnt" />
+<h2>Adding Fields and Text</h2>
+
+This section gives a brief description of how to add database fields and
+text to a report. For details, see <a href="edit.html"><sec>Editing a
+Report</sec></a>.
+
+To add database fields to a report, select <guimenuitem>Database
+Field...</guimenuitem> from the <guimenu>Insert</guimenu> menu. The Field
+Picker window will open. Notice that the first item in the window is
+``Database Fields'' and the last item is ``All Database Fields''. In a
+newly created report, the first ``Database Fields'' item will be empty,
+because it displays database columns that are already in the report.
+
+Double-click ``All Database Fields''. A list of all of the database's
+tables will appear. Double-click on a table to reveal the columns within
+that table.
+
+Drag a column name from the Field Picker window into the report. As an
+added bonus, when you drag a database column into a ``Detail'' section, the
+name of the column will automagically appear in the ``Page Header''
+section.
+
+To add text to a report, select <guimenuitem>Text</guimenuitem> from the
+<guimenu>Insert</guimenu> menu. The cursor will change to a text cursor.
+Click anywhere on the report, and a new empty text field will appear. Start
+typing the text.
+
+To finish entering text, click anywhere outside of the text field.
+
+<!-- include_footer UM embed anatomy DataVision -->

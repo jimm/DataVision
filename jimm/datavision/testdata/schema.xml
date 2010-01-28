@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<schema name="dv_example">
+  <table name="office">
+    <column name="id" type="integer" primary-key="true" />
+    <column name="name" type="string" size="32" />
+    <column name="abbrev" type="string" size="8" />
+    <column name="fax" type="string" size="32" />
+    <column name="email" type="string" size="64" />
+    <column name="visible" type="boolean" not-null="true" />
+  </table>
+  <table name="jobs">
+    <column name="ID" type="integer" primary-key="true" />
+    <column name="title" type="string" size="256" />
+    <column name="fk_office_id" type="integer" />
+    <column name="company" type="string" size="256" />
+    <column name="location" type="string" size="256" />
+    <column name="description" type="string" size="1024" />
+    <column name="visible" type="boolean" not-null="true" />
+    <column name="post_date" type="date" />
+    <column name="hourly rate" type="integer" />
+  </table>
+  <table name="aggregate_test">
+    <column name="col1" type="string" size="1" />
+    <column name="col2" type="string" size="1" />
+    <column name="value" type="integer" />
+  </table>
+  <table name="ALL_CAPS">
+    <column name="COL1" type="integer" />
+    <column name="COL2" type="string" size="8" />
+  </table>
+</schema>

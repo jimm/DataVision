@@ -1,0 +1,19 @@
+<!ELEMENT parameters	parameter*>
+
+<!--
+  -- A parameter has an id and contains one or more values. The id matches
+  -- a parameter id number in a report XML file. The number of values
+  -- should match the parameter's arity (single, range, or multiple) and
+  -- type (string, number, date, or boolean).
+  -->
+<!ELEMENT parameter	value*>
+<!ATTLIST parameter	id	CDATA #REQUIRED>
+
+<!--
+  -- A value is a text value. For booleans, "t", "true", "y", and "yes" are
+  -- all interpreted as "true". Anything else is interpreted as "false".
+  -- Case is not significant.
+  --
+  -- Dates must be in YYYY-MM-DD format.
+  -->
+<!ELEMENT value		(#PCDATA)>

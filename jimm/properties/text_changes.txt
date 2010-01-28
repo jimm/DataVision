@@ -1,0 +1,186 @@
+1.0.0:
+
+Lots of changes based on move from "Subtotal" and "Running Subtotal" to "Aggregate".
+
+0.9.4:
+
+datavision.properties: 
+* Removed "Ruby" from Formula.script_error_title = Script Error
+* Removed "Ruby" from Formula.script_error = Error in script
+
+
+0.9.2:
+
+datavision.properties:
+
+* Removed ScriptingWin.name_or_class_missing.
+* New ScriptingWin.test_button
+* Removed "New" from ScriptingWin.add_name and .add_class.
+* Changed "ScriptingWin.add_button's text to "Add/Modify Language"
+* Changed FormulaWin.scripting_lang to ScriptEditorWin.scripting_lang.
+
+0.9.1:
+
+datavision.properties:
+
+* New ScriptingWin.* strings.
+* New FormulaWin.scripting_lang
+
+menu.properties:
+
+* New DesignWin.menu_report_scripting_langs.
+
+0.9.0:
+
+datavision.properties:
+
+* New Report.default_field_name.
+
+menu.properties:
+
+* New DesignWin.menu_format_default.
+
+
+0.8.0:
+
+datavision.properties:
+
+* New SubreportWin.* strings.
+
+menu.properties:
+
+* New DesignWin.menu_insert_subreport* properties. Your translations only
+  need to add menu_insert_subreport and perhaps menu_insert_subreport_keys.
+  It should NOT add menu_insert_subreport_action.
+
+* I added an elipsis ("...") after the "Group" menu item in all the
+  translations. You don't need to do anything.
+
+0.7.10:
+
+datavision.properties:
+
+* Updated DataVision.usage
+
+0.7.4:
+
+datavision.properties:
+
+* Changed "MinML" to "MinML2" in DesignWin.about_3 and all existing
+  datavision_*_*.properties files.
+
+0.7.0, after already received all translations:
+
+datavision.properties:
+
+* Added Report.use_prev_data_source_file = Use previous data source file?
+* Added Report.use_prev_data_source_title = Data Source File
+
+0.7.0:
+
+menu.properties:
+
+* Many entries moved to the new menu_xx_YY.properties files.
+* The menu files contain new "keys" entries that let you specify the
+  mnemonic key (the underlined key in the menu) and the accelerator key
+  (the control key you use to fire the menu item).
+* Added DesignWin.menu_report_start_formula = Startup Script...
+* SectionWidget.popup_suppress changed "Suppress" to "Suppress..." (already
+  done in all menu files)
+* Deleted SectionWidget.popup_dont_suppress (already done in all menu files)
+
+datavision.properties
+
+* Added DesignApplet.new_url_title = Report URL
+* Added DesignApplet.new_url_prompt = URL
+* Added all StartupScriptEditor.* entries (found after FormulaWin entries).
+* Added ReportStartupScriptEditCommand.name = Startup Script Edit
+* Added SpecialField.group.count = Group Record Count
+* Removed all current Formula.* entries, and replaced with two new ones:
+	Formula.script_error_title = Ruby Script Error
+	Formula.script_error = Error in Ruby script
+* Added DataSource.metadata_err = Metadata XML URL access error
+* Added DataSource.metadata_err_title = Metadata Error
+* DesignWin.about_3 changed
+* Added all SuppressionProcWin.* entries
+* ColumnField.* renamed to UnknownColumn.* (already done in all files)
+
+
+0.6.0:
+
+* added "[-q]" at end of line with [-a]
+
+* DesignWin.image_url_title and DesignWin.image_url_label are new.
+
+* Added LaTeX paper names to US-Letter, US-Legal, A4, A5, B5, and
+  Executive. These names should *not* be translated.
+
+0.5.5:
+
+* DataVision.n_and_p and DataVision.n_or_p changed.
+
+* DataVision.usage changed.
+
+* ReportReader.column_unknown changed.
+
+ * Removed "\n" from all error messages (but not from usage or from about
+  box strings). For example,
+
+    Foo.error_msg = This was really long.\n\
+    It used to have a newline.
+
+will now be
+
+    Foo.error_msg = This was really long.\
+    It used to have a newline.
+
+* ColumnField.column_unknown changed.
+
+0.5.4:
+
+* DataVision.usage (added -f PDF flag)
+
+* ExportWin.le_pdf
+
+0.5.3: 
+
+* Added SectionSuppressionToggleCommand.suppress_name and
+  SectionSuppressionToggleCommand.unsuppress_name.
+
+* Added SectionPageBreakCommand.on_name and
+  SectionPageBreakCommand.off_name.
+
+* Added PaperSizeCommand.name.
+
+* Added FieldStretchCommand.name, but the text is the same as
+  FieldResizeCommand.name, so I just copied that text. Assuming your
+  translation already had FieldResizeCommand, of course.
+
+* Changed last line of usage message to new two last lines.
+
+0.5.2:
+
+* Added "-w" flag to usage message. Nothing to do, since I copied the "-x"
+  XML layout engine flag and changed the word "XML" to "Swing".
+
+* Added ColumnField.the_column and ColumnField.column_unknown. Copied
+  values from ReportReader.the_column and ReportReader.column_unknown, so
+  there is nothing to do.
+
+Older:
+
+* All of the strings from "# These words go after "Undo" and "Redo" in the
+  edit menu." down to the bottom of the file are new.
+
+* "TwoListWin.group_by" has been replaced by "GroupWin.right_box_title"
+  and "SortWin.right_box_title".
+
+* ParamEditWin.arity's string was capitalized (changed from "arity" to
+  "Arity").
+
+* Added Report.add_err_1 and Report.add_err_2.
+
+* Changed FormatWin.edge_style_line  from "Line" to "Solid" (thanks,
+  Guido).
+
+* Change usage message (added -i and -l language settings).

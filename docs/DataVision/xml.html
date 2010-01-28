@@ -1,0 +1,578 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+
+<head>
+  <title>DataVision User's Manual</title>
+  <link rel='stylesheet' href='style.css' type='text/css'>
+
+</head>
+
+<body>
+
+<table width='100%'>
+<tr><td><a href="le.html">&lt;= Previous</a> | <a href="param.html">Next =&gt;</a> | <a href="DataVision.html">Table of Contents</a></td><td align='right'>
+  <span class='header'>DataVision User's Manual</span>
+</td></tr>
+</table>
+<hr>
+<!-- **************************************************************** -->
+
+<h1>11 Understanding Report XML Files</h1>
+<p>
+This section describes some of the details of the DataVision XML file
+format.
+</p>
+
+<p>
+There are a few general parts to each XML file: the report, the data source
+description, parameter definitions, formula definitions, and the report
+section areas and sections that contain the fields and strings to output.
+</p>
+
+<p>
+The DTD file <span class="file">report.dtd</span> is a mostly accurate representation of a
+legal report file. The DTD snippets below may not be completely up-to-date.
+When in doubt, see the DTD file or---even better---the source code.
+</p>
+
+<p>
+All sizes used in a report file are in points (72 points = 1 inch). All
+coordinates and lengths are floating point, but may be truncated by layout
+engines. Colors are stored as strings of the form &quot;red;green;blue;alpha&quot;.
+Each component is an integer from 0 to 255.
+</p>
+
+<p>
+For an example report XML file that uses a JDBC database connection, see
+<span class="file">postgresql.xml</span> in the <span class="file">examples</span> directory. For an
+example that uses a character-separated file as a data source, see
+<span class="file">charsep.xml</span> in the same directory.
+</p>
+
+<!-- ================================================================ -->
+<a name="elements">
+<h2>11.1 Elements</h2>
+<!-- ................................................................ -->
+<h3>11.1.1 report</h3>
+<p>
+The &quot;report&quot; element is the root element of the XML. The attribute
+&quot;dtd-version&quot; defines the version of the report XML format used to create
+this report XML file. If this attribute is missing, its value is assumed to
+be &quot;0.1&quot;.
+</p>
+
+<p>
+The report element's remaining attributes (&quot;name&quot;, &quot;title&quot;, and
+&quot;author&quot;) are values that may be edited and displayed in the report by
+using <a href="anatomy.html#specialvalfield"><span class="sec">Special Fields</span></a>.
+See also the &quot;description&quot; element.
+</p>
+
+<!-- ................................................................ -->
+<h3>11.1.2 bean-scripting-framework</h3>
+<p>
+This element and its contents describe the <a
+href="anatomy.html#bsf"><span class="sec">Bean Scripting Framework</span></a> (BSF)
+scripting languages available to the report. The &quot;default-language&quot;
+attribute is applied to all formulas that don't specify a language. (This
+happens when the formula is read in. Changing the default language when
+designing a report does not change the language of those formulas.)
+</p>
+
+<p>
+Inner &quot;language&quot; elements have two attributes: &quot;name&quot; and &quot;class&quot;. The
+name may be any string; it is the string displayed to report developers in
+drop-down scripting language lists. The class name is used by DataVision to
+load the BSF language.
+</p>
+
+<p>
+The default language must have a &quot;language&quot; element that describes it.
+</p>
+
+<p>
+Since DataVision ships with JRuby, it also pre-defines the language &quot;Ruby&quot;.
+See <code>Scripting.java</code> for the class name. Or, since it is always
+written out when you save a report XML file, see any report XML file.
+</p>
+
+<!-- ................................................................ -->
+<h3>11.1.3 paper</h3>
+<p>
+This element's &quot;name&quot; attribute describes the paper size used by this
+report. The name attribute's value must be one of the strings found in the
+<span class="file">paper.properties</span> file contained in the
+<span class="file">DataVision.jar</span> JAR file.
+</p>
+
+<p>
+<span class="file"><span class="dir">jimm/properties/</span>paper.properties</span> is copied into
+<span class="file">DataVision.jar</span>; that is the version used by DataVision when it
+is running. If you need to change the paper size values, edit the file
+<span class="file">paper.properties</span> and then replace it in the JAR file by using
+the commands
+</p>
+
+<pre class="codeblock">
+&gt; cd jimm/properties
+&gt; jar uf ../../lib/DataVision.jar paper.properties
+</pre>
+
+<!-- ................................................................ -->
+<h3>11.1.4 description</h3>
+<p>
+This element contains the descriptive text entered in the Report Summary
+dialog.
+</p>
+
+<!-- ................................................................ -->
+<h3>11.1.5 source</h3>
+<p>
+The &quot;source&quot; element contains elements describing the data source this
+report will use to read data. Just like a report's output can be sent to
+any one of a number of layout engines, a report's input can come from one
+of a number of data sources. The &quot;source&quot; element contains the element
+that defines the data source and the element that defines the <a
+href="#element-query">query</a>. The data sources implemented are <a
+href="#element-database"><span class="sec">database</span></a>, a JDBC database
+connection, and <a href="#element-charsep"><span class="sec">charsep</span></a>, a text
+file whose lines are rows and columns are separated by a character such as
+comma or tab.
+</p>
+
+<p>
+The data source can be overridden on the command line. See <a
+href="rundv.html#runcmd"><span class="sec">Running DataVision from the Command
+Line</span></a>.
+</p>
+
+<!-- . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . -->
+<a name="element-database">
+<h4>11.1.5.1 database</h4>
+<p>
+The &quot;database&quot; element describes the database that is used in the report.
+See <a href="create.html#dbconn"><span class="sec">Connecting to the Database</span></a>,
+for how to set these values.
+</p>
+
+<p>
+<b>driverClassName</b> is the JDBC driver class name.
+</p>
+
+<p>
+<b>connInfo</b> is the magic connection info string used by the database
+driver to connect to your database. It probably includes the database name
+(for example, &quot;jobs&quot; or &quot;salesdata&quot;).
+</p>
+
+<p>
+<b>name</b> is the name of the database.
+</p>
+
+<p>
+<b>username</b> is your database user name.
+</p>
+
+<!-- . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . -->
+<a name="element-charsep">
+<h4>11.1.5.2 charsep</h4>
+<p>
+The &quot;charsep&quot; element describes the contents of a text file whose lines
+contain rows of data and whose columns are separated by a character
+(typically a comma or a tab). The &quot;sep-char&quot; attribute determines the
+character. The separator character can be overridden on the command line.
+See <a href="rundv.html#runcmd"><span class="sec">Running DataVision from the Command
+Line</span></a>.
+</p>
+
+<p>
+The report needs to know the name and type of each column in a
+character-separated file. The &quot;charsep&quot; element must contain either a
+list of &quot;column&quot; elements or a &quot;metadata-url&quot; element.
+</p>
+
+<p>
+When using a charsep data source, the &quot;Select Records&quot; text which is
+normally added to a SQL query's WHERE clause is instead evaluated as a <a
+href="anatomy.html#bsf"><span class="sec">Bean Scripting Framework</span></a> (BSF) script.
+The result is used to determine if a record is used or ignored.
+</p>
+
+<!-- . . . . . . . . -->
+<a name="element-charsep-column">
+<h5>11.1.5.2.1 column</h5>
+<p>
+The &quot;column&quot; element's attributes include &quot;name&quot;, &quot;type&quot;, and
+optionally &quot;date-format&quot;. The type must be one of &quot;string&quot;, &quot;number&quot;,
+or &quot;date&quot;.
+</p>
+
+<p>
+A date column may optionally specify the &quot;date-format&quot; string which
+describes how the dates in that column are formatted. The default format is
+&quot;yyyy-MM-dd&quot;. The format string follows the same rules as the date
+formatting string for a report field. See <a
+href="gui.html#formatdialog"><span class="sec">The Format Dialog</span></a> for an
+explanation of the date formatting string.
+</p>
+
+<p>
+Here is an example charsep data source:
+</p>
+
+<pre class="codeblock">
+<span class="comment">&lt;!-- The column names happen to be the same as database --&gt;
+&lt;!-- table.column names, but that's just a coincidence. --&gt;
+&lt;!-- OK, I'm lazy. --&gt;</span>
+&lt;charsep sep-char=","&gt;
+  <span class="comment">&lt;!-- We need to define column names and types. For date --&gt;
+  &lt;!-- columns, we need to define a string that will be --&gt;
+  &lt;!-- used to parse the string so we can turn it into a --&gt;
+  &lt;!-- java.lang.Date object. In this example, you could --&gt;
+  &lt;!-- skip the date-format string; the default parse --&gt;
+  &lt;!-- string (yyyy-MM-dd) is the same string. --&gt;</span>
+  &lt;column name="office.name" type="string" /&gt;
+  &lt;column name="jobs.id" type="number" /&gt;
+  &lt;column name="jobs.title" type="string" /&gt;
+  &lt;column name="jobs.hourly rate" type="number" /&gt;
+  &lt;column name="jobs.post_date" type="date"
+          date-format="yyyy-MM-dd" /&gt;
+&lt;/charsep&gt;
+</pre>
+
+<!-- . . . . . . . . -->
+<a name="element-charsep-metadata-url">
+<h5>11.1.5.2.2 metadata-url</h5>
+<p>
+If the &quot;charsep&quot; element contains a &quot;metadata-url&quot; element, that means
+the metadata is stored in an external XML file. The &quot;metadata-url&quot;
+element looks like this:
+</p>
+
+<pre class="codeblock">
+<span class="comment">&lt;!-- A charsep data source whose metadata is described --&gt;
+&lt;!-- by an external XML file. --&gt;</span>
+&lt;charsep sep-char=","&gt;
+  &lt;metadata-url&gt;http://localhost/foo/metadata.xml&lt;/metadata-url&gt;
+&lt;/charsep&gt;
+</pre>
+
+<p>
+Note that the URL can be a file URL or any other legal URL.
+</p>
+
+<p>
+The metadata XML file (in this example, <span class="file">metadata.xml</span>) must
+conform to the DTD found in <span class="file">metadata.dtd</span>, which is quite
+simple. In that file, the root &quot;metadata&quot; element contains a list of
+&quot;column&quot; elements. Here is a complete example of a metadata XML file:
+</p>
+
+<pre class="codeblock">
+<span class="comment">&lt;!-- See metadata.dtd --&gt;</span>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;metadata&gt;
+  <span class="comment">&lt;!-- We need to define column names and types. For date --&gt;
+  &lt;!-- columns, we need to define a string that will be --&gt;
+  &lt;!-- used to parse the string so we can turn it into a --&gt;
+  &lt;!-- java.lang.Date object. In this example, you could --&gt;
+  &lt;!-- skip the date-format string; the default parse --&gt;
+  &lt;!-- string (yyyy-MM-dd) is the same string. --&gt;</span>
+  &lt;column name="office.name" type="string" /&gt;
+  &lt;column name="jobs.ID" type="number" /&gt;
+  &lt;column name="jobs.title" type="string" /&gt;
+  &lt;column name="jobs.hourly rate" type="number" /&gt;
+  &lt;column name="jobs.post_date" type="date"
+          date-format="yyyy-MM-dd" /&gt;
+&lt;/metadata&gt;
+</pre>
+
+<!-- . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . -->
+<a name="element-query">
+<h4>11.1.5.3 query</h4>
+<p>
+The &quot;query&quot; element must come after the &quot;database&quot; or &quot;charsep&quot;
+element. It contains up to three elements: the joins, the sorts, and the
+where clause. The report uses these and the list of fields it contains to
+create a SQL query.
+</p>
+
+<p>
+Each &quot;join&quot; element represents one of the links between tables that the
+user specifies.
+</p>
+
+<p>
+There is a &quot;sort&quot; element for each group's field and for any other sorts
+the user specifies.
+</p>
+
+<p>
+Finally, the &quot;where&quot; where clause element specifies an additional
+user-specified clause to use. The text of the where clause is contained in a
+CDATA element. When generating SQL, the text becomes part of the SQL WHERE
+clause. When used with a charsep data source, the text is evaluated as a BSF
+script and the result is used to determine if a record is used or ignored.
+</p>
+
+<!-- ................................................................ -->
+<h3>11.1.6 parameters</h3>
+<p>
+Parameters are defined and appear in the XML before they are used. Each
+parameter has an id, a type (string, numeric, or date), a name, a question
+to display when asking the user for a value, an arity, and an optional
+default value or values.
+</p>
+
+<p>
+Types include &quot;string&quot;, &quot;numeric&quot;, &quot;boolean&quot;, and &quot;date&quot;.
+</p>
+
+<p>
+The <span class="firstterm">arity</span> attribute describes how many values are
+allowed in the answer. The arity may be &quot;single&quot;, &quot;range&quot;,
+&quot;list-single&quot;, or &quot;list-multiple&quot;.
+</p>
+
+<p>
+Default values for each parameter are contained as text within &quot;default&quot;
+elements.
+</p>
+
+<!-- ................................................................ -->
+<h3>11.1.7 formulas</h3>
+<p>
+Formulas are defined and appear in the XML before they are used. Each formula
+has an id, a name, and formula text. The formula text is a <a
+href="anatomy.html#bsf"><span class="sec">BSF</span></a> script.
+</p>
+
+<!-- ================================================================ -->
+<a name="reportsections">
+<h2>11.2 Report Sections</h2>
+<p>
+A report may have zero or more parameters, formulas, report headers, report
+footers, page headers, page footers, and groups. It will have one or more
+detail sections. Each section may have zero or more fields and lines.
+</p>
+
+<p>
+This DTD snippet says it best:
+</p>
+
+<pre class="codeblock">
+&lt;!ELEMENT report      (description, formula?, paper, field, usercols?,
+		       source, subreports?, parameters?, formulas?,
+		       headers?, footers?, page?, groups?,
+		       details)
+
+&gt;
+&lt;!ELEMENT headers     section*&gt;
+&lt;!ELEMENT footers     section*&gt;
+&lt;!ELEMENT page        headers? footers?&gt;
+&lt;!ELEMENT group       headers? footers?&gt;
+<span class="comment">&lt;!-- column is deprecated, replaced by groupable-id and --&gt;
+&lt;!--  groupable-type. For now, both will work. --&gt;</span>
+&lt;!ATTLIST group       column CDATA #REQUIRED&gt;
+&lt;!ATTLIST group       groupable-id CDATA #REQUIRED&gt;
+&lt;!ATTLIST group       groupable-type CDATA #REQUIRED&gt;
+&lt;!ELEMENT details     section*&gt;
+&lt;!ELEMENT section     (field|line)*&gt;
+</pre>
+
+<!-- ................................................................ -->
+<a name="xmlfields">
+<h3>11.2.1 Fields</h3>
+<p>
+Fields display text, including database values. Fields must have a
+bounds rectangle, and can have borders and formatting descriptions.
+</p>
+
+<pre class="codeblock">
+&lt;!ELEMENT field        (bounds|format|border)*&gt;
+&lt;!ATTLIST field type   (column
+                           |formula
+                           |parameter
+                           |text
+                           |special
+                           |image
+                           |sum
+                           |average
+                           |count
+                           |min
+                           |max
+                           |stdev)
+                                        #REQUIRED
+                   value  CDATA         #REQUIRED
+&gt;
+&lt;!ATTLIST field        visible       (true|false)
+&gt;
+</pre>
+
+<p>
+The order of the bounds, format, and border elements is not important. I
+don't know how to describe that with DTD, though.
+</p>
+
+<p>
+There are six types of fields that a report can display: text, database
+columns, parameters, formulas, aggregates, and special fields. The &quot;value&quot;
+attribute determines what is displayed.
+</p>
+
+<p>
+<b>text</b> Text fields display the value attribute verbatim.
+</p>
+
+<p>
+<b>column</b> Column fields display the value of the database column named
+by the value attribute (for example, &quot;member.member id&quot;). Yes, table and
+column names may contain spaces.
+</p>
+
+<p>
+<b>parameter</b> Parameter fields display the value obtained by
+substituting the parameter value whose id is contained in this field's
+value attribute. (Remember, parameters are defined separately, and each one
+has an id.) The underlying parameter values are retrieved from the user
+each time the report is run.
+</p>
+
+<p>
+<b>formula</b> Formula fields display the value obtained by executing
+the formula whose id is contained in this field's value attribute.
+(Remember, formulas are defined separately, and each one has an id.)
+</p>
+
+<p>
+<b>special</b> Special fields display one of the following values, named in
+the value attribute. These values are described in <a
+href="anatomy.html#specialvalfield"><span class="sec">Special Values</span></a>.
+</p>
+
+<p>
+<b>sum</b>, <b>min</b>, <b>max</b>, <b>average</b>, <b>mean</b>,
+<b>median</b>, <b>count</b>, <b>stdev</b> Aggregate fields display the
+aggregate (sum, min, max, etc.) for the numeric database column, numeric
+parameter field, or formula field whose id is contained in this field's
+value attribute.
+</p>
+
+<ul>
+    <li>report.name</li>
+    <li>report.title</li>
+    <li>report.author</li>
+    <li>report.description</li>
+    <li>report.date</li>
+    <li>report.row</li>
+    <li>page.number</li>
+    <li>group.count</li>
+</ul>
+
+<!-- ................................................................ -->
+<a name="xmllines">
+<h3>11.2.2 Lines</h3>
+<p>
+Lines, though not yet supported in the Design Window GUI, have been part
+of the report XML since the beginning of DataVision. They are simple, with
+a thickness, color, and visibility flag. Lines contain two end points.
+</p>
+
+<pre class="codeblock">
+&lt;!ELEMENT line     point point&gt;
+&lt;!-- Color is stored as "red;green;blue;alpha" --&gt;
+&lt;!ATTLIST line  thickness  CDATA
+                   color      CDATA
+                   visible    (true|false)
+&gt;
+</pre>
+
+<!-- ................................................................ -->
+<a name="suppressionprocs">
+<h3>11.2.3 Suppression Procs</h3>
+<p>
+A suppression proc determines if a section should be displayed or not. See
+<a href="anatomy.html#suppressionprocs"><span class="sec">Section Suppression
+Procs</span></a> for an explanation.
+</p>
+
+<p>
+The &quot;suppression-proc&quot; element is contained within a &quot;section&quot; element. It
+has an optional &quot;hide&quot; attribute and optionally contains a formula
+containing a BSF script. When the &quot;hide&quot; attribute is &quot;true&quot;, the section
+is always hidden. The default value of &quot;hide&quot; is &quot;false&quot;.
+</p>
+
+<p>
+The formula contains a BSF script that must return a boolean (true/false)
+value. For every row, the code is run to determine if the entire section
+should be hidden for that row only. When the code returns true, the section is
+hidden.
+</p>
+
+<p>
+Here is an example &quot;suppression-proc&quot; element that uses the &quot;hide&quot;
+attribute to always hide the section:
+</p>
+
+<pre class="codeblock">
+&lt;suppression-proc hide=&quot;true&quot; /&gt;
+</pre>
+
+<p>
+Here is an example that uses a formula to determine when to hide a section:
+</p>
+
+<pre class="codeblock">
+&lt;suppression-proc&gt;
+  &lt;formula id=&quot;3&quot; name=&quot;&quot;&gt;&lt;![CDATA[({jobs.ID} & 1) == 0]]&gt;&lt;/formula&gt;
+&lt;/suppression-proc&gt;
+</pre>
+
+<!-- ================================================================ -->
+<a name="fieldformats">
+<h2>11.3 Field Formats</h2>
+<p>
+A field's format describes how it will be displayed. Optional format
+attributes elements specify a field's font family name, alignment, font
+size, color, attributes (bold, italic, or underline), wrapping, and
+formatting (for numeric and date fields). The attributes bold, italic,
+underline, and wrap are boolean and may optionally take the values &quot;true&quot;
+or &quot;false&quot;. The default for all but wrap is false; wrap defaults to true
+(as of version 0.8.0).
+</p>
+
+<p>
+Color is stored as a string of the form &quot;red;green;blue;alpha&quot;. Each
+value is an integer in the range 0 - 255.
+</p>
+
+<p>
+The format string (an attribute of the format element; confusing, eh?)
+determines the print format of numeric and date fields. For a complete
+description of the format string, see <a href="gui.html#formatdialog"><span class="sec">The Format Dialog</span></a>.
+</p>
+
+<p>
+Here is an example field that displays some text, right justified.
+</p>
+
+<pre class="codeblock">
+&lt;field id=&quot;42&quot; type=&quot;text&quot; value=&quot;My Very Own String&quot;&gt;
+  &lt;bounds x=&quot;0&quot; y=&quot;0&quot; width=&quot;100&quot; height=&quot;20&quot; /&gt;
+  &lt;format bold italic underline size=&quot;24&quot; align=&quot;right&quot; /&gt;
+&lt;/field&gt;
+</pre>
+
+<!-- **************************************************************** -->
+<hr>
+<table width='100%'>
+<tr><td><a href="le.html">&lt;= Previous</a> | <a href="param.html">Next =&gt;</a> | <a href="DataVision.html">Table of Contents</a></td><td align='center'>
+&nbsp;
+</td><td align='right'>
+    <span class='footer'>DataVision User's Manual</span>
+</td></tr>
+</table>
+
+</body>
+</html>

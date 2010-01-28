@@ -1,0 +1,354 @@
+<!-- include_header UM rundv create DataVision -->
+
+<h1>Incorporating DataVision Into a Java Application</h1>
+
+It isn't difficult to incorporate DataVision into a Java application.
+Instantiate a Report object and have it read the XML file and possibly a
+parameter value XML file, then give the report object a layout engine
+object (such as LaTeXLE).
+
+To run a report from a JSP page, see <a href="#jsp"><sec>Running DataVision
+from JSP</sec></a> below.
+
+To run your application you will need to include in your classpath the
+JAR files that are in the <dir>lib</dir> directory. They include
+
+<ul>
+  <li>DataVision,</li>
+  <li>iText, the Java-PDF library by Bruno Lowagie,</li>
+  <li>JCalendar, the calendar Swing widget by Kai Toedter,</li>
+  <li>BSF, the Bean Scripting Framework from the Apache Jakarta Project,</li>
+  <li>JRuby, the Java implementation of Ruby by the JRuby Project, and</li>
+</ul>
+
+Here is the code you need to run a report from within your application.
+First, we will present some code chunks interspersed with insightful
+commentary. A few complete examples, showing different data sources and
+layout engines, will round out this section.
+
+
+
+
+<codeblock-title>Creating a report object</codeblock-title>
+
+First, create a report object.
+
+<codeblock>
+Report report = new Report();
+</codeblock>
+
+
+
+
+<codeblock-title>Specifying a database data source</codeblock-title>
+
+What happens next depends upon the data source that the report XML file
+describes. If it's a database, we have to give some information (the
+database password) to the report before we read the XML file. If the data
+source is a text file, we need to specify some things after the XML file is
+read and the data source object is created.
+
+The report's connection to a database can be specified one of three
+ways. You can supply a database password, a
+<class>java.sql.Connection</class> object, or a
+<class>jimm.datavision.sql.Database</class> object.
+
+If you supply a password, the XML file's database connection information
+will be used to create a new connection. This is what normally happens when
+you open a report via the GUI, for example.
+
+Both of the other methods (supplying a connection or database object)
+ignore the database connection information in the report XML file. If you
+supply a connection it will <em>not</em> be closed by the report, even if
+the report's database connection is reset by calling
+<func>Database.reset</func>. You will have to close the connection yourself
+after the report is done running.
+
+The only reason you would supply a
+<class>jimm.datavision.sql.Database</class> object is to reuse one between
+different report instances. The advantage of reusing a database object is
+that the database metadata (table names, column names, and more) will only
+be read once no matter how many reports use it. Reading the metadata is
+time-consuming.
+
+<codeblock>
+<comment>// Give the report enough information to connect to a database
+// data source. Pick one of the following three lines.</comment>
+report.setDatabasePassword(<string>&quot;mypassword&quot;</string>);
+<comment>// or</comment>
+report.setDatabaseConnection(aJdbcConnection);
+<comment>// or</comment>
+report.setDataSource(new Database(...));
+</codeblock>
+
+
+
+<codeblock-title>Reading the report description XML
+file</codeblock-title>
+
+Next, call <span class="func">Report.read</span> to read a report's
+description XML. This method can take as an argument a file or an <span
+class="class">org.xml.sax.InputSource</span>. The <span
+class="class">InputSource</span> constructor can take a <span
+class="class">java.io.InputStream</span>, a <span
+class="class">java.io.Reader</span>, or a <span class="class">String</span>
+that specifies a system identifier. If the system identifier is a URI (a URL),
+it must be fully resolved.
+
+<codeblock>
+<comment>// Read the report XML from a file or various stream types.</comment>
+report.read(xmlFileOrInputSource); <comment>// Must be after database info</comment>
+</codeblock>
+
+
+
+
+<codeblock-title>Specifying a text file data source</codeblock-title>
+
+If the data source is a text file instead of a database, we need to tell
+the data source which file to read and optionally override the separator
+character specified in the XML file. If no character is defined in either
+the XML file or your code, the default character (comma) is used.
+
+The method <func>CharSepSource.setInput</func> can take as an argument a
+file name, a <class>java.io.Reader</class>, or a
+<class>java.io.InputStreamReader</class>.
+
+<codeblock>
+CharSepSource src = (CharSepSource)report.getDataSource();
+src.setSepChar('\t'); <comment>// Optional; overrides default and XML file value</comment>
+src.setInput(fileNameOrReaderOrInputStreamReader);
+</codeblock>
+
+
+
+
+<codeblock-title>Reading parameter values</codeblock-title>
+
+If necessary, read parameter values. There are three ways a report gets
+parameter values: by asking the user, by reading a parameter XML file, or
+with custom Java code that sets the parameter values. See <a
+href="#askparam"><sec>Asking for Parameter Values</sec></a> below for a
+complete description of the three different ways to set parameter values.
+
+The method <func>Report.setParameterXMLInput</func> is used to read parameter
+values from XML. This method takes the same arguments as
+<func>Report.read</func>, described above.
+
+<codeblock>
+<comment>// If necessary, read parameter values.</comment>
+if (report.hasParameterFields())
+    report.setParameterXMLInput(paramXMLFileOrInputSource);
+</codeblock>
+
+
+
+
+<codeblock-title>Setting the layout engine</codeblock-title>
+
+Next, give the report a layout engine. This example uses the LaTeX
+layout engine. You could use HTML, PDF, Swing, or any other one.
+
+<codeblock>
+report.setLayoutEngine(new LaTeXLE(aWriter));
+</codeblock>
+
+
+
+
+<codeblock-title>Running the report</codeblock-title>
+
+Finally, run the report either in a separate thread or in the current
+thread. <func>Report.run</func> runs the report in a separate thread. It
+does not wait for the thread to finish. You will have to write the code to
+wait. If you call <func>Report.runReport</func>, the report is run
+synchronously; the method does not return until the report is done
+running.
+
+<codeblock>
+<comment>// Pick one of the following two.</comment>
+report.run();         <comment>// Run the report in a separate thread.
+// or</comment>
+report.runReport();   <comment>// Run the report in this thread.</comment>
+</codeblock>
+
+
+
+<codeblock-title>Telling a Swing layout engine to
+exit</codeblock-title>
+
+If you use a Swing layout engine, there is one more thing you may want
+to do: exit. When the user closes the Swing report window, the application
+does not automatically quit---the event loop keeps running.
+
+The <class>SwingLE</class> layout engine has a method called
+<func>close</func>. It does not exit the application, but we can create an
+anonymous class that overrides that method and closes the application when
+the window is closed. Here's how:
+
+<codeblock>
+LayoutEngine le = new SwingLE() {
+    public void close() {
+        super.close();
+        System.exit();
+    }
+};
+report.setLayoutEngine(le);
+</codeblock>
+
+Similarly, when the last design window is closed DataVision normally
+exits. The method <func>DesignWin.setExitWhenLastWinClosed</func> does what
+it says: it lets you determine if DataVision should exit when the last
+design window is closed.
+
+
+
+<codeblock-title>All together now</codeblock-title>
+
+Here's the whole thing all together. This code will run a report that
+uses a database connection to read data, reads the report XML file, reads a
+parameter file if necessary, and outputs to a PDF file.
+
+<codeblock>
+Report report = new Report();
+report.setDatabasePassword(<string>&quot;mypassword&quot;</string>);
+report.read(<string>&quot;reportXmlFile&quot;</string>);
+if (report.hasParameterFields())
+    report.setParameterXMLInput(<string>&quot;paramXmlFile&quot;</string>);
+OutputStream out = new FileOutputStream(<string>&quot;output.pdf&quot;</string>);
+report.setLayoutEngine(new PDFLE(out));
+report.runReport();
+</codeblock>
+
+<!-- ================================================================ -->
+<a id="askparam" />
+<h2>Asking for Parameter Values</h2>
+
+There are three ways a report gets parameter values: by asking the user, by
+reading a parameter XML file, or with custom Java code that sets the
+parameter values.
+
+<!-- ---------------------------------------------------------------- -->
+<a id="askuser" />
+<h3>Asking the User</h3>
+
+If you want the user to be prompted for input, you should not give the
+report a parameter file name. Instead, you should tell the system that you
+want to use a Swing window to prompt the user for parameter values by using
+the following code some time before running the report:
+
+<codeblock>
+ErrorHandler.useGUI(true);
+</codeblock>
+
+
+<!-- ---------------------------------------------------------------- -->
+<a id="readparam" />
+<h3>Reading a Parameter XML File</h3>
+
+To read a parameter XML file, call <code>Report.setParameterXMLInput</code>.
+
+<codeblock>
+report.setParameterXMLInput(paramXMLFileOrInputSource);
+</codeblock>
+
+To specify a parameter file on the command line, use the <b>-r</b> command
+line option. See <a href="rundv.html#runcmd"><sec>Running DataVision from
+the Command Line</sec></a> for details.
+
+
+<!-- ---------------------------------------------------------------- -->
+<a id="manualparam" />
+<h3>Setting Values Manually</h3>
+
+To specify a parameter's value within your code, you need to ask the
+report object to find it and then set its value.
+
+<codeblock>
+<comment>// Ask the report to find the parameter for you</comment>
+Parameter p = report.findParameter(new Long(myParamID));
+<comment>// or p = report.findParameterByName(&quot;My Parameter Name&quot;);</comment>
+
+<comment>// Set the parameter's value. This sets a single value.</comment>
+p.setValue(0, <string>&quot;The New Value&quot;</string>);
+<comment>// To set more values (if it is a range or a list of values), keep
+// calling setValue().
+// p.setValue(1, &quot;Another Value&quot;);</comment>
+</codeblock>
+
+There is one more thing you have to do. As of version 0.7.11, there is a
+new method named <code>Report.parametersSetManually</code>. Calling this
+method with an argument of <code>true</code> tells the report not to ask
+the user and not to read an XML file.
+
+<codeblock>
+report.parametersSetManually(true);
+</codeblock>
+
+<note>Calling this method replaces the earlier necessity of creating a
+subclass of <code>Report</code> that overrode the
+<code>askForParameters</code> method.</note>
+
+
+
+<!-- ================================================================ -->
+<a id="jsp" />
+<h2>Running DataVision from JSP</h2>
+
+You can run a report in a JSP page, but you can't display its output
+directly, even if you use the HTML layout engine. You need to save the
+output to a (possibly temporary) file and then display the contents of that
+file or let the user download it.
+
+For an example JSP page, see <file>datavision.jsp</file> in the
+<dir>examples</dir> directory. The comment at the top of that
+file contains directions for installing and running it from Tomcat.
+
+If your report contains parameters, you will need to let the user enter
+them. You then need to give those values to the report before it is run.
+Either save the values into a parameter XML file and call
+
+<codeblock>
+report.setParamterXMLInput("path_to_param_xml_file");
+</codeblock>
+
+or use the code found in <a href="#askparam"><sec>Asking for Parameter
+Values</sec></a>.
+
+<a href="http://www.omnytex.com/articles/dvweb/"><cite>Reporting For The Web
+With DataVision</cite></a>, by Frank W. Zammetti, is an article that shows you
+how to design a simple report and run it from within a Web application.</li>
+
+
+
+<!-- ================================================================ -->
+<a id="applet" />
+<h2>Running DataVision as an Applet</h2>
+
+DataVision can be run as an applet. The file <file>applet.html</file>
+contains an example ``applet'' tag suitable for use with DataVision.
+
+<note>The applet code is still under development; expect some
+problems.</note>
+
+In the example file <file>applet.html</file>, the ``archive'' attribute
+does not contain a database JAR file or <file>jcalendar.jar</file>. To run
+reports instead of just design them, you would have to add your JDBC JAR
+file and <file>jcalendar.jar</file> to this list. Why aren't those files in
+the list already? Because the applet code is being developed first to allow
+report design. Running reports should work; I just haven't tested it yet.
+
+Since JRuby (and possibly other <a href="anatomy.html#bsf"><sec>Bean Scripting
+Framework</sec></a> jar files) uses a custom class loader, you will have to
+either sign the applet or edit the client's <file>java.policy</file> file and
+add the line
+
+<codeblock>
+permission java.lang.RuntimePermission "getClassLoader";
+</codeblock>
+
+<note>Many thanks to Edwin Ramirez, who has funded development of
+DataVision in order to create the applet code. All of his suggestions and
+feature requests have been folded into DataVision.</note>
+
+<!-- include_footer UM rundv create DataVision -->

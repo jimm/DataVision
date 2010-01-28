@@ -1,0 +1,708 @@
+================================================================
+    Bugs
+================================================================
+
+* When field expands vertically, border doesn't. -- Narjes Aloulou
+  <aloulounarjes@yahoo.fr>
+
+  Don't use field.getBounds() (rather, use that plus field.getOutputHeight()).
+
+* In suppression box, are formula names like {@foo} being converted back and
+  forth from {@NNN} properly? -- Allen Smith <allen@conwestresources.com>
+
+* It seems we our now able to view full lines if we do not use a field height
+  of less than 14 with a section of 16. If we reduce the field height bellow
+  14 then it cuts off. We can use fonts of 9,10, or 11 without a problem at
+  this setting of 14. -- Joe Wintergerst, <advancedjava@users.sourceforge.net>
+
+* charsep data source reuseSourceFile() that re-opens a file: call it when
+  data source is used a second time.
+
+* https://sourceforge.net/forum/message.php?msg_id=2343661
+  Formulas in detail are evaluated before layout engine gets to decide if the
+  detail goes on the next page. This makes formulas used in page footers
+  incorrect. -- Pascal Pochet, <p3consulting@users.sourceforge.net>
+
+* Group count wrong when group empty.
+
+* When I change the font from "11" to "8" on a postgres column of type
+  timestamp, it does not show up at all on the report. I tried both swing
+  and pdf, same result.
+
+  At one point, after changing a lot of things to 8-point fonts, the date
+  fields were printing as 0.000 and almost looked like it was picking up
+  the format for one of my other fields. That was when I reverted back to
+  the original and tried to change just the "timestamp" item.
+
+  Allen Jensen, <Allen.Jensen@camotion.com>
+
+* Text on top of images does not display.
+
+* Font metric in bug
+https://sourceforge.net/tracker/?func=detail&atid=407886&aid=806428&group_id=33343
+
+* Can't use applet? bigger problem? Need to reproduce.
+  https://sourceforge.net/forum/message.php?msg_id=1878907 and follow-ups.
+  https://sourceforge.net/forum/message.php?msg_id=2136039
+
+* Sandeep's Japanese data problem.
+
+* Informix quoted table/col names. [Chad Lemmen <chad@lemmen.com>]
+
+* The scroll bar hops around when you move from page to page. I've worked
+  around this by saving the position before switching to a page and then
+  switching back, but it still jumps around.
+
+  I think this is because of the selectAll() call in SwingTextField.format().
+  The call is necessary, though.
+
+* [Try to reproduce; was not fixed in 0.7.3 or 0.7.4]: The problem occur
+  when I used the section suppression proc to suppress 2 detail sections,
+  which will only appear once in my report and suppressed throughout. After
+  using the suppression proc, all the contents is printed within 1 page,
+  but the 2nd page continues to print out the page header and the page
+  footer with blank contents. I m using the SWING layout engine. -- Kui
+  Mian
+
+  I emailed Kui Mian asking if this had gone away. He said it hadn't.
+
+* [someone] can't even open the pdf file -- acrobat tells me there is a
+  sharing violation (Real problem: when parameter XML file name is missing,
+  the message "please specify one on the command line. Report run has been
+  cancelled" appears on the console and the PDF file isn't created
+  properly.)
+
+* [Try to reproduce]: Saleem's header/footer problems on Windows. See XML
+  files he emailed to me.
+
+* Top margin on page 2 and later. -- Andre'. [I can't reproduce this
+  problem.]
+
+* PDF: No special characters like (a-umlaut, u-umlaut) are displayed.
+  Andre Wohnig <a.wohnig@thiesen.com> [I can't reproduce this
+  problem. I emaled Andre on 2/24.]
+
+  I see them just fine.
+
+* PDF: lines longer than field continue past right side of field.
+  Andre' Wohnig <a.wohnig@thiesen.com>
+
+* What happens when you remove a field that has subtotals? See
+  Report.getSubtotalFieldsFor().
+
+* Paste problems:
+
+    ** Paste command, when executed, doesn't get put on menu.
+
+    ** When try to drag pasted field, WIERD things happen.
+
+    ** PasteCommand must handle FPLeafInfo objects, too.
+
+    ** PasteCommand must store type of section so paste can paste into
+      proper section between reports.
+
+    ** FP window enable/disable cut, copy, paste.
+
+    ** Pasting into another report does not work because the field wants to
+       plop itself down in the same section. I need to put in the same
+       *logical* section.
+
+    ** Pasting needs to re-fit sections (and on undo, un-re-fit them).
+
+* When run command in field picker, what should happen to undo/redo?
+
+* HTML layout engine doesn't handle vertical placement of fields within a
+  section. For example, in postgresql.xml the date is under the report
+  title. When output as HTML, the date is to the right of the title.
+
+* If you close a report while editing a text field, the edit is not
+  enforced. Capture the dispose? I think that ignoreKeys will be true.
+
+* All dialog boxes must be prevented from opening multiple instances for a
+  single design window.
+
+* LaTeX:
+
+-- LaTeX page footer bug: no page number on A4 paper when the LaTeX is run
+   through pdflatex (the data is there in the LaTeX file). Output has one
+   more row and footer off of bottom of paper. When run pdflatex, PDF
+   MediaBox for both US Letter and A4 has same size (but it's A4 size!).
+
+-- Underline always at same height (currently gets pushed down by '#' in
+   'Job #') (use baseline?)
+
+-- Limit text to box
+
+================================================================
+    To Do
+================================================================
+
+* new test: param in charsep WHERE clause script
+
+* doc: charsep data source WHERE clause is Ruby script.
+
+* Faq: page n of N
+
+* Jeremy Kunz' group footer fix (see email).
+
+* Flybean's manual onto Web site.
+
+* Augusto's plan text le.
+
+* New connection for subreport?
+
+* Use ImageInfo? Nice, but it still won't get rid of the need for X11.
+
+* Link to spanish tutorial (search email roberto canales, "spanish tutorial")
+
+
+----------------------------------------------------------------
+Features
+----------------------------------------------------------------
+
+* HTMLLE: change font tags to spans with style.
+
+* A data source that takes an iterator over objects. Specify groupings by
+  naming the instance variable or taking one or more things that trigger when
+  groups happen.
+
+* Lines stretch when section stretches. For example, vertical lines stay
+  within X pixels of the top or bottom.
+
+* Vertical alignment of text within fields. -- Quing Ye <que2020@yahoo.com>
+
+* Update JCalendar?
+
+* Add help button to connection page. Make it pop up to the correct page in
+  the docs.
+
+* Add ctors to DesignWin and Designer that take a pre-existing report object.
+
+* Alternating colors for detail section.
+
+* User preferences:
+
+    - GUI font size configuration
+    - Window positions
+    - Last-opened report
+    - More
+
+* Pre-report SQL (https://sourceforge.net/forum/message.php?msg_id=2702737) --
+  Steven Palm <n9yty@users.sourceforge.net>
+
+* Send field to back/send to front.
+
+* Rotate fields.
+
+* Show/hide fields programatically (suppression procs for fields).
+
+* Params in subreports: how?
+
+* Somehow allow generation of chunks of where clause at run time. Formulas
+  can't do that now because the whole result is turned into a string (or
+  integer, or whatever the Ruby code returns).
+
+* Subtotal fields could become generic aggregate func fields. Hold list of
+  values instead of just adding them up. Perform operation at getValue
+  time. Accessor for list of values/iterator? Ruby code (formula) either
+  inside field or that can access list? Else will have to write Java code
+  for every different aggregator function.
+
+* Let image fields contain parameters, formulas, or user columns. Interpret
+  contents as a URL.
+
+* Crosstab reports.
+
+* Allow Subtotals in formulas.
+
+* Group by formula. Not possible? Need to order by the Selectable, and
+  formulas can't be turned in to ORDER BY clauses.
+
+* Properties file for default database connection info. -- Rich
+  Cullingford, <rculling@sysd.com>
+
+* Can we set "default font" [make that default format] for each component
+  (text, formula) because I have to change "every" component font in the
+  design ui. -- James Lin <inchlin@users.sourceforge.net>, Andre Wohnig
+  <a.wohnig@thiesen.com>, Kirsten Husak <keh@enterprisestreaming.com>
+
+* Space on swing toolbar between print and navigation.
+
+* Modify group by and sort by dialogs so that they don't have to read all
+  tables' columns.
+
+* "All" value for list parameters. -- Lili Kushnir,
+  <LKushnir@checkfree.com>
+
+* Handle empty parameters by either using wildcard or null or something
+  like that. [Mayur Purandhar <mayur_purandhar@yahoo.com>]
+
+  Add "default value if not specified"?
+
+* Nee a way to not specify top or bottom values of ranges.
+
+* See Todd Davis mods.
+
+* For arbitrary SQL, need to create a SQL parser that understands both
+  columns/expressions and table names. Big, big problem with reading result
+  metadata after query has run: the PostgreSQL ResultSet object only
+  returns column name, not the table or schema name.
+
+* Report error messages to user when Ruby scripts fail.
+
+* Add startup script prefix to datavision.properties, something like this.
+
+    module DV
+	LAYOUT_ENGINE = :INSERT_LAYOUT_ENGINE_NAME_AS_SYMBOL_HERE
+	# ...
+    end
+
+  Users can then refer to DV::LAYOUT_ENGINE in their scripts.
+
+* Marker in command history when save file.
+
+* When creating a new report, specify data source. If charsep, get column
+  metadata either as a URL or as a list.
+
+* PDF base fonts don't necessarily show up in the list of fonts in the
+  format dialog. -- Russell V. Toone <russ@redcon.com>
+
+* Parameter gets values from database column. -- Helga Wyns
+
+	* XML read and write
+	* Read data from database
+	* GUI
+	* Documentation
+	* Test
+
+* Where clause gui drag-and-drop. -- Edwin Ramirez
+
+* Support wide output by splitting output onto two pages. -- Edwin Ramirez
+
+* Let text column fields expand vertically based on data.
+
+* Applet: java.lang.RuntimePermission exitVM denied.
+
+* Script for section output (e.g., group output). (Hmm...what did I mean
+  by that?)
+
+* Zoom/Enlarge/Magnify for Swing output and for designer -- Saleem.
+
+* Investigate Bean Scripting Framework (BSF) for JRuby and other scripting
+  languages. -- Todd J. Davis <tdavis@msfw.com>
+
+* Turn schema.table.column into Table Ruby object with column ivar and
+  schema object with table ivar.
+
+* Expand name field when AskStringDialog is grown.
+
+* In an oracle environment where multiple schemas with the same table/view
+  definition exist, how do we generate reports without the schema name
+  attached to the database field names, and run the report using the
+  default schema of the user who is running the report? -- Tai-Jen Gordon
+  <tjfong@users.sourceforge.net>
+
+  Perhaps I should add an "ignore schema name" flag? Ugh.
+
+* OLAP (drill-down) features.
+
+* Use I18N.get(String, int) when reading paper.properties. Problem: this is
+  read during static initialization, so will the locale be correct?
+
+* Option for CSV to suppress all but detail row? -- Don Widkelgren
+  <dtwickelgren@users.sourceforge.net> (Could do this if we knew which
+  layout engine was running.)
+
+  Section suppression procs could do this, if they knew which layout engine
+  was being used.
+
+* Add DataSource.setReport(). This allows data sources to be re-used from
+  report to report. This is important when you have a connection you want
+  to re-use. The Database ctor that takes a conn also takes a report, and
+  report is immutable. It shouldn't be. Tai-Jen Gordon
+  <tgordon@scintelligence.com>
+
+  All you have to do is add a setReport() method to Database. It has to do
+  two things: set the report and create a new SQLQuery.
+
+    public void setReport(Report r) {
+	report = r;
+	query = new SQLQuery(report);
+    }
+
+* Report calls datasource.setReport.
+
+* Disable "Delete Selected" button from join dialog when there are no
+  entries in the list.
+
+* I'd like to see each parameter object have a isSet flag in it. isSet
+  would default to false, then when Parameter.setValue() gets called isSet
+  is made true. Then when Report.runReport() is called if all the
+  Parameters have isSet == true then it doesn't run askForParameters(). --
+  Brian Johnson <bmj@camfour.com>
+
+* HTML layout engine option: page headers and footers only once; ignore
+  page breaks.
+
+* Info display for sections: height, number of fields.
+
+* Warning if section height totals (page headers plus details, at least)
+  are greater than page height.
+
+* Add getValue() to all things (columns) for which we now call
+  report.columnValue().
+
+* XML data source. "row-end-tag" attribute defines end of detail row. Do we
+  need a new column attribute that defines an xml element attribute that
+  use used as part of the column name? For example, the XML fragment
+
+    <my-col name="col1">value one</my-col>
+    <my-col name="col2">123</my-col>
+
+  couldn't distinguish between what are two different columns. How about
+  <column name="my-col" name-attr="name" />?
+
+* Even/odd page distinction (sections print even only/odd only/both). Idea
+  by Oleg <oleg_vn@users.sourceforge.net>.
+
+* Optionally repeat group header at top of every page (dinesh).
+
+* If a usercolumn uses a COUNT, SUM, MIN, MAX one have to do a GROUP BY on
+  all the columns used. I have to a check to see if a usercolumn uses the
+  above and automatically adds the GROUP BY before the ORDER BY. (Eddie). I
+  can't do this, because I can't use GROUP BY (see FAQ for details).
+
+* Add "quit" to file menu of swing le when it is running standalone.
+
+* Field background color.
+
+* Dragging table into report drags all columns.
+
+* Arrow keys "nudge" selected fields. Peter Ciuffetti
+  <PeterC@KnowledgeSite.com>.
+
+* Status bar: basic format and position of selected item. Peter Ciuffetti
+  <PeterC@KnowledgeSite.com>.
+
+* Style gallery; saves space in XML and makes user's formatting easier.
+  (Can already use shift-select; applies to all fields.) Peter Ciuffetti
+  <PeterC@KnowledgeSite.com>.
+
+* Cut/Paste Format menu item. Peter Ciuffetti
+  <PeterC@KnowledgeSite.com>.
+
+* Add "hidden" field attribute to format window and format menu. Peter
+  Ciuffetti <PeterC@KnowledgeSite.com>.
+
+* Dragging fields: stay within confines of page. Peter Ciuffetti
+  <PeterC@KnowledgeSite.com>.
+
+* When opening app with no file, ask to open file instead of assuming new
+  report wanted. Peter Ciuffetti <PeterC@KnowledgeSite.com>.
+
+* Most recent files opened list. Peter Ciuffetti
+  <PeterC@KnowledgeSite.com>.
+
+* GUI take paper margins into consideration (grey them? make section
+  smaller?) Eddie Carpenter <ecarpenter@itex.co.za>
+
+* Display field types (perhaps in popup). This will require bringing back
+  Column's typeString instance variable, which was commented out to reduce
+  memory requirements. (Tony)
+
+* Commands
+
+  -- create/delete parameter/formula/user col
+
+* Paste into drag targets (code windows, report).
+
+* Lazily instantiate tables and their columns.
+
+* Add copyright to source files.
+
+* New duplicate command? Necessary?
+
+* Persistent undo/redo between application runs.
+
+* Idea: use formula to present text interspersed with column data.
+
+* All layout engines: take file object instead of writer?
+
+* Allow creation images using any file. That way, eps, tiff, and png files
+  can be included in HTML or LaTeX exports, for example. Display an icon
+  representing the image.
+
+* Binary data: see if can convert into a string?
+
+* Page borders.
+
+* Cache images so we don't load the same image page after page.
+
+* Support line and border color in layout engines.
+
+* A user requests, "I would love to be able to print labels using this.
+  Columns would need column spacing and row spacing. I would not care about
+  the direction of the columns, left to right, or top to down."
+
+* Different color (e.g., red) if number is negative.
+
+* JFreeChart integration?
+
+* Comments in PaperFormat.java.
+
+* Comments in SortedListModel.java.
+
+* Comments in new Swing classes.
+
+* When placing a text widget, let ESC key cancel operation.
+
+* Turn "http:", "ftp:" etc. into hyperlinks in HTML and DocBook layout
+  engines. How about XML and LaTeX (use htlink command)? David Jones
+  <jonesde@ofbiz.org>
+
+* Test for non-null format when field created by being dragged. (really
+  default format not containing null color).
+
+* On OS X, Command-Q quits app with no chance of saving report. Is there
+  any way of trapping that?
+
+* Allow column names (not table.column) in editor windows, but only if the
+  name is (a) unique across all tables and (b) not an otherwise reserved
+  word.
+
+* Separate XML file for database connection info (perhaps via a URL)? That
+  way the report can be distributed to separate users or used with separate
+  database instances.
+
+* Keyboard navigation and defaults for dialogs.
+
+* In the field picker window, visually mark formulas and parameters used in
+  the report.
+
+* Add more screenshots. One with everything open?
+
+* Pop-up list of example driver names and connection strings? Suggestion
+  from Guido Amoruso <guidonte@libero.it>.
+
+* Send email to swing-feedback@java.sun.com. See
+  http://java.sun.com/products/jfc/tsc/sightings/.
+
+* Allow subtotaling of time intervals.
+
+* Add printout and export examples to Web site.
+
+* Access to SQL functions like SUM, AVG. New field type?
+
+* Cataloging/searching reports (XML files).
+
+* Arrow keys nudge selected fields a pixel at a time.
+
+* When trying to log in, notify user of error messages. Perhaps quit after
+  three or five times instead of looping indefinitely.
+
+* Let user open connection info dialog from login dialog.
+
+* Make formats easier to use. Don't require user to understand
+  SimpleDateFormat and DecimalFormat.
+
+* Can we use SQL error number or message to determine if we want to retry a
+  botched login? How was it botched: bad password or something else?
+
+* Avoid circular references in formulas.
+
+* Need another way to open field picker window besides the "Insert" menu.
+
+* Joins should support inner and outer joins.
+
+* Let user enable/disable ErrorHandler's stack trace printing.
+
+* In db conn info window, disable OK and Apply buttons until both class
+  name and conn info are supplied.
+
+* Save last used directory of file open widget.
+
+* Save layout engine type in report for use as default next time?
+
+* Let report run window use same code as design window to export report.
+
+* Factor out common code in GroupWin and SortWin?
+
+* "Are you sure?" when exporting over an existing file.
+
+* CharSepLE: make quotes around fields optional, at least for fields that
+  don't contain quotes or separator characters.
+
+* Display borders in Swing layout. Problem: borders in LaTeX are outside
+  the bounds, borders in Swing are much easier to implement inside the bounds.
+
+* Shortcut keys for buttons like Yes/No/Cancel and OK/Apply/Revert/Cancel.
+
+* Reduce coupling (Demeter principle).
+
+* VisTableWin: only enable Delete Selected button when some join's delete
+  check box is selected.
+
+* Save window positions and sizes. Save info in report XML?
+
+* Visual join editor (tables are visual; drag arrows between columns to
+  create joins).
+
+* Formula parser checks syntax and types.
+
+* Dynamically load LayoutEngine subclasses. Allows for dynamic extension.
+
+* Use XQL?
+
+* Use XSchema instead of DTD?
+
+* Select fields by clicking and dragging a selection box with the mouse.
+  (Can already use shift-select, of course.)
+
+* Field picker toolbar: create, delete, edit.
+
+* Use Action objects for actions common to menu and popup? The problem is
+  that some shared actions aren't really identical when invoked from the
+  window menu and from a field (the popup in the field).
+
+* Icons for field picker win.
+
+* Grid toggle for window. When moving or putting down (drag and drop)
+  fields, snap to grid. Menu item in Format menu.
+
+* Can add action listener to an entire menu instead of just one item at a
+  time.
+
+* Use a Menu Listener. That way we can enable/disable menus in dialog
+  window without resorting to calling enable after every select. (See JMenu
+  addMenuListener)
+
+* Installer script that edits classpath?
+
+* Logo for DataVision.
+
+* Image for dragging fields (use Field.DEFAULT_WIDTH and
+  Field.DEFAULT_HEIGHT).
+
+* Design window toolbar (make it optional).
+
+* Suggestions from Tony: combos, areas, checkbox, background, working
+  borders, line, rectangles.
+
+* Instead of "This report has been modified" in save dialog, use report
+  title.
+
+* Handle page/paper orientations in layout engines.
+
+* Handle page/paper orientations in design window.
+
+* ASCII layout engine.
+
+* RTF layout engine.
+
+* Group display name different from group value.
+
+* Provide schema-building scripts for ODBC databases.
+
+* Arbitrary SQL?
+
+  Row.getObject should take string name, not int index.
+
+  Introduce new interface for objects with ids. (Done: Identity).
+
+* Hide ancillary windows when another report window becomes the front one.
+  We'll need to associate those windows with the report window first, of
+  course.
+
+* Line types (dash, etc.)
+
+* Fix DTD.
+
+* When have visual preview of output, only read first page from database.
+
+* Special fields: report.date, report.time, report.datetime, run.date,
+  run.time, run.datetime
+
+* Graph generation.
+
+* In border tab, example field that displays selected border edges.
+
+----------------------------------------------------------------
+Testing
+----------------------------------------------------------------
+
+* New tests for usercol in group.
+
+* Formula tests to make sure a formula field's formula never gets executed
+  twice.
+
+* Write test for Ruby script eval in char sep row where clause.
+
+* Suppression proc test.
+
+* User column tests.
+
+* I'm testing for the wrong thing with respect to generation of new ids. I
+  should not test to see that the new id == max old id + 1, but rather that
+  the new id is unique.
+
+* Test for formula value in group footer. Make sure it doesn't revert to
+  old value.
+
+----------------------------------------------------------------
+Documentation
+----------------------------------------------------------------
+
+* Add pdf basic font list to faq.
+
+* Tutorial.
+
+* xml.html "formulas": (a) fix id tag; (b) formual text is Ruby code *plus
+  special {} stuff*
+
+* Informix docs from Chad Lemmen.
+
+* Add success stories to Web site.
+
+* (after writing setReport) New DataSource.setReport; describe in
+  embed.html.
+
+* Complete javadoc comments.
+
+* Testdata directory.
+
+----------------------------------------------------------------
+Translations
+----------------------------------------------------------------
+
+* Possible Serbian and Croation from Ilija, Gojkovic
+  <Ilija.Gojkovic@bcferries.com>
+
+* Waiting for Chinese from Liangw <liangw-tek@21.com>
+
+* Possible Dutch from Nils Ottevanger <N.Ottevanger@hetnet.nl>
+
+* Web interface for translation submission. Even better, Translate-O-Matic
+  Java application.
+
+* Add more comments to datavision.properties for translation program.
+
+================================================================
+Notes
+================================================================
+
+* Shouldn't Report.withFieldsDo() include group columns like reloadColumns
+  does? Joins and sorts? Check all uses of withFieldsDo. Perhaps add fields
+  to a set and iterate over that set.
+
+  Actually, no it shouldn't. withFieldsDo gives you fields, not columns.
+
+  FieldPickerWin.createUsedDatabaseTables: yes, this would be good,
+  including not only group but also join and sort columns.
+
+  Query.findColumnsUsed: no, because we're only looking for SELECT columns.
+
+  CharSepQuery.findColumnsUsed: same as Query.
+
+* http://java.sun.com/docs/books/tutorial/uiswing/painting/example-swing/SelectionDemo.java
+
+* /home/groups/d/da/datavision/htdocs

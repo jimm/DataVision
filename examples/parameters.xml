@@ -1,0 +1,34 @@
+<!--
+  -- This is the way you give parameter values to DataVision when you
+  -- run it from the command line. Use the command line option
+  -- "-r parameters.xml".
+  -->
+<?xml version="1.0" encoding="UTF-8"?>
+<parameters>
+
+  <!-- A single text value. -->
+  <parameter id="1"><value>New York</value></parameter>
+
+  <!-- A numeric range. -->
+  <parameter id="2">
+    <value>50</value>
+    <value>75</value>
+  </parameter>
+
+  <!-- A multiple-choice list. -->
+  <parameter id="4">
+    <value>1</value>
+    <value>3</value>
+    <value>9</value>
+  </parameter>
+
+  <!--
+    -- "t", "true", "y", and "yes" are all interpreted as "true".
+    -- Anything else is interpreted as "false". Case is not significant.
+    -->
+  <parameter id="5"><value>yes</value></parameter>
+
+  <!-- Dates must be in YYYY-MM-DD format -->
+  <parameter id="6"><value>2002-05-01</value></parameter>
+
+</parameters>

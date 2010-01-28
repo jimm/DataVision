@@ -1,0 +1,99 @@
+<!-- include_header FAQ faq_faq running faq -->
+
+<h1>DataVision</h1>
+
+<!-- **************************************************************** -->
+<a id="dvwhat" />
+<h2>What is DataVision?</h2>
+
+From the <a href="../DataVision/DataVision.html">User's Manual</a>:
+
+<blockquote>
+
+DataVision is an Open Source database reporting tool similar to Crystal
+Reports. Reports can be designed using a drag-and-drop GUI. They may be
+run, viewed, and printed from the application or exported as HTML, XML,
+PDF, LaTeX2e, DocBook, or tab- or comma-delimited text files. The output
+files produced by LaTeX2e and DocBook can in turn be used to produce PDF,
+text, HTML, PostScript, and more.
+
+DataVision is written in Java and runs almost anywhere. It can generate
+reports from databases or text data files. Any database with an available
+JDBC driver should work: Oracle, PostgreSQL, MySQL, Informix, hsqldb,
+Microsoft Access, and more. Columns read from text files can be separated
+by any character.
+
+Report descriptions are stored as XML files. This means you can not only
+use the DataVision GUI but you may also edit reports using your favorite
+text editor.
+
+</blockquote>
+
+<!-- **************************************************************** -->
+<a id="dvproj" />
+<h2>Where can I find DataVision?</h2>
+
+The <a href="http://datavision.sourceforge.net/">DataVision Web Site</a>
+is hosted on SourceForge. The <a
+href="http://sourceforge.net/projects/datavision/">project summary page</a>
+contains additional links to forums, news items, and more.
+
+<!-- **************************************************************** -->
+<a id="dvdownload" />
+<h2>Where can I download DataVision?</h2>
+
+You can follow the ``Download'' link on the DataVision Web site, or you can
+<a href="http://sourceforge.net/project/showfiles.php?group_id=33343">jump
+to the downloads page</a>.
+
+
+<!-- **************************************************************** -->
+<a id="dvwho" />
+<h2>Who maintains DataVision?</h2>
+
+
+It's all Jim Menard's fault. His email address is <a
+href="mailto:jimm@io.com">jimm@io.com</a>.
+
+
+<!-- **************************************************************** -->
+<a id="compile" />
+<h2>Why can't I recompile DataVision?</h2>
+
+If you have no problems compiling datavision but your changes don't take
+effect, that is probably because you forgot to re-make the jar file.
+
+<codeblock>
+make jar
+</codeblock>
+
+The ``jar'' make target depends upon the ``all'' target, which means that
+make will recompile DataVision before creating the jar file.
+
+If you try to recompile older versions of DataVision (before 0.7.7) you
+will get an error message about a missing directory. The image files used
+by DataVision used to be copied into the jar file from another directory
+outside of the <dir>datavision</dir> directory.
+
+If you wish, you can extract those files from the
+<dir>lib/</dir><file>DataVision.jar</file> file.
+
+<codeblock>
+<comment># Make a temporary directory</comment>
+mkdir temp
+cd temp
+
+<comment># Extract the files in the DataVision jar file</comment>
+jar xf ../lib/DataVision.jar
+
+<comment># Move the missing graphics files</comment>
+mv toolbarButtonGraphics ../..
+
+<comment># Remove the temporary directory</comment>
+cd ..
+rm -fr temp
+</codeblock>
+
+Don't forget to make the jar file, too. See above.
+
+<!-- include_footer FAQ faq_faq running faq -->

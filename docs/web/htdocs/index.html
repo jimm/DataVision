@@ -1,0 +1,474 @@
+<!--#set var="pagetitle" value="DataVision Home" --><!--#set var="headertitle" value="Home" --><!--#include virtual="header.html"-->
+
+<div class="content">
+
+<h1 id="intro">Introduction</h1>
+
+<!-- BEGIN OVERVIEW -->
+
+<p>
+DataVision is an Open Source reporting tool similar to Crystal Reports.
+Reports can be designed using a drag-and-drop GUI. They may be run, viewed,
+and printed from the application or exported as HTML, XML, PDF, Excel, LaTeX2e,
+DocBook, or tab- or comma-delimited text files. The output files produced
+by LaTeX2e and DocBook can in turn be used to produce PDF, text, HTML,
+PostScript, and more.
+</p>
+
+<p>
+DataVision is written in Java and runs almost anywhere. It can generate
+reports from databases or text data files. Any database with an available
+JDBC driver should work: Oracle, PostgreSQL, MySQL, Informix, hsqldb,
+Microsoft Access, Progress, and more. Columns read from text files can be
+separated by any character.
+</p>
+
+<p>
+Report descriptions are stored as XML files. This means you can not only
+use the DataVision GUI but you may also edit reports using your favorite
+text editor.
+</p>
+
+<p>
+DataVision was developed by Jim Menard (<a
+href="mailto:jimm@io.com">jimm@io.com</a>). The project's leader is now Frank
+W. Zammetti (<a href="fzlists@omnytex.com">fzlists@omnytex.com</a>). The latest version of
+DataVision can be found on the <a
+href="http://datavision.sourceforge.net/">DataVision Web page</a>. New
+releases are also announced on <a href="http://freshmeat.net/">Freshmeat</a>
+and on the DataVision <a
+href="http://sourceforge.net/mail/?group_id=33343">mailing list</a>.
+</p>
+
+<!-- END OVERVIEW -->
+
+
+
+<h1 id="news">News</h1>
+
+<p><span class="newsdate">July 13, 2008</span> After an unexpected
+delay, the official DataVision version 1.2.0 is now available!  This
+release is the first to be made available as a single easy to install
+Windows .exe file, as well as in the traditional 'tarball' form.  The
+Windows installer was created using the very flexible open
+source <a href="http://nsis.sourceforge.net">NSIS</a> installer
+creation system.</p>
+
+<p><span class="newsdate">April 21, 2008</span> Hot on the heels of
+1.2.0rc1, version 1.2.0rc2 is now available.  Thanks to those who
+tested 1.2.0rc1, especially those who rapidly reported issues with it!
+Please also test this release, so we can soon get to a 'real' 1.2.0
+release!</p>
+
+<p><span class="newsdate">April 13, 2008</span> Version 1.2.0rc1 is now
+available. Thanks to everyone that helped make this happen. Please do
+test this release so we can soon get to a 'real' 1.2.0 release!</p>
+
+<p><span class="newsdate">February 29, 2008</span> Jonathan Marsden
+has joined the DataVision team as a developer.</p>
+
+<p><span class="newsdate">December 12, 2007</span> Version 1.1.0 is now
+available.  Thanks to everyone that helped get to this point!</p>
+
+<p><span class="newsdate">June 14, 2007</span> Pete Williams of <a href="http://www.seriosoft.com">Seriosoft</a>
+has posted some tutorials showing how to use DataVision on his blog
+<a href="http://www.seriosoft.com/Blog/?p=153">here</a> and
+<a href="http://www.seriosoft.com/Blog/?p=156">here</a>.  He says more are to follow,
+so stay tuned to his blog!  These tutorials are geared towards
+first-time users and can serve as a good starting point for anyone just
+coming to DataVision.  Thanks Pete!</p>
+
+<p><span class="newsdate">February 9, 2004</span> Frank W. Zammetti has published <a
+href="http://www.omnytex.com/articles/rftwwdv/"><cite>Reporting For The Web With
+DataVision</cite></a>, an article that shows you how to design a simple report
+and run it from within a Web application.</p>
+
+
+
+<h1 id="features">Features</h1>
+
+<p>Here is a list of DataVision's features, presented in a mind-jarring
+random order:</p>
+
+<ul>
+
+<li>Drag-and-drop report builder.</li>
+
+<li>Runs anywhere Java runs: Windows, Linux, Mac OS X, BSD, Solaris, and
+more.</li>
+
+<li>Works with any database that has a JDBC driver: Oracle, PostgreSQL,
+MySQL, Informix, hsqldb, Microsoft Access, DB/2, and more.</li>
+
+<li>Report headers and footers, page headers and footers, group headers and
+footers.</li>
+
+<li>Report field formatting: color, numeric and date format, italic, bold,
+border lines, etc.</li>
+
+<li>Editable report-wide default field format.</li>
+
+<li>Subreports.</li>
+
+<li>Visual table linker.</li>
+
+<li>Aggregates (sum, min, max, count, average, stddev) by group and at
+report's end.</li>
+
+<li>Record sorting.</li>
+
+<li>Sub-selects allowed within SQL WHERE clauses.</li>
+
+<li>Formulas, using any language supported by the <a
+href="DataVision/anatomy.html#bsf">Bean Scripting Framework</a> (BSF). The
+default formula language shipped with DataVision is <a
+href="http://www.ruby-lang.org/en/">Ruby</a> (via <a
+href="http://jruby.sourceforge.net/">JRuby</a>).</li>
+
+<li>Record selection (SQL WHERE clause for database data sources, BSF
+script that accepts/rejects records for character-separated file data
+sources).</li>
+
+<li>Run-time parameters; asks the user for values when the report runs; if
+running from the command line, reads values in from an XML file.</li>
+
+<li>Run-time variables (again thanks to the BSF). A script run at the
+start of each report run is the perfect place to set all your initial
+values.</li>
+
+<li>User-defined SELECT clause columns; useful for calling stored
+procedures or SQL functions.</li>
+
+<li>Hide columns and entire sections.</li>
+
+<li>Reports can read data from different data sources. Currently, data
+sources are defined for databases and text data files (comma-separated,
+tab-separated, etc.)</li>
+
+<li>When reading text data files, translates date and numeric columns into
+the appropriate Java classes so they can be manipulated as such (formatted,
+used in formulas, etc.)</li>
+
+<li>Run and view reports on-screen.</li>
+
+<li>Print report from DataVision.</li>
+
+<li>Exports to HTML, XML, PDF, comma-separated, tab-separated, DocBook,
+LaTeX.</li>
+
+<li>GUI translated into eleven languages.</li>
+
+<li>Report definitions stored as human-readable XML.</li>
+
+<li>Open source, so you get all the code to play with and use.</li>
+
+<li>DataVision is embeddable within your own application.</li>
+
+<li>The download contains the Java source code, a jar file (so you don't
+have to compile anything), scripts for running DataVision, examples, and
+the documentation.</li>
+
+</ul>
+
+
+<h1 id="changes">Changes</h1>
+
+<p>
+Here is the summary of the changes in version 1.2.0rc1
+</p>
+
+<!-- BEGIN RECENT CHANGES -->
+
+<p>
+Here is a summary of the changes in DataVision version 1.2.0rc2
+since version 1.2.0.rc1.
+</p>
+
+<ul>
+
+    <li> Build the tarball tree under ${tmp} not under ../
+         Avoids trashing working dir named datavision-<version> </li>
+
+    <li> Merge first 3 lines of intro.html source file, so that
+         the resulting HTML output validates. </li>
+
+    <li> Updated Derby library (derby.jar) to version 10.3.2.1 </li>
+
+    <li> Updated sqlitejdbc driver to version v044.
+         Also used Pure Java version so the driver will 
+         work on all platforms, not just Windows. </li>
+
+    <li> Set source and target parameters to 1.4 for all
+         Ant javac tasks.  
+         This should allow resulting compiled bytecode to
+         be run on all Java runtimes from 1.4 to the present. </li>
+
+    <li> DataVision now requires Java version 1.4 or higher.
+         Install instructions edited to reflect new dvclasspath
+         variable rather than classpath. </li>
+
+</ul>
+
+<p>
+Here is a summary of the changes in DataVision version 1.2.0rc1
+since version 1.1.0.
+</p>
+
+<ul>
+
+    <li> Updated COPYING file to reference ASL 2.0 </li>
+
+    <li> Include Bundle-Name: and Numble-Version: attributes in
+         manifest file.  Generate the manifest automatically. </li>
+
+    <li> Output DataVision version before the usage message. </li>
+
+    <li> Generate datavision_version.txt automatically. </li>
+
+    <li> Allow Ruby versionNumber.rb to deal with a version
+         suffix (such as rc1). </li>
+
+    <li> Set version to 1.2.0rc1 ready for release candidate. </li>
+
+    <li> Removed -u look and feel switch from code.  Removed
+         liquidlnf.jar file from lib directory.  Reverted default look
+         and feel to "default".  Fixes bug 1923244 Cut and Paste on OS
+         X does not work. </li>
+
+    <li> Allow column set retrieval in Dervy and SQLite again.  (Fixes
+         issue introduced by r136 use of beforeFirst()). </li>
+
+    <li> Added URLs to download locations for third party
+         libraries. </li>
+
+    <li> Allow sorted reports to work again. </li>
+
+    <li> Re-enable use of the first column of every table, a fix to
+         FWZ's fix for SQlite issue enumerating columns. </li>
+
+     <li> Fix for Tracker Issue 1777081 regarding quoting issues.  Now
+          DV uses getIdentifierQuoteString() to decide which quote
+          character to quote identifiers with. </li>
+
+    <li> Switched to modified .bat and .sh files, courtesy of Jonathan
+         Marsden. </li>
+
+    <li> Corrected mistakes in a few language files where it said "CSS-based XLS"
+      instead of the correct "CSS-based HTML" export option and layout engine
+      specification.  Also added that string to one file that was missing it. </li>
+
+    <li> Addressed issue reported by Byron Hurder dealing with SQLite not showing
+      database columns.  Also as part of this, added new sqlite_example.xml
+      report, and test database (unfortunately the database has to be in the
+      root directory rather than /examples where I'd prefer it be, just so
+      that it can be found when DataVision is run... might just need to
+      specify the path differentlyin the connection string, but nothing I
+      tried seem to work, so we'll live with the file being somewhere it
+      would be better off not being). </li>
+
+    <li> Bug #865491 was fixed.  Check SVN commit messages on 12/23/2007 for
+      details (a bunch of files needed to be modified to address this).
+      Commit message is also a part of the bug ticket for reference. </li>
+
+    <li> Applied patch #1816739 from Marcel Jager who provided Dutch translations.
+      Thank you Marcel! </li>
+
+    <li> Applied patch #1463294 from David Bennett do address an issue when using
+      JavaScript as your formula language.  Thanks David! </li>
+
+    <li> Added the ObjectSource and related example code.  This allows you to run
+      a report against an ArrayList (where each element is a row) of
+      ArrayLists (where each element is a column).  This works very much like
+      CharSepSource does, except that you define the data, as well as the
+      columns, in code.  See the example for usage details. </li>
+
+</ul>
+
+<!-- END RECENT CHANGES -->
+
+
+<p>
+Documentation errata may be found on the <a
+href="docs.html">Documentation</a> page.
+</p>
+
+
+<h1 id="users">User Community</h1>
+
+<p>
+This list of countries includes those from which I have received emails and
+those subscribed to the DataVision Users mailing list. It exists solely
+because I have an ego, and that ego likes to see how widely DataVision is
+used.
+</p>
+
+<ol>
+<li>Afghanistan</li>
+<li>Australia</li>
+<li>Austria</li>
+<li>Belgium</li>
+<li>Brazil</li>
+<li>Bulgaria</li>
+<li>Canada</li>
+<li>Colombia</li>
+<li>China</li>
+<li>Czech Republic</li>
+<li>Denmark</li>
+<li>Dominican Republic</li>
+<li>Egypt</li>
+<li>France</li>
+<li>Germany</li>
+<li>Greece</li>
+<li>India</li>
+<li>Indonesia</li>
+<li>Ireland</li>
+<li>Italy</li>
+<li>Latvia</li>
+<li>Malaysia</li>
+<li>Mexico</li>
+<li>Netherlands</li>
+<li>New Zealand</li>
+<li>Pakistan</li>
+<li>Panama</li>
+<li>Paraguay</li>
+<li>Philippines</li>
+<li>Poland</li>
+<li>Portugal</li>
+<li>Romania</li>
+<li>Russia</li>
+<li>Singapore</li>
+<li>Slovak Republic</li>
+<li>South Africa</li>
+<li>Spain</li>
+<li>Sri Lanka</li>
+<li>Sweden</li>
+<li>Switzerland</li>
+<li>Taiwan</li>
+<li>Uganda</li>
+<li>Ukraine</li>
+<li>United Arab Emirates</li>
+<li>United Kingdom</li>
+<li>Uruguay</li>
+<li>USA</li>
+<li>Yugoslavia</li>
+<li>Vietnam</li>
+<li>Zimbabwe</li>
+</ol>
+
+
+<h1>Copying and Warranty</h1>
+
+<p>
+The notices that were displayed here have moved to the <a
+href="DataVision/legal.html"><i>Copying and Warranty</i></a> section of the
+<a href="DataVision/DataVision.html">User's Manual</a>.
+</p>
+
+
+<h1 id="others">Other Projects</h1>
+
+<h2>Projects Used by DataVision</h2>
+
+<p>The images (toolbar icons) are courtesy of Sun Microsystems. They can be
+found at the <a
+href="http://developer.java.sun.com/developer/techDocs/hi/repository/">Java
+Look and Feel Graphics Repository</a>. On that page is a link to the file
+<code>jlfgr-1_0.jar</code> which contains the images.</p>
+
+<p><a href="http://www.toedter.com/en/jcalendar.html">JCalendar</a> is the
+calendar widget by Kai Toedter (<a
+href="mailto:kai@toedter.com">kai@toedter.com</a>).</p>
+
+<p>The <a href="http://jakarta.apache.org/bsf/">Bean Scripting Framework</a>
+(BSF) is an Apache Jakarta project is a Java framework for executing scripting
+languages that can access Java objects.</p>
+
+<p><a href="http://jruby.sourceforge.net">JRuby</a> is a Ruby interpreter
+for Java that also implements the BSF interface.</p>
+
+<p><a href="http://www.lowagie.com/iText/">iText</a> is the free Java-PDF
+library by Bruno Lowagie used in the PDF layout engine.</p>
+
+<p>Thanks to <a href="http://www.cs.umd.edu/~pugh/java/bugs/">FindBugs</a>
+for helping me find some potential bugs in the code.</p>
+
+<p><a href="http://www.wilson.co.uk/xml/minml2.htm">MinML2</a> is the XML
+parser that DataVision used to use. It has been superceded by the built-in
+Java 1.4 SAX parser.</p>
+
+
+<h2>Contributions</h2>
+
+<p>Pascal Pochet of <a href="http://www.p3-consulting.net">P3
+Consulting</a> has written a <a
+href="http://www.p3-consulting.net/downloads/opensources/datavisionreport.html">Mac
+OS X wrapper</a> for DataVision (here's a <a
+href="http://www.macosxguru.net/p3consulting/downloads/opensources/datavisionreport.html">mirror</a>).
+It's freeware, and includes source code.</p>
+
+
+<h2>Projects Using DataVision</h2>
+
+<p><a
+href="http://www.memoriapersistente.pt/opensource/mp-biz/index.html">Evaristo</a>
+is an open source ERP solution. Evaristo includes an embedded version of
+DataVision.</p>
+
+<p>The <a href="http://www.ofbiz.org/">Open For Business Project</a> is an
+open source enterprise automation software project licensed under the MIT
+Open Source License. The goal of the project is to build a community of end
+users and developers that work together directly to create easy to
+customize business software based on best practices. Open For Business uses
+DataVision.</p>
+
+<p><a href="http://www.cotsec.com">Cotsec</a> plans to use DataVision as
+its preferred/default reporting Enterprise Component for their Enterprise
+Components suite.</p>
+
+<h2>Other Reporting Tools</h2>
+
+<p><a href="http://jasperreports.sourceforge.net/">JasperReports</a> is a
+powerful report-generating tool that has the ability to deliver rich
+content onto the screen, to the printer or into PDF, HTML, XLS, CSV and XML
+files.</p>
+
+<p><a href="http://www.object-refinery.com/jfreereport/">JFreeReport</a> is
+an open source report writer for Java with features like full on-screen
+print preview, XML-based report definitions and output to PDF.</p>
+
+<p><a href="http://www.object-refinery.com/jfreechart/">JFreeChart</a> is an
+open source Java class library for generating charts. JFreeChart is brought
+to you by the same people that created JFreeReport.</p>
+
+<p><a href="http://reportman.sourceforge.net">Report Manager</a> &quot;is a
+reporting application (Report Manager Designer) and also a set of
+components for Delphi, Builder and Kylix, also supports development
+environment accepting ActiveX controls (Visual Basic, Visual FoxPro, any
+Visual Studio.Net language...), also a C dynamic standard library with
+exported functions is provided to use the engine with any other language
+like GNU C. It also includes a TCP enabled Report Server so thin clients
+can obtain reports processed in the server. Also a fully functional web
+report server application is available, generating Adobe PDF files on the
+fly. A true net and web report server with no license fees and
+multiprocessor support.&quot;</p>
+
+<p><a href="http://agata.codigolivre.org.br/">Agata Report</a> is a
+Database Reporting Tool and EIS, MIS tool (graph generation), like Crystal
+Reports. Its written in PHP-GTK and allows you to edit and get SQL results
+from several databases as Text or PostScript Files.</p>
+
+<p><a href="http://www.businessobjects.com/">Business Objects</a>, makers of
+<a
+href="http://www.businessobjects.com/products/reporting/crystalreports/default.asp">Crystal
+Reports</a> and other fine reporting and analysis tools.</p>
+
+<p><a href="http://rlib.sicompos.com/">RLIB</a>, a LAMP (Linux, Apache,
+MySQL, PHP) reporting engine.</p>
+
+<p>&quot;<a href="http://www.andrioli.com/en/sptpl.html">SpoolTemplate</a>
+is a report system based on templates. Based on XML configuration file it
+allows to build easyily report from database query, using few lines of PHP
+code.&quot;</p>
+
+</div>
+<!--#include virtual="footer.html"-->

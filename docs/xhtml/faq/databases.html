@@ -1,0 +1,79 @@
+<!-- include_header FAQ reports nil faq -->
+
+<h1>Databases</h1>
+
+
+<!-- **************************************************************** -->
+<a id="dblist" />
+<h2>What databases work with DataVision?</h2>
+
+
+Any database that has a JDBC driver. This means PostgreSQL, MySQL,
+Informix, Oracle, hsqldb, Microsoft Access, Progress, and more.
+
+As of version 0.2.1, DataVision has stopped relying upon the more
+advanced JDBC features it used. This means that pretty much any JDBC driver
+should work.
+
+For information about driver names and connection info string formats
+see your database's JDBC driver documentation. Some suggestions also appear
+in the DataVision User's Manual.
+
+<!-- **************************************************************** -->
+<a id="readfromelsewhere" />
+<h2>Can DataVision read data from anywhere else?</h2>
+
+Yes. DataVision can read from character-separated text files. There is no
+GUI support yet for telling DataVision about the structure of the contents
+of the text file; see <a
+href="../DataVision/xml.html#element-charsep"><sec>charsep</sec></a> in the
+User's Manual for details on how to edit your report XML file to describe
+the contents of the file.
+
+Similar to the way that there are multiple layout engines, there are
+multiple data sources. Only two are implemented: JDBC databases and
+character-separated text files.
+
+<!-- **************************************************************** -->
+<a id="binary" />
+<h2>Can DataVision handle binary database fields?</h2>
+
+No. The problem with binary fields is that there is no way for
+DataVision to know what is in the field: text, an image, music. Even if you
+told it what the field contains, DataVision would then have to know about
+every image, music, or text format in order to display it properly.
+
+<!-- **************************************************************** -->
+<a id="latestmysqldriver" />
+<h2>Where is the latest version of the MM.MySQL driver?</h2>
+
+Some users have had problems with drivers earlier than 2.0.11. You can
+find the latest version of the MM.MySQL driver from that project's <a
+href="http://sourceforge.net/project/showfiles.php?group_id=15923">SourceForge
+downloads page</a>.
+
+<!-- **************************************************************** -->
+<a id="namecase" />
+<h2>Why can't DataVision find my database columns any more?</h2>
+
+As of 0.6.0, table and column names in DataVision are case-sensitive. See
+<a href="../DataVision/edit.html#namecase"><sec>Database Name Case
+Sensitivity</sec></a> for details.
+
+From versions 0.7.3 through 0.7.5, there was a bug that prevented tables
+from loading their column desriptions under certain circumstances. You
+would see tables in the report, but any tables not in the report would not
+load their columns properly when you tried to see their columns in the
+Field Picker window.
+
+<!-- **************************************************************** -->
+<a id="pgcolprobs" />
+<h2>Why can't I see my PostgreSQL table's columns?</h2>
+
+Upgrade your PostgreSQL JDBC driver if you are using Java 1.4. At least two
+PostgreSQL users were having different problems with PostgreSQL when
+upgrading to Java 1.4. They downloaded <a
+href="http://jdbc.postgresql.org/download/devpgjdbc3.jar">devpgjdbc3.jar</a>
+and that seemed to fix their problems.
+
+<!-- include_footer FAQ reports nil faq -->
