@@ -318,8 +318,8 @@ protected void createUserColumns(DefaultMutableTreeNode top) {
 
     TreeSet usercols = new TreeSet(nameComparator);
 
-    for (Iterator iter = report.userColumns(); iter.hasNext(); )
-	usercols.add(iter.next());
+    for (UserColumn uc : report.userColumns())
+	usercols.add(uc);
 
     for (Iterator iter = usercols.iterator(); iter.hasNext(); ) {
 	UserColumn uc = (UserColumn)iter.next();
@@ -365,30 +365,28 @@ protected void createAllDatabaseTables(DefaultMutableTreeNode top) {
     top.add(categoryNode);
 
     // Store list of tables actually used by the report in a sorted set.
-    final TreeSet tables = new TreeSet(nameComparator);
+    final TreeSet<Table> tables = new TreeSet<Table>(nameComparator);
     final TreeSet noTableCols = new TreeSet(nameComparator);
 
     // Walk data source's list of tables. If there are no tables for the
     // data source, then instead add all columns to the noTableCols set.
     DataSource source = report.getDataSource();
-    Iterator iter = source.tables();
+    Iterator<Table> iter = source.tables();
     if (iter != null) {
 	while (iter.hasNext())
 	    tables.add(iter.next());
     }
 
-    if (tables.isEmpty()) {
-	for (iter = source.columns(); iter.hasNext(); )
-	    noTableCols.add(iter.next());
-    }
+    if (tables.isEmpty())
+	for (Column col : source.columns())
+	    noTableCols.add(col);
 
     // Add nodes for tables and columns under tables
     for (iter = tables.iterator(); iter.hasNext(); )
 	addTableNode(categoryNode, (Table)iter.next());
 
     // Add nodes for columns that have no table
-    for (iter = noTableCols.iterator(); iter.hasNext(); ) {
-	Column column = (Column)iter.next();
+    for (Column column : noTableCols) {
 	ColumnInfo info = new ColumnInfo(column, designer);
 	categoryNode.add(new DefaultMutableTreeNode(info, false));
     }

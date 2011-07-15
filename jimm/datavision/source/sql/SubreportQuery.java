@@ -44,11 +44,11 @@ public void addSubreportJoins(Collection coll) {
  *
  * @return an iterator over selectables
  */
-public Iterator parentColumns() {
-    ArrayList list = new ArrayList();
+public Iterable<Column> parentColumns() {
+    ArrayList<Column> list = new ArrayList<Column>();
     for (Iterator iter = subreportJoins.iterator(); iter.hasNext(); )
 	list.add(((Join)iter.next()).getFrom());
-    return list.iterator();
+    return list;
 }
 
 protected void buildWhereClause(StringBuffer str, boolean forDisplay) {

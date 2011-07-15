@@ -281,12 +281,11 @@ public void findSelectablesUsed() {
     }
 
     // Add all selectables' tables used by subreports' joins.
-    for (Iterator iter = report.subreports(); iter.hasNext(); ) {
-	Subreport sub = (Subreport)iter.next();
-	for (Iterator subIter = sub.parentColumns(); subIter.hasNext(); ) {
+    for (Subreport sub : report.subreports()) {
+	for (Column col : sub.parentColumns()) {
 	    // maybe parentColumns should use same the Table-Object as the
 	    // parent report...
-	    addTable(((Column)subIter.next()).getTable());
+	    addTable(col.getTable());
 	}
     }
 }
@@ -518,9 +517,8 @@ protected void buildUserWhereClause(StringBuffer str, boolean forDisplay) {
 protected void buildOrderBy(StringBuffer str) {
     if (report.hasGroups() || !sortSelectables.isEmpty()) {
 	str.append(" order by ");
-	ArrayList orders = new ArrayList();
-	for (Iterator iter = report.groups(); iter.hasNext(); ) {
-	    Group g = (Group)iter.next();
+	ArrayList<String> orders = new ArrayList<String>();
+	for (Group g : report.groups()) {
 	    StringBuffer buf =
 		new StringBuffer(g.getSelectable().getSortString(this));
 	    buf.append(' ');
@@ -528,8 +526,7 @@ protected void buildOrderBy(StringBuffer str) {
 			    ? "desc" : "asc");
 	    orders.add(buf.toString());
 	}
-	for (Iterator iter = sortedSelectables(); iter.hasNext(); ) {
-	    Selectable s = (Selectable)iter.next();
+	for (Selectable s : sortedSelectables()) {
 	    StringBuffer buf = new StringBuffer(s.getSortString(this));
 	    buf.append(' ');
 	    buf.append(sortOrderOf(s) == Query.SORT_DESCENDING ? "desc" : "asc");

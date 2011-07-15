@@ -50,7 +50,7 @@ public void addAllJoins(Collection coll) {
  *
  * @return an iterator over selectables
  */
-public Iterator parentColumns() {
+public Iterable<Column> parentColumns() {
     return ((SubreportQuery)getDataSource().getQuery()).parentColumns();
 }
 

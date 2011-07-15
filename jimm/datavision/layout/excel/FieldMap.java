@@ -7,7 +7,6 @@
 package jimm.datavision.layout.excel;
 
 import java.util.*;
-import jimm.datavision.*;
 import jimm.datavision.field.Rectangle;
 
 /**
@@ -16,7 +15,7 @@ import jimm.datavision.field.Rectangle;
  */
 public class FieldMap {
     
-    public ArrayList reportRows;
+    public ArrayList<RowContainer> reportRows;
     public double[] colWidths = new double[256];
     public boolean[] colAlloc = new boolean[256];
     public static final int MAXCOL = 256;
@@ -33,7 +32,7 @@ public class FieldMap {
             colWidths[i] = defaultColWidth * 7.625;
             colAlloc[i] = false;
         }
-        reportRows = new ArrayList();
+        reportRows = new ArrayList<RowContainer>();
     }
     
     public RowContainer createRow() {
@@ -45,11 +44,11 @@ public class FieldMap {
     /* Transverses all rows and columns and establishes the best column allotment */
     public void realignColumns() {
         int i;
-        Iterator it = reportRows.iterator(); 
+        Iterator<RowContainer> it = reportRows.iterator(); 
         while(it.hasNext()) {
             RowContainer tmpRow = (RowContainer)it.next();
             /* Iterate through the fields in this line and find acceptable column allocations */
-            Iterator rowit = tmpRow.reportFields.iterator();
+            Iterator<PermField> rowit = tmpRow.reportFields.iterator();
             while(rowit.hasNext()) {
                 PermField tmpField = (PermField)rowit.next();
                 Rectangle fbound = tmpField.getBounds();

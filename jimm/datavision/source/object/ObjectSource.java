@@ -2,7 +2,6 @@ package jimm.datavision.source.object;
 import jimm.datavision.*;
 import jimm.datavision.source.*;
 import jimm.util.XMLWriter;
-import java.io.*;
 import java.util.*;
 
 /**
@@ -14,8 +13,8 @@ import java.util.*;
  */
 public class ObjectSource extends DataSource {
 
-protected ArrayList columns;
-private ArrayList data;
+protected ArrayList<Column> columns;
+private ArrayList<Object> data;
 
 /**
  * Constructor.
@@ -24,9 +23,9 @@ private ArrayList data;
  * @param inData An ArrayList of ArrayLists that is the data this data source
  *               is to use.
  */
-public ObjectSource(Report report, ArrayList inData) {
+public ObjectSource(Report report, ArrayList<Object> inData) {
     super(report, new ObjectQuery(report));
-    columns = new ArrayList();
+    columns = new ArrayList<Column>();
     data = inData;
 }
 
@@ -54,7 +53,7 @@ public void addColumn(Column col) {
  *
  * @return The ArrayList of data passed to the data source during construction.
  */
-public ArrayList getData() {
+public ArrayList<Object> getData() {
   return data;
 }
 
@@ -69,21 +68,20 @@ public ArrayList getData() {
  * @see Table#findColumn
  */
 public Column findColumn(Object id) {
-    for (Iterator iter = columns.iterator(); iter.hasNext(); ) {
-	Column col = (Column)iter.next();
-	if (col.getId().equals(id))
-	    return col;
+	for (Column col : columns) {
+		if (col.getId().equals(id))
+			return col;
     }
     return null;
 }
 
 public int indexOfSelectable(Selectable sel) { return columns.indexOf(sel); }
 
-public Iterator tables() { return null; }
+public Iterator<Table> tables() { return null; }
 
-public Iterator tablesUsedInReport() { return null; }
+public Iterator<Table> tablesUsedInReport() { return null; }
 
-public Iterator columns() { return columns.iterator(); }
+public Iterator<Column> columns() { return columns.iterator(); }
 
 public DataCursor execute() {
     return new ObjectRow(this, query);
@@ -99,8 +97,8 @@ protected void doWriteXML(XMLWriter out) {
     if (metadataURL != null)
 	out.textElement("metadata-url", metadataURL);
     else
-	for (Iterator iter = columns.iterator(); iter.hasNext(); )
-	    ((Column)iter.next()).writeXML(out);
+	for (Column col : columns)
+	    col.writeXML(out);
     out.endElement();
 }
 

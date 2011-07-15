@@ -25,11 +25,11 @@ protected static final int DEFAULT_MAX_MESSAGE_WIDTH = 78;
  * @param str the string we're splitting
  * @param delim the delimter string
  */
-public static List split(String str, String delim) {
+public static List<String> split(String str, String delim) {
     if (str == null)
 	return null;
 
-    ArrayList list = new ArrayList();
+    ArrayList<String> list = new ArrayList<String>();
 
     if (delim == null) {
 	list.add(str);
@@ -56,16 +56,16 @@ public static List split(String str, String delim) {
  * @param c a collection of objects
  * @param joinWith the string that will separate each member of the collection
  */
-public static String join(Collection c, String joinWith) {
+public static String join(Collection<? extends Object> c, String joinWith) {
     if (c == null)
 	return "";
 
     StringBuffer buf = new StringBuffer();
     boolean first = true;
-    for (Iterator iter = c.iterator(); iter.hasNext(); ) {
+    for (Object obj : c) {
 	if (first) first = false;
 	else if (joinWith != null) buf.append(joinWith);
-	buf.append(iter.next().toString());
+	buf.append(obj.toString());
     }
     return buf.toString();
 }
@@ -80,8 +80,8 @@ public static String join(Collection c, String joinWith) {
  * @param str the string to split
  * @return a non-empty list of strings
  */
-public static List splitIntoLines(String str) {
-    ArrayList strings = new ArrayList();
+public static List<String> splitIntoLines(String str) {
+    ArrayList<String> strings = new ArrayList<String>();
 
     int len = str.length();
     if (len == 0) {
@@ -176,14 +176,14 @@ public static void splitUp(StringBuffer buf, String str, int maxWidth) {
  * @param maxWidth the max line width, in points
  * @return a non-empty list of strings
  */
-public static List wrap(String str, FontMetrics fm, int maxWidth) {
-    List lines = splitIntoLines(str);
+public static List<String> wrap(String str, FontMetrics fm, int maxWidth) {
+    List<String> lines = splitIntoLines(str);
     if (lines.size() == 0)
 	return lines;
 
-    ArrayList strings = new ArrayList();
-    for (Iterator iter = lines.iterator(); iter.hasNext(); )
-	wrapLineInto((String)iter.next(), strings, fm, maxWidth);
+    ArrayList<String> strings = new ArrayList<String>();
+    for (String line : lines)
+	wrapLineInto(line, strings, fm, maxWidth);
     return strings;
 }
 
@@ -196,8 +196,8 @@ public static List wrap(String str, FontMetrics fm, int maxWidth) {
  * @param fm font metrics
  * @param maxWidth maximum width of the line(s)
  */
-public static void wrapLineInto(String line, List list, FontMetrics fm,
-				int maxWidth)
+public static void wrapLineInto(String line, List<String> list,
+	                        FontMetrics fm, int maxWidth)
 {
     int len = line.length();
     int width;

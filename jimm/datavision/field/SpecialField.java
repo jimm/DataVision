@@ -33,8 +33,8 @@ public static final String TYPE_STRING = "special";
  *
  * @return an array strings containing all of the special field names
  */
-public static HashMap specialFieldNames() {
-    HashMap map = new HashMap();
+public static HashMap<String, String> specialFieldNames() {
+    HashMap<String, String> map = new HashMap<String, String>();
 
     map.put("report.title", I18N.get("SpecialField.report.title"));
     map.put("report.name", I18N.get("SpecialField.report.name"));

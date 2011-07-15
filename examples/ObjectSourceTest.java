@@ -1,3 +1,6 @@
+package examples;
+
+import java.util.ArrayList;
 import jimm.datavision.*;
 import jimm.datavision.layout.swing.*;
 import jimm.datavision.source.*;
@@ -16,15 +19,15 @@ public class ObjectSourceTest {
       // Create the data to report against.  Each element in the ArrayList named
       // data represents a row, and each element in the ArrayLists row1 and
       // row2 are columns in the given row.
-      ArrayList data = new ArrayList();
-      ArrayList row1 = new ArrayList();
+      ArrayList<Object> data = new ArrayList<Object>();
+      ArrayList<Object> row1 = new ArrayList<Object>();
       row1.add("Chicago");
       row1.add(new Integer(8));
       row1.add("This is the short description of job 1");
       row1.add(new Integer(800));
       row1.add(new java.util.Date(new GregorianCalendar().getTimeInMillis()));
       data.add(row1);
-      ArrayList row2 = new ArrayList();
+      ArrayList<Object> row2 = new ArrayList<Object>();
       row2.add("Arizona");
       row2.add(new Integer(12));
       row2.add("This is the short description of job 2");

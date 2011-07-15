@@ -21,13 +21,13 @@ public class AggregateField extends Field {
 protected static final int START_VALUES_LENGTH = 100;
 
 /** Maps function names to {@link AggregateFunction} objects. */
-protected static HashMap functions;
+protected static HashMap<String, AggregateFunction> functions;
 /** A sorted array of the function names. */
 protected static Object[] functionNames;
 
 // Initialize map from function names to functions.
 static {
-    functions = new HashMap();
+    functions = new HashMap<String, AggregateFunction>();
     functions.put("sum", new AggregateFunction() {
 	public double aggregate(double[] values, int numValues) {
 	    double total = 0;
@@ -81,7 +81,7 @@ static {
 
     // Create a sorted list of function names. Don't include "select", which
     // is the old name for "sum".
-    TreeSet withoutSelect = new TreeSet(functions.keySet());
+    TreeSet<String> withoutSelect = new TreeSet<String>(functions.keySet());
     withoutSelect.remove("select");
     functionNames = withoutSelect.toArray();
 }

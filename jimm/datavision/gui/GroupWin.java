@@ -1,6 +1,7 @@
 package jimm.datavision.gui;
 import jimm.datavision.*;
 import jimm.datavision.gui.cmd.GroupEditCommand;
+import jimm.datavision.source.Column;
 import jimm.util.I18N;
 import java.awt.event.*;
 import java.util.*;
@@ -24,23 +25,18 @@ public GroupWin(Designer designer, Report report) {
 }
 
 protected void fillListModels() {
-    Iterator iter;
-
     // First find and add groups in order.
-    for (iter = report.groups(); iter.hasNext(); ) {
-	Group group = (Group)iter.next();
+    for (Group group : report.groups())
 	rightModel.addElement(new GroupWinListItem(group.getSelectable(),
 						   group));
-    }
 
     // Now iterate through all user cols and columns in tables used by the
     // report, adding to the left list those that are not already grouped
     // to the left list.
-    for (iter = report.userColumns(); iter.hasNext(); )
-	addToModel((Selectable)iter.next());
-    for (iter = report.getDataSource().columnsInTablesUsedInReport();
-	 iter.hasNext(); )
-	addToModel((Selectable)iter.next());
+    for (UserColumn uc : report.userColumns())
+	addToModel(uc);
+    for (Column col : report.getDataSource().columnsInTablesUsedInReport())
+	addToModel(col);
 }
 
 protected void addToModel(Selectable s) {

@@ -47,8 +47,8 @@ public DelimParser(Reader in, char delimiter) {
  * @return a <code>List</code> of strings; return <code>null</code> if
  * there is no more data.
  */
-public List parse() throws IOException {
-    ArrayList columns = null;
+public List<String> parse() throws IOException {
+    ArrayList<String> columns = null;
     boolean insideQuotes = false;
     int numQuotesSeen = 0;
     StringBuffer buf = new StringBuffer();
@@ -78,7 +78,7 @@ public List parse() throws IOException {
 	case '\r':
 	    if (insideQuotes) {
 		if (numQuotesSeen == 1) { // Closing quote at end of line
-		    if (columns == null) columns = new ArrayList();
+		    if (columns == null) columns = new ArrayList<String>();
 		    columns.add(buf.toString());
 		    return columns;
 		}
@@ -100,7 +100,7 @@ public List parse() throws IOException {
 		    return null; // Empty line at end of file
 
 		pushback(charAsInt);
-		if (columns == null) columns = new ArrayList();
+		if (columns == null) columns = new ArrayList<String>();
 		columns.add(buf.toString());
 		return columns;
 	    }
@@ -108,7 +108,7 @@ public List parse() throws IOException {
 	default:
 	    if (c == delimiter) { // Normal delimiter
 		if (!insideQuotes) {
-		    if (columns == null) columns = new ArrayList();
+		    if (columns == null) columns = new ArrayList<String>();
 		    columns.add(buf.toString());
 		    buf = new StringBuffer();
 		}
@@ -116,7 +116,7 @@ public List parse() throws IOException {
 		    // Delimiter at end of quoted column data
 		    if (numQuotesSeen == 1) {
 			insideQuotes = false;
-			if (columns == null) columns = new ArrayList();
+			if (columns == null) columns = new ArrayList<String>();
 			columns.add(buf.toString());
 			buf = new StringBuffer();
 		    }
@@ -140,7 +140,7 @@ public List parse() throws IOException {
 	return null;
 
     if (buf.length() > 0 || prevChar == delimiter) {
-	if (columns == null) columns = new ArrayList();
+	if (columns == null) columns = new ArrayList<String>();
 	columns.add(buf.toString());
     }
     return columns;

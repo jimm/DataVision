@@ -3,6 +3,8 @@ import jimm.datavision.*;
 import jimm.datavision.gui.FieldWidget;
 import jimm.datavision.gui.UserColumnWidget;
 import jimm.datavision.gui.SectionWidget;
+import jimm.datavision.source.Column;
+
 import java.util.Collection;
 import java.util.Observer;
 import java.util.Observable;
@@ -121,7 +123,7 @@ public Object getValue() { return getReport().columnValue(usercol); }
  *
  * @see jimm.datavision.source.Query#findSelectablesUsed
  */
-public Collection columnsUsed() {
+public Collection<Column> columnsUsed() {
     return usercol.columnsUsed();
 }
 

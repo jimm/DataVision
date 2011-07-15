@@ -207,7 +207,7 @@ public int indexOfSelectable(Selectable sel) {
  *
  * @return a possibly <code>null</code> iterator over all tables
  */
-public abstract Iterator tables();
+public abstract Iterator<Table> tables();
 
 /**
  * Returns an iterator over all tables actually used in the report, or
@@ -217,14 +217,14 @@ public abstract Iterator tables();
  * @return a possibly <code>null</code> iterator over all tables used
  * in the report
  */
-public abstract Iterator tablesUsedInReport();
+public abstract Iterator<Table> tablesUsedInReport();
 
 /**
  * Returns an iterator over all columns.
  *
  * @return an iterator over all columns
  */
-public abstract Iterator columns();
+public abstract Iterable<Column> columns();
 
 /**
  * Returns an iterator over all the columns in only the tables used by the
@@ -233,18 +233,18 @@ public abstract Iterator columns();
  * @return an iterator over all columns in only tables used by the
  * report, or over all columns if this data source does not have tables
  */
-public Iterator columnsInTablesUsedInReport() {
-    Iterator iter = tablesUsedInReport();
+public Iterable<Column> columnsInTablesUsedInReport() {
+    Iterator<Table> iter = tablesUsedInReport();
     if (iter == null)
 	return columns();
 
     // Create a new collection and return an iterator over it.
-    ArrayList list = new ArrayList();
+    ArrayList<Column> list = new ArrayList<Column>();
     while (iter.hasNext()) {
 	Table t = (Table)iter.next();
 	list.addAll(t.columns.values());
     }
-    return list.iterator();
+    return list;
 }
 
 public void removeSort(Selectable s) {

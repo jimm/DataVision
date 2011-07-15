@@ -1,10 +1,10 @@
 package jimm.datavision.gui;
 import jimm.datavision.*;
 import jimm.datavision.gui.cmd.NewGroupCommand;
+import jimm.datavision.source.Column;
 import jimm.util.I18N;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Iterator;
 import javax.swing.*;
 
 /**
@@ -105,18 +105,14 @@ protected JPanel buildColumnComboBox() {
 
     // Iterate through columns in tables used by report. We will remove
     // those associated with extant groups in a moment.
-    Iterator iter;
-    for (iter = report.userColumns(); iter.hasNext(); )
-	model.addElement((Selectable)iter.next());
-    for (iter = report.getDataSource().columnsInTablesUsedInReport();
-	 iter.hasNext(); )
-	model.addElement((Selectable)iter.next());
+    for (UserColumn col : report.userColumns())
+	model.addElement(col);
+    for (Column col : report.getDataSource().columnsInTablesUsedInReport())
+	model.addElement(col);
 
     // Remove all user columns and columns already in a group.
-    for (iter = report.groups(); iter.hasNext(); ) {
-	Group group = (Group)iter.next();
+    for (Group group : report.groups())
 	model.removeElement(group.getSelectable());
-    }
 
     combo = new JComboBox(model);
     combo.setSelectedIndex(0);

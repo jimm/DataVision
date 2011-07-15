@@ -3,7 +3,6 @@ import jimm.datavision.*;
 import jimm.datavision.source.Query;
 import jimm.datavision.source.Column;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * A query used in character-separated file queries.
@@ -13,11 +12,11 @@ import java.util.Iterator;
  */
 public class CharSepQuery extends Query {
 
-protected ArrayList charSepCols;
+protected ArrayList<Column> charSepCols;
 
 public CharSepQuery(Report r) {
     super(r);
-    charSepCols = new ArrayList();
+    charSepCols = new ArrayList<Column>();
 }
 
 void addColumn(Column col) {
@@ -26,10 +25,8 @@ void addColumn(Column col) {
 
 public void findSelectablesUsed() {
     super.findSelectablesUsed();
-    for (Iterator iter = charSepCols.iterator(); iter.hasNext(); ) {
-	Column col = (Column)iter.next();
+    for (Column col : charSepCols)
 	if (!selectables.contains(col)) selectables.add(col);
-    }
 }
 
 }

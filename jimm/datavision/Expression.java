@@ -40,7 +40,7 @@ protected Report report;
 protected String name;
 protected String expr;
 protected String exceptAfter;
-protected ArrayList observedContents;
+protected ArrayList<Observable> observedContents;
 
 /**
  * Given a string, returns a string with all instances of formula,
@@ -305,7 +305,7 @@ public void setExpression(String newExpression) {
  * parameters, and user columns.
  */
 protected void startObservingContents() {
-    observedContents = new ArrayList();	// Even if expr is null
+    observedContents = new ArrayList<Observable>();	// Even if expr is null
 
     if (expr == null || expr.length() == 0)
 	return;
@@ -349,8 +349,8 @@ protected void startObservingContents() {
  */
 protected void stopObservingContents() {
     if (observedContents != null) {
-	for (Iterator iter = observedContents.iterator(); iter.hasNext(); )
-	    ((Observable)iter.next()).deleteObserver(this);
+	for (Observable obj : observedContents)
+	    obj.deleteObserver(this);
 	observedContents = null;
     }
 }
@@ -443,8 +443,8 @@ public boolean refersTo(Parameter p) {
  * @return a possibly empty collection of database columns
  * @see jimm.datavision.source.Query#findSelectablesUsed
  */
-public Collection columnsUsed() {
-    final ArrayList list = new ArrayList();
+public Collection<Column> columnsUsed() {
+    final ArrayList<Column> list = new ArrayList<Column>();
 
     // We are using a replacer passively, to look for curly-delimited
     // expressions. Nothing in the expression text gets modified.
@@ -480,8 +480,8 @@ public Collection columnsUsed() {
  * @return a possibly empty collection of user columns
  * @see jimm.datavision.source.Query#findSelectablesUsed
  */
-public Collection userColumnsUsed() {
-    final ArrayList list = new ArrayList();
+public Collection<UserColumn> userColumnsUsed() {
+    final ArrayList<UserColumn> list = new ArrayList<UserColumn>();
 
     // We are using a replacer passively, to look for curly-delimited
     // expressions. Nothing in the expression text gets modified.

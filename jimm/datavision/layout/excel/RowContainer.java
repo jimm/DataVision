@@ -16,12 +16,12 @@ import jimm.datavision.field.Field;
  */
 public class RowContainer {
     
-    public ArrayList reportFields;
+    public ArrayList<PermField> reportFields;
     public FieldMap  parentMap;
     
     /** Creates a new instance of RowContainer */
     public RowContainer(FieldMap ownerMap) {
-        reportFields = new ArrayList();
+        reportFields = new ArrayList<PermField>();
         parentMap = ownerMap;
     }
     

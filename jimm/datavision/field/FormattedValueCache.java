@@ -17,8 +17,8 @@ import javax.swing.JLabel;
 class FormattedValueCache implements Observer {
 
 protected static final double LINE_SIZE_FUDGE_FACTOR = 1.2;
-protected static final HashMap decimalFormatters = new HashMap();
-protected static final HashMap dateFormatters = new HashMap();
+protected static final HashMap<String, DecimalFormat> decimalFormatters = new HashMap<String, DecimalFormat>();
+protected static final HashMap<String, SimpleDateFormat> dateFormatters = new HashMap<String, SimpleDateFormat>();
 protected static JLabel wrappingCalculationsLabel;
 
 protected Field field;
@@ -108,7 +108,7 @@ void calcValues() {
     // Height calculation. Field's bounds height is the minimum height.
     height = field.bounds.height;
     if (formatted.length() != 0) {
-	List lines = StringUtils.splitIntoLines(formatted);
+	List<String> lines = StringUtils.splitIntoLines(formatted);
 	double h = lines.size() * format.getSize() * LINE_SIZE_FUDGE_FACTOR;
 	if (h > height)
 	    height = h;

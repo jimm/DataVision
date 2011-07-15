@@ -3,6 +3,8 @@ import jimm.datavision.*;
 import jimm.datavision.gui.FieldWidget;
 import jimm.datavision.gui.FormulaWidget;
 import jimm.datavision.gui.SectionWidget;
+import jimm.datavision.source.Column;
+
 import java.util.Collection;
 import java.util.Observer;
 import java.util.Observable;
@@ -129,7 +131,7 @@ public Object getValue() { return formula.eval(this); }
  * @return a possibly empty collection of database columns
  * @see jimm.datavision.source.Query#findSelectablesUsed
  */
-public Collection columnsUsed() {
+public Collection<Column> columnsUsed() {
     return formula.columnsUsed();
 }
 
@@ -142,7 +144,7 @@ public Collection columnsUsed() {
  * @return a possibly empty collection of user columns
  * @see jimm.datavision.source.Query#findSelectablesUsed
  */
-public Collection userColumnsUsed() {
+public Collection<UserColumn> userColumnsUsed() {
     return formula.userColumnsUsed();
 }
 

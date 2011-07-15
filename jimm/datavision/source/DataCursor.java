@@ -14,10 +14,10 @@ import java.util.List;
 public abstract class DataCursor {
 
 protected int currRowNumber;	// Starts at 1
-protected List prevRowData;
-protected List currRowData;
-protected List nextRowData;
-protected List lastRowData;
+protected List<Object> prevRowData;
+protected List<Object> currRowData;
+protected List<Object> nextRowData;
+protected List<Object> lastRowData;
 protected int lastRowNumber;
 
 public boolean isFirst() { return currRowNumber == 1; }
@@ -85,6 +85,6 @@ public Object getObject(int index) {
     return currRowData == null ? null : currRowData.get(index - 1);
 }
 
-protected abstract List readRowData();
+protected abstract List<Object> readRowData();
 
 }

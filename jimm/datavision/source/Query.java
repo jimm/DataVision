@@ -16,11 +16,11 @@ public static final int SORT_DESCENDING = 0;
 public static final int SORT_ASCENDING = 1;
 
 protected Report report;
-protected ArrayList joins;
+protected ArrayList<Join> joins;
 protected String whereClause;
-protected ArrayList sortSelectables;
-protected ArrayList sortOrders;
-protected ArrayList selectables; // Can't be a Set; we need selectable indices
+protected ArrayList<Selectable> sortSelectables;
+protected ArrayList<Integer> sortOrders;
+protected ArrayList<Selectable> selectables; // Can't be a Set; we need selectable indices
 
 /**
  * Constructor.
@@ -29,11 +29,11 @@ protected ArrayList selectables; // Can't be a Set; we need selectable indices
  */
 public Query(Report r) {
     report = r;
-    joins = new ArrayList();
+    joins = new ArrayList<Join>();
     whereClause = null;
-    sortSelectables = new ArrayList();
-    sortOrders = new ArrayList();
-    selectables = new ArrayList();
+    sortSelectables = new ArrayList<Selectable>();
+    sortOrders = new ArrayList<Integer>();
+    selectables = new ArrayList<Selectable>();
 }
 
 /**
@@ -90,7 +90,7 @@ public void addJoin(Join join) {
  *
  * @param coll a collection of joins
  */
-public void addAllJoins(Collection coll) {
+public void addAllJoins(Collection<Join> coll) {
     joins.addAll(coll);
 }
 
@@ -115,7 +115,7 @@ public void clearJoins() {
  *
  * @return an iterator over all the joins
  */
-public Iterator joins() { return joins.iterator(); }
+public Iterable<Join> joins() { return joins; }
 
 /**
  * Returns the where clause fit for human consumption. This mainly means
@@ -198,8 +198,8 @@ public void removeSort(Selectable sel) {
  * Removes all sorts from our list.
  */
 public void clearSorts() {
-    sortSelectables = new ArrayList();
-    sortOrders = new ArrayList();
+    sortSelectables = new ArrayList<Selectable>();
+    sortOrders = new ArrayList<Integer>();
 }
 
 /**
@@ -207,14 +207,14 @@ public void clearSorts() {
  *
  * @return an iterator over all selectables
  */
-public Iterator selectables() { return selectables.iterator(); }
+public Iterable<Selectable> selectables() { return selectables; }
 
 /**
  * Returns an iterator over all the sorted selectables used by this query.
  *
  * @return an iterator
  */
-public Iterator sortedSelectables() { return sortSelectables.iterator(); }
+public Iterable<Selectable> sortedSelectables() { return sortSelectables; }
 
 /**
  * Returns the sort order (<code>SORT_DESCENDING</code>,
@@ -263,18 +263,10 @@ public void findSelectablesUsed() {
 	    }
 	    else if (f instanceof FormulaField) {
 		FormulaField ff = (FormulaField)f;
-		for (Iterator iter = ff.columnsUsed().iterator();
-		     iter.hasNext(); )
-		{
-		    Column col = (Column)iter.next();
+		for (Column col : ff.columnsUsed())
 		    if (!selectables.contains(col)) selectables.add(col);
-		}
-		for (Iterator iter = ff.userColumnsUsed().iterator();
-		     iter.hasNext(); )
-		{
-		    UserColumn uc = (UserColumn)iter.next();
+		for (UserColumn uc : ff.userColumnsUsed())
 		    if (!selectables.contains(uc)) selectables.add(uc);
-		}
 	    }
 	    else if (f instanceof UserColumnField) {
 		UserColumn uc = ((UserColumnField)f).getUserColumn();
@@ -285,29 +277,22 @@ public void findSelectablesUsed() {
 
     // Add groups' selectables, which may or may not be used in any
     // report field
-    for (Iterator iter = report.groups(); iter.hasNext(); ) {
-	Group g = (Group)iter.next();
+    for (Group g : report.groups()) {
 	Selectable s = g.getSelectable();
 	if (!selectables.contains(s)) selectables.add(s);
     }
 
     // Add all selectables used in sorts.
-    for (Iterator iter = sortedSelectables(); iter.hasNext(); ) {
-	Selectable s = (Selectable)iter.next();
+    for (Selectable s : sortedSelectables())
 	if (!selectables.contains(s)) selectables.add(s);
-    }
 
     // Add all columns used by subreports' joins. Though only a report
     // that uses a SQL data source can have subreports right now, that may
     // not be true in the future. There is no harm in implementing this
     // here (rather than in SQLQuery).
-    for (Iterator iter = report.subreports(); iter.hasNext(); ) {
-	Subreport sub = (Subreport)iter.next();
-	for (Iterator subIter = sub.parentColumns(); subIter.hasNext(); ) {
-	    Column col = (Column)subIter.next();
+    for (Subreport sub : report.subreports())
+	for (Column col : sub.parentColumns())
 	    if (!selectables.contains(col)) selectables.add(col);
-	}
-    }
 }
 
 /**
@@ -334,26 +319,21 @@ public int getNumSelectables() { return selectables.size(); }
 public void reloadColumns(DataSource dataSource)
 {
     // Joins
-    for (Iterator iter = joins(); iter.hasNext(); ) {
-	Join j = (Join)iter.next();
+    for (Join j : joins()) {
 	j.setFrom(dataSource.findColumn(j.getFrom().getId()));
 	j.setTo(dataSource.findColumn(j.getTo().getId()));
     }
 
     // Selectables
-    ArrayList newSelectables = new ArrayList();
-    for (Iterator iter = selectables.iterator(); iter.hasNext(); ) {
-	Selectable g = (Selectable)iter.next();
-	newSelectables.add(g.reloadInstance(dataSource));
-    }
+    ArrayList<Selectable> newSelectables = new ArrayList<Selectable>();
+    for (Selectable s : selectables())
+	newSelectables.add(s.reloadInstance(dataSource));
     selectables = newSelectables;
 
     // Sort selectables
-    ArrayList newSortCols = new ArrayList();
-    for (Iterator iter = sortSelectables.iterator(); iter.hasNext(); ) {
-	Selectable s = (Selectable)iter.next();
+    ArrayList<Selectable> newSortCols = new ArrayList<Selectable>();
+    for (Selectable s : sortSelectables)
 	newSortCols.add(s.reloadInstance(dataSource));
-    }
     sortSelectables = newSortCols;
 }
 

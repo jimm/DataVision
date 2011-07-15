@@ -16,7 +16,6 @@ import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import java.io.OutputStream;
 import java.util.*;
 import org.apache.poi.hssf.usermodel.*;
-import java.awt.*;
 
 /**
  *
@@ -75,12 +74,12 @@ public class ExcelLE extends LayoutEngine {
         for(i=0;i<FieldMap.MAXCOL-1;i++) offsetSizes[i] = (int)fm.getColOffset(i);
 
         /* Iterate throught the stored, mapped rows */
-        Iterator it = fm.reportRows.iterator();
+        Iterator<RowContainer> it = fm.reportRows.iterator();
         rowAt = 0;
         while(it.hasNext()) {
             RowContainer rowCont = (RowContainer)it.next();
             HSSFRow row = s.createRow(rowAt);
-            Iterator colit = rowCont.reportFields.iterator();
+            Iterator<PermField> colit = rowCont.reportFields.iterator();
             colAt = 0;
             /* Iterate throught the stored, mapped columns */
             while(colit.hasNext()) {

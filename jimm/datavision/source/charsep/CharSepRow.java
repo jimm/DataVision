@@ -21,7 +21,7 @@ protected Query query;
 protected Formula whereClauseFormula;
 protected boolean noMoreData;
 protected DelimParser parser;
-protected HashMap dateParsers;
+protected HashMap<String, SimpleDateFormat> dateParsers;
 protected boolean dateParseErrorReported;
 
 CharSepRow(CharSepSource source, Query query) {
@@ -38,11 +38,11 @@ CharSepRow(CharSepSource source, Query query) {
  * Returns the next row of data. If there is a where clause, use that to
  * determine which rows we accept or reject.
  */
-public List readRowData() {
+public List<Object> readRowData() {
     if (noMoreData)
 	return null;
 
-    List data = null;
+    List<Object> data = null;
 
     boolean acceptRow;
     do {
@@ -56,7 +56,7 @@ public List readRowData() {
 	    // the current row. We need to do this because the formula we
 	    // are about to evaluate may make use of data in the new
 	    // current row.
-	    List origCurrRowData = currRowData;
+	    List<Object> origCurrRowData = currRowData;
 	    currRowData = data;	// Need data available to formula
 
 	    // Evaulate the script and retrieve a boolean.
@@ -79,36 +79,37 @@ public List readRowData() {
  *
  * @return a list of column values
  */
-protected List retrieveNextRow() {
+protected List<Object> retrieveNextRow() {
     if (parser == null)
 	parser = new DelimParser(source.getReader(), source.getSepChar());
 
-    List data = null;
+    List<String> parsed = null;
     try {
-	data = parser.parse();
+	parsed = parser.parse();
     }
     catch (IOException ioe) {
 	ErrorHandler.error(ioe);
 	noMoreData = true;
 	return null;
     }
-    if (data == null) {
+    if (parsed == null) {
 	noMoreData = true;
 	return null;
     }
 
-    int numColumnsInData = data.size();
+    int numColumnsInData = parsed.size();
     int i = 0;
-    for (Iterator iter = source.columns(); iter.hasNext(); ++i) {
+    List<Object> data = new ArrayList<Object>();
+    for (Iterator<Column> iter = source.columns(); iter.hasNext(); ++i) {
 	Column col = (Column)iter.next();
 
 	if (i >= numColumnsInData) {
-	    data.add(null);
+	    parsed.add(null);
 	    continue;
 	}
 
+	String str = parsed.get(i);
 	if (col.isNumeric()) {
-	    String str = data.get(i).toString();
 	    if (str == null || str.length() == 0)
 		data.set(i, new Integer(0));
 	    else if (str.indexOf('.') == -1)
@@ -117,7 +118,9 @@ protected List retrieveNextRow() {
 		data.set(i, new Double(str));
 	}
 	else if (col.isDate())
-	    data.set(i, parseDate(col, data.get(i).toString()));
+	    data.set(i, parseDate(col, str));
+	else
+	    data.add(str);
 	// else, it's a string; there is nothing to modify
     }
 
@@ -129,8 +132,8 @@ protected Date parseDate(Column col, String dateString) {
 
     // Find existing parser, if any
     if (dateParsers == null)
-	dateParsers = new HashMap();
-    SimpleDateFormat parser = (SimpleDateFormat)dateParsers.get(formatString);
+	dateParsers = new HashMap<String, SimpleDateFormat>();
+    SimpleDateFormat parser = dateParsers.get(formatString);
 
     if (parser == null) {
 	parser = new SimpleDateFormat(formatString);

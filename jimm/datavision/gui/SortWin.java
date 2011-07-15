@@ -40,19 +40,14 @@ protected void fillListModels() {
     query = ds.getQuery();
 
     // Add user cols used in report that are not used by a group.
-    Iterator iter;
-    for (iter = report.userColumns(); iter.hasNext(); ) {
-	UserColumn uc = (UserColumn)iter.next();
+    for (UserColumn uc : report.userColumns())
 	if (!report.isUsedBySomeGroup(uc)) // Ignore group user groups
 	    addToModel(uc);
-    }
 
     // Add columns used in report that are not used by a group.
-    for (iter = ds.columnsInTablesUsedInReport(); iter.hasNext(); ) {
-	Column col = (Column)iter.next();
+    for (Column col : ds.columnsInTablesUsedInReport())
 	if (!report.isUsedBySomeGroup(col)) // Ignore group columns
 	    addToModel(col);
-    }
 }
 
 protected void addToModel(Selectable g) {

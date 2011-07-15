@@ -17,7 +17,7 @@ public class Table implements Identity, Nameable {
 
 protected DataSource dataSource;
 protected String name;
-protected TreeMap columns;
+protected TreeMap<String, Column> columns;
 
 /**
  * Given a column id, returns the column that has that id. If no column
@@ -32,8 +32,7 @@ public Column findColumn(Object id) {
 
     // Case-insensitive match
     String target = id.toString().toLowerCase();
-    for (Iterator iter = columns.keySet().iterator(); iter.hasNext(); ) {
-	String key = (String)iter.next();
+    for (String key : columns.keySet()) {
 	if (target.equals(key.toLowerCase()))
 	    return (Column)columns.get(key);
     }
@@ -49,7 +48,7 @@ public Column findColumn(Object id) {
 public Table(DataSource dataSource, String name) {
     this.dataSource = dataSource;
     this.name = name;
-    columns = new TreeMap();
+    columns = new TreeMap<String, Column>();
 }
 
 /**
@@ -83,6 +82,6 @@ public void addColumn(Column col) {
  *
  * @return an iterator over the columns in this table
  */
-public Iterator columns() { return columns.values().iterator(); }
+public Iterator<Column> columns() { return columns.values().iterator(); }
 
 }

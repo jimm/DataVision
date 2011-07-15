@@ -47,11 +47,11 @@ protected String author;
 protected String description;
 protected Formula startFormula;
 protected DataSource dataSource;
-protected HashMap formulas;
-protected TreeMap parameters;
-protected HashMap usercols;
-protected HashMap subreports;
-protected ArrayList groups;
+protected HashMap<String, Formula> formulas;
+protected TreeMap<String, Object> parameters;
+protected HashMap<Long, UserColumn> usercols;
+protected HashMap<Long, Subreport> subreports;
+protected ArrayList<Group> groups;
 protected SectionArea reportHeaders;
 protected SectionArea reportFooters;
 protected SectionArea pageHeaders;
@@ -60,7 +60,7 @@ protected SectionArea details;
 protected DataCursor rset;
 protected LayoutEngine layoutEngine;
 protected PaperFormat paperFormat;
-protected Collection aggregateFields;
+protected Collection<AggregateField> aggregateFields;
 protected String databasePassword;
 protected boolean askedForParameters;
 protected boolean parametersHaveValues;
@@ -566,7 +566,7 @@ public void addUserColumn(UserColumn uc) {
 public void removeUserColumn(UserColumn uc) {
     usercols.remove(uc.getId());
 }
-public Iterator userColumns() { return usercols.values().iterator(); }
+public Iterable<UserColumn> userColumns() { return usercols.values(); }
 
 // ---------------- subreports
 
@@ -589,7 +589,7 @@ public void addSubreport(Subreport sub) {
 public void removeSubreport(Subreport sub) {
     subreports.remove(sub.getId());
 }
-public Iterator subreports() { return subreports.values().iterator(); }
+public Iterable<Subreport> subreports() { return subreports.values(); }
 
 // ---------------- selectable methods
 
@@ -699,7 +699,7 @@ public void addGroup(Group g) {
 }
 public void removeGroup(Group g) { groups.remove(g); }
 public void removeAllGroups() { groups.clear(); }
-public Iterator groups() { return groups.iterator(); }
+public Iterable<Group> groups() { return groups; }
 public int countGroups() { return groups.size(); }
 public boolean hasGroups() { return countGroups() > 0; }
 

@@ -15,14 +15,14 @@ public class CharSepSource extends DataSource {
 
 protected static final char DEFAULT_SEP_CHAR = ',';
 
-protected ArrayList columns;
+protected ArrayList<Column> columns;
 protected char sepChar;
 protected BufferedReader reader;
 protected String sourceFilePath;
 
 public CharSepSource(Report report) {
     super(report, new CharSepQuery(report));
-    columns = new ArrayList();
+    columns = new ArrayList<Column>();
     sepChar = DEFAULT_SEP_CHAR;
 }
 
@@ -90,7 +90,7 @@ public void addColumn(Column col) {
  * @see Table#findColumn
  */
 public Column findColumn(Object id) {
-    for (Iterator iter = columns.iterator(); iter.hasNext(); ) {
+    for (Iterator<Column> iter = columns.iterator(); iter.hasNext(); ) {
 	Column col = (Column)iter.next();
 	if (col.getId().equals(id))
 	    return col;
@@ -100,11 +100,11 @@ public Column findColumn(Object id) {
 
 public int indexOfSelectable(Selectable sel) { return columns.indexOf(sel); }
 
-public Iterator tables() { return null; }
+public Iterator<Table> tables() { return null; }
 
-public Iterator tablesUsedInReport() { return null; }
+public Iterator<Table> tablesUsedInReport() { return null; }
 
-public Iterator columns() { return columns.iterator(); }
+public Iterator<Column> columns() { return columns.iterator(); }
 
 public DataCursor execute() {
     return new CharSepRow(this, query);
@@ -138,8 +138,8 @@ protected void doWriteXML(XMLWriter out) {
     if (metadataURL != null)
 	out.textElement("metadata-url", metadataURL);
     else
-	for (Iterator iter = columns.iterator(); iter.hasNext(); )
-	    ((Column)iter.next()).writeXML(out);
+	for (Column col : columns)
+	    col.writeXML(out);
     out.endElement();
 }
 
