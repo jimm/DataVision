@@ -27,10 +27,8 @@ static class RevertInfo {
 ArrayList joins;
 RevertInfo(Query q) {
     joins = new ArrayList();
-    for (Iterator iter = q.joins(); iter.hasNext(); ) {
-	Join j = (Join)iter.next();
+    for (Join j : q.joins())
 	joins.add(j.clone());
-    }
 }
 }
 
@@ -56,8 +54,7 @@ protected JComboBox buildColDropdown(Column col, DataSource db) {
 
     // Get iterator over tables actually used by the report. Will be
     // null if the data source does not have tables.
-    for (Iterator iter = db.columnsInTablesUsedInReport(); iter.hasNext(); ) {
-	Column c = (Column)iter.next();
+    for (Column c : db.columnsInTablesUsedInReport()) {
 	cb.addItem(c.fullName());
 	if (col != null && col.equals(c))
 	    cb.setSelectedItem(c.fullName());
@@ -165,11 +162,9 @@ protected void buildJoinsPanel() {
 }
 
 protected void fillJoinsPanel() {
-    joinFieldsList = new ArrayList();
-    for (Iterator iter = query.joins(); iter.hasNext(); ) {
-	Join j = (Join)iter.next();
+    joinFieldsList = new ArrayList<JoinFields>();
+    for (Join j : query.joins())
 	joinFieldsList.add(new JoinFields(j, report.getDataSource()));
-    }
 
     for (Iterator iter = joinFieldsList.iterator(); iter.hasNext(); ) {
 	JoinFields jf = (JoinFields)iter.next();

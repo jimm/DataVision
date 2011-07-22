@@ -233,12 +233,12 @@ protected Table findTableWithId(String id) {
     return null;
 }
 
-public Iterator tables() {
-    return tables.values().iterator();
+public Iterable<Table> tables() {
+    return tables.values();
 }
 
-public Iterator tablesUsedInReport() {
-    return ((SQLQuery)query).getTablesUsed().iterator();
+public Iterable<Table> tablesUsedInReport() {
+    return ((SQLQuery)query).getTablesUsed();
 }
 
 public Iterator columns() {

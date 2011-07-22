@@ -47,11 +47,11 @@ protected String author;
 protected String description;
 protected Formula startFormula;
 protected DataSource dataSource;
-protected HashMap<String, Formula> formulas;
-protected TreeMap<String, Object> parameters;
-protected HashMap<Long, UserColumn> usercols;
-protected HashMap<Long, Subreport> subreports;
-protected ArrayList<Group> groups;
+protected Map<Object, Formula> formulas = new HashMap<Object, Formula>();
+protected Map<Object, Parameter> parameters = new TreeMap<Object, Parameter>();
+protected Map<Object, UserColumn> usercols = new HashMap<Object, UserColumn>();
+protected Map<Object, Subreport> subreports = new HashMap<Object, Subreport>();
+protected List<Group> groups = new ArrayList<Group>();
 protected SectionArea reportHeaders;
 protected SectionArea reportFooters;
 protected SectionArea pageHeaders;
@@ -80,11 +80,6 @@ protected Field defaultField;
  * Constructs an empty report.
  */
 public Report() {
-    formulas = new HashMap();
-    parameters = new TreeMap();
-    usercols = new HashMap();
-    subreports = new HashMap();
-    groups = new ArrayList();
     name = I18N.get("Report.default_name");
     title = I18N.get("Report.default_title");
     askedForParameters = false;
@@ -135,11 +130,10 @@ public void setLayoutEngine(LayoutEngine layoutEngine) {
  * objects whose identifiers must be <code>Long</code>s
  * @return a <code>Long</code>
  */
-protected Long generateNewId(Iterator iter) {
+protected Long generateNewId(Iterable<? extends Object> iter) {
     long max = 0;
-    while (iter.hasNext()) {
-	Object id = ((Identity)iter.next()).getId();
-	long longVal = ((Long)id).longValue();
+    for (Object obj : iter) {
+	long longVal = (Long)((Identity)obj).getId();
 	if (longVal > max)
 	    max = longVal;
     }
@@ -148,38 +142,30 @@ protected Long generateNewId(Iterator iter) {
 
 /**
  * Generates and returns a new unique formula id number.
- *
- * @return a long id
  */
 public Long generateNewFormulaId() {
-    return generateNewId(formulas.values().iterator());
+    return generateNewId(formulas.values());
 }
 
 /**
  * Generates and returns a new unique parameter id number.
- *
- * @return a long id
  */
 public Long generateNewParameterId() {
-    return generateNewId(parameters.values().iterator());
+    return generateNewId(parameters.values());
 }
 
 /**
  * Generates and returns a new unique user column id number.
- *
- * @return a long id
  */
 public Long generateNewUserColumnId() {
-    return generateNewId(usercols.values().iterator());
+    return generateNewId(usercols.values());
 }
 
 /**
  * Generates and returns a new unique user column id number.
- *
- * @return a long id
  */
 public Long generateNewSubreportId() {
-    return generateNewId(subreports.values().iterator());
+    return generateNewId(subreports.values());
 }
 
 /**
@@ -365,10 +351,8 @@ public void setCaseSensitiveDatabaseNames(boolean val) {
  * @see Database#reset
  */
 public void reloadColumns() {
-    for (Iterator iter = groups(); iter.hasNext(); ) {
-	Group g = (Group)iter.next();
+    for (Group g : groups())
 	g.reloadSelectable(dataSource);
-    }
     withFieldsDo(new FieldWalker() {
 	public void step(Field f) {
 	    if (f instanceof ColumnField) {
@@ -464,11 +448,9 @@ public Parameter findParameterByName(String name) {
 	return null;
 
     name = name.toLowerCase();
-    for (Iterator iter = parameters.values().iterator(); iter.hasNext(); ) {
-	Parameter p = (Parameter)iter.next();
+    for (Parameter p : parameters.values())
 	if (name.equals(p.getName().toLowerCase()))
 	    return p;
-    }
     return null;
 }
 
@@ -507,11 +489,9 @@ public Formula findFormulaByName(String name) {
 	return null;
 
     name = name.toLowerCase();
-    for (Iterator iter = formulas.values().iterator(); iter.hasNext(); ) {
-	Formula f = (Formula)iter.next();
+    for (Formula f : formulas.values())
 	if (name.equals(f.getName().toLowerCase()))
 	    return f;
-    }
     return null;
 }
 
@@ -552,11 +532,9 @@ public UserColumn findUserColumnByName(String name) {
 	return null;
 
     name = name.toLowerCase();
-    for (Iterator iter = usercols.values().iterator(); iter.hasNext(); ) {
-	UserColumn f = (UserColumn)iter.next();
-	if (name.equals(f.getName().toLowerCase()))
-	    return f;
-    }
+    for (UserColumn uc : usercols.values())
+	if (name.equals(uc.getName().toLowerCase()))
+	    return uc;
     return null;
 }
 
@@ -720,10 +698,11 @@ public Group innermostGroup() {
  *
  * @return an iterator over the groups, in reverse order
  */
-public Iterator groupsReversed() {
-    ArrayList reversed = (ArrayList)groups.clone();
+@SuppressWarnings("unchecked")
+public Iterable<Group> groupsReversed() {
+    ArrayList<Group> reversed = (ArrayList<Group>)((ArrayList<Group>)groups).clone();
     Collections.reverse(reversed);
-    return reversed.iterator();
+    return reversed;
 }
 
 public void removeField(Field f) {
@@ -916,13 +895,11 @@ public boolean containsReferenceTo(final Parameter p) {
  *
  * @return a list of parameters
  */
-protected List collectUsedParameters() {
-    ArrayList list = new ArrayList();
-    for (Iterator iter = parameters.values().iterator(); iter.hasNext(); ) {
-	Parameter p = (Parameter)iter.next();
+protected List<Parameter> collectUsedParameters() {
+    ArrayList<Parameter> list = new ArrayList<Parameter>();
+    for (Parameter p : parameters.values())
 	if (containsReferenceTo(p))
 	    list.add(p);
-    }
     return list;
 }
 
@@ -935,11 +912,9 @@ protected List collectUsedParameters() {
  * if there isn't one
  */
 public Group findGroup(Selectable selectable) {
-    for (Iterator iter = groups(); iter.hasNext(); ) {
-	Group g = (Group)iter.next();
+    for (Group g : groups)
 	if (g.getSelectable() == selectable)
 	    return g;
-    }
     return null;
 }
 
@@ -952,11 +927,9 @@ public Group findGroup(Selectable selectable) {
  * if there isn't one
  */
 public Group findGroup(Section section) {
-    for (Iterator iter = groups(); iter.hasNext(); ) {
-	Group group = (Group)iter.next();
-	if (group.contains(section))
-	    return group;
-    }
+    for (Group g : groups)
+	if (g.contains(section))
+	    return g;
     return null;
 }
 
@@ -1018,8 +991,7 @@ public Section insertSectionBelow(Section section, Section goBelowThis) {
     else if (details.contains(goBelowThis))
 	return details.insertAfter(section, goBelowThis);
 
-    for (Iterator iter = groups(); iter.hasNext(); ) {
-	Group g = (Group)iter.next();
+    for (Group g : groups()) {
 	if (g.headers().contains(goBelowThis))
 	    return g.headers().insertAfter(section, goBelowThis);
 	else if (g.footers().contains(goBelowThis))
@@ -1046,8 +1018,7 @@ public void removeSection(Section s) {
     else if (details.contains(s))
 	details.remove(s);
     else {
-	for (Iterator iter = groups(); iter.hasNext(); ) {
-	    Group g = (Group)iter.next();
+	for (Group g : groups()) {
 	    if (g.headers().contains(s)) {
 		g.headers().remove(s);
 		return;
@@ -1120,8 +1091,7 @@ public boolean isOneOfAKind(Section s) {
     if (details.contains(s))
 	return details.size() == 1;
 
-    for (Iterator iter = groups(); iter.hasNext(); ) {
-	Group g = (Group)iter.next();
+    for (Group g : groups()) {
 	if (g.headers().contains(s))
 	    return g.headers().size() == 1;
 	if (g.footers().contains(s))
@@ -1483,10 +1453,10 @@ protected void processResultRow() throws java.sql.SQLException {
  * Tells each formula that it should re-evaluate.
  */
 protected void resetCachedValues() {
-    for (Iterator iter = formulas(); iter.hasNext(); )
-	((Formula)iter.next()).shouldEvaluate();
-    for (Iterator iter = subreports(); iter.hasNext(); )
-	((Subreport)iter.next()).clearCache();
+    for (Formula f : formulas.values())
+	f.shouldEvaluate();
+    for (Subreport s : subreports.values())
+        s.clearCache();
 }
 
 /**
@@ -1577,12 +1547,13 @@ public void withFieldsDo(final FieldWalker f) {
  * Used once at the beginning of each run.
  */
 protected void collectAggregateFields() {
-    aggregateFields = new ArrayList();
+    aggregateFields = new ArrayList<AggregateField>();
     withFieldsDo(new FieldWalker() {
 	public void step(Field f) {
 	    if (f instanceof AggregateField) {
-		((AggregateField)f).initialize();
-		aggregateFields.add(f);
+		AggregateField af = (AggregateField)f;
+		af.initialize();
+		aggregateFields.add(af);
 	    }
 	}
 	});

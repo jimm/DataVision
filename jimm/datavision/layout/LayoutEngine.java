@@ -165,8 +165,7 @@ public void groupHeaders(boolean isLastRow) {
 	return;
 
     boolean headerWasOutput = false;
-    for (Iterator iter = report.groups(); iter.hasNext(); ) {
-	Group g = (Group)iter.next();
+    for (Group g : report.groups()) {
 	if (headerWasOutput || g.isNewValue()) {
 	    for (Iterator i2 = g.headers().iterator(); i2.hasNext(); )
 		((Section)i2.next()).evaluateFormulas();
@@ -178,8 +177,7 @@ public void groupHeaders(boolean isLastRow) {
     checkRemainingPageLength(isLastRow, true);
 
     headerWasOutput = false;
-    for (Iterator iter = report.groups(); iter.hasNext(); ) {
-	Group g = (Group)iter.next();
+    for (Group g : report.groups()) {
 	if (headerWasOutput || g.isNewValue()) {
 	    for (Iterator i2 = g.headers().iterator(); i2.hasNext(); )
 		outputSection((Section)i2.next(), SECT_GROUP_HEADER);
@@ -222,8 +220,7 @@ public void groupFooters(boolean isLastRow) {
     // after that one.
     boolean footerWasOutput = false;
     ArrayList groupsToOutput = new ArrayList();
-    for (Iterator iter = report.groups(); iter.hasNext(); ) {
-	Group g = (Group)iter.next();
+    for (Group g : report.groups()) {
 	if (footerWasOutput || g.isNewValue() || isLastRow) {
 	    if (footerWasOutput) g.forceFooterOutput();
 	    groupsToOutput.add(g);

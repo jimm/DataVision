@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
  * An iterator over the columns in a list of tables. Not used by all data
  * sources.
  */
-public class ColumnIterator implements Iterator<Column> {
+public class ColumnIterator implements Iterable<Column>, Iterator<Column> {
 
 Iterator<Table> tableIter;
 Table table;
@@ -16,10 +16,12 @@ Column nextCol;
 /**
  * Constructor.
  */
-public ColumnIterator(Iterator<Table> tableIter) {
-    this.tableIter = tableIter;
+public ColumnIterator(Iterable<Table> tableIter) {
+    this.tableIter = tableIter.iterator();
     findNext();
 }
+
+public Iterator<Column> iterator() { return this; }
 
 public boolean hasNext() {
     return nextCol != null;

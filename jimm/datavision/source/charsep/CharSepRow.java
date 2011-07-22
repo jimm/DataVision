@@ -100,9 +100,7 @@ protected List<Object> retrieveNextRow() {
     int numColumnsInData = parsed.size();
     int i = 0;
     List<Object> data = new ArrayList<Object>();
-    for (Iterator<Column> iter = source.columns(); iter.hasNext(); ++i) {
-	Column col = (Column)iter.next();
-
+    for (Column col : source.columns()) {
 	if (i >= numColumnsInData) {
 	    parsed.add(null);
 	    continue;

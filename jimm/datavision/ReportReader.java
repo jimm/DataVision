@@ -136,8 +136,8 @@ protected void postParse() throws SAXException {
     ensureNotEmpty(report.footers());
     ensureNotEmpty(report.pageFooters());
 
-    for (Iterator iter = report.subreports(); iter.hasNext(); )
-      ensureNotEmpty(((Subreport)iter.next()).details());
+    for (Subreport s : report.subreports())
+      ensureNotEmpty(s.details());
 }
 
 /**

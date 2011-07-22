@@ -29,10 +29,8 @@ public SortEditCommand(Query query, Collection sortItems) {
 
     // Create list of current sorts
     oldSortItems = new ArrayList();
-    for (Iterator iter = query.sortedSelectables(); iter.hasNext(); ) {
-	Selectable g = (Selectable)iter.next();
-	oldSortItems.add(new SortWinListItem(g, query.sortOrderOf(g)));
-    }
+    for (Selectable s : query.sortedSelectables())
+	oldSortItems.add(new SortWinListItem(s, query.sortOrderOf(s)));
 }
 
 public void perform() {

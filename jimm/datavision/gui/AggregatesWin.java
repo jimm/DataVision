@@ -134,8 +134,7 @@ protected JPanel buildAggregatesEditor(HashMap aggregates) {
 
     // Group footer sections
     int i = report.countGroups();
-    for (Iterator iter = report.groupsReversed(); iter.hasNext(); --i) {
-	Group g = (Group)iter.next();
+    for (Group g : report.groupsReversed()) {
 	FieldWidget fw = (FieldWidget)aggregates.get(g);
 
 	cb = new JCheckBox(I18N.get("AggregatesWin.group") + " #" + i + " ("
@@ -148,6 +147,7 @@ protected JPanel buildAggregatesEditor(HashMap aggregates) {
 	    menu.setSelectedItem(getAggregateField(fw).getFunction());
 	}
 	slots.put(g, new Slot(fw, cb, menu));
+	--i;
     }
 
     // Report footer sections

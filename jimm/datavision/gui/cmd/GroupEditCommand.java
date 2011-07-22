@@ -32,11 +32,8 @@ public GroupEditCommand(Report r, Designer designer, Collection groupItems) {
 
     // Create list of current groups
     oldGroupItems = new ArrayList();
-    for (Iterator iter = report.groups(); iter.hasNext(); ) {
-	Group group = (Group)iter.next();
+    for (Group group : report.groups())
 	oldGroupItems.add(new GroupWinListItem(group.getSelectable(), group));
-    }
-
 }
 
 public void perform() {

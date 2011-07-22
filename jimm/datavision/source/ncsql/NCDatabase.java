@@ -87,17 +87,11 @@ public Column findColumn(Object id) {
     return null;
 }
 
-public Iterator tables() {
-    return tables.values().iterator();
-}
+public Iterable<Table> tables() { return tables.values(); }
 
-public Iterator tablesUsedInReport() {
-    return ((NCQuery)query).getTablesUsed().iterator();
-}
+public Iterable<Table> tablesUsedInReport() { return ((NCQuery)query).getTablesUsed(); }
 
-public Iterator columns() {
-    return new ColumnIterator(tables.values().iterator());
-}
+public Iterable<Column> columns() { return new ColumnIterator(tables.values()); }
 
 public DataCursor execute() { return null; }
 
@@ -111,8 +105,8 @@ protected void doWriteXML(XMLWriter out) {
     if (metadataURL != null)
 	out.textElement("metadata-url", metadataURL);
     else
-	for (Iterator iter = columns(); iter.hasNext(); )
-	    ((Column)iter.next()).writeXML(out);
+	for (Column c : columns())
+	    c.writeXML(out);
     out.endElement();
 }
 

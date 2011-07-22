@@ -1,5 +1,6 @@
 package jimm.datavision.gui.cmd;
 import jimm.datavision.source.Query;
+import jimm.datavision.source.Join;
 import jimm.util.I18N;
 import java.util.Collection;
 import java.util.ArrayList;
@@ -21,8 +22,8 @@ public TableJoinCommand(Query query, Collection joins) {
     this.query = query;
 
     origJoins = new ArrayList();
-    for (Iterator iter = query.joins(); iter.hasNext(); )
-	origJoins.add(iter.next());
+    for (Join j : query.joins())
+	origJoins.add(j);
 
     newJoins = joins;
 }

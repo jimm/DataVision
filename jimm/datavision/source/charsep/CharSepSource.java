@@ -100,11 +100,11 @@ public Column findColumn(Object id) {
 
 public int indexOfSelectable(Selectable sel) { return columns.indexOf(sel); }
 
-public Iterator<Table> tables() { return null; }
+public Iterable<Table> tables() { return null; }
 
-public Iterator<Table> tablesUsedInReport() { return null; }
+public Iterable<Table> tablesUsedInReport() { return null; }
 
-public Iterator<Column> columns() { return columns.iterator(); }
+public Iterable<Column> columns() { return columns; }
 
 public DataCursor execute() {
     return new CharSepRow(this, query);

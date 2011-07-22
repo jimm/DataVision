@@ -538,18 +538,14 @@ protected void buildSections() {
     buildSectionsInArea(report.pageHeaders());
 
     // Add headers for each group.
-    for (Iterator iter = report.groups(); iter.hasNext(); ) {
-	Group g = (Group)iter.next();
+    for (Group g : report.groups())
 	buildSectionsInArea(g.headers());
-    }
 
     buildSectionsInArea(report.details());
 
     // Add footers for each group, where the groups are in reverse order.
-    for (Iterator iter = report.groupsReversed(); iter.hasNext(); ) {
-	Group g = (Group)iter.next();
+    for (Group g : report.groupsReversed())
 	buildSectionsInArea(g.footers());
-    }
 
     buildSectionsInArea(report.footers());
     buildSectionsInArea(report.pageFooters());
@@ -600,17 +596,17 @@ protected void renameSectionWidgets() {
     renameSectionWidgetsIn(report.pageHeaders(),
 			   I18N.get("Report.page_header"), null);
     int i = 1;
-    for (Iterator iter = report.groups(); iter.hasNext(); ++i) {
-	Group g = (Group)iter.next();
+    for (Group g : report.groups()) {
 	renameSectionWidgetsIn(g.headers(), I18N.get("DesignWin.group") + " #"
 			       + i + ' ' + I18N.get("DesignWin.header"), g);
+	++i;
     }
     renameSectionWidgetsIn(report.details(), I18N.get("Report.detail"), null);
     i = 1;
-    for (Iterator iter = report.groups(); iter.hasNext(); ++i) {
-	Group g = (Group)iter.next();
+    for (Group g : report.groups()) {
 	renameSectionWidgetsIn(g.footers(), I18N.get("DesignWin.group") + " #"
 			       + i + ' ' + I18N.get("DesignWin.footer"), g);
+	++i;
     }
     renameSectionWidgetsIn(report.footers(), I18N.get("Report.report_footer"),
 			   null);

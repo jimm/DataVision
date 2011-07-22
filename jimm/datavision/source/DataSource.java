@@ -207,7 +207,7 @@ public int indexOfSelectable(Selectable sel) {
  *
  * @return a possibly <code>null</code> iterator over all tables
  */
-public abstract Iterator<Table> tables();
+public abstract Iterable<Table> tables();
 
 /**
  * Returns an iterator over all tables actually used in the report, or
@@ -217,7 +217,7 @@ public abstract Iterator<Table> tables();
  * @return a possibly <code>null</code> iterator over all tables used
  * in the report
  */
-public abstract Iterator<Table> tablesUsedInReport();
+public abstract Iterable<Table> tablesUsedInReport();
 
 /**
  * Returns an iterator over all columns.
@@ -234,16 +234,14 @@ public abstract Iterable<Column> columns();
  * report, or over all columns if this data source does not have tables
  */
 public Iterable<Column> columnsInTablesUsedInReport() {
-    Iterator<Table> iter = tablesUsedInReport();
+    Iterable<Table> iter = tablesUsedInReport();
     if (iter == null)
 	return columns();
 
     // Create a new collection and return an iterator over it.
     ArrayList<Column> list = new ArrayList<Column>();
-    while (iter.hasNext()) {
-	Table t = (Table)iter.next();
+    for (Table t : iter)
 	list.addAll(t.columns.values());
-    }
     return list;
 }
 
