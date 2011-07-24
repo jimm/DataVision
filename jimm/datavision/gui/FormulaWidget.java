@@ -9,7 +9,7 @@ import javax.swing.JDialog;
  * A formula widget must be able to edit its formula's code and perform
  * a few other formula-specific actions.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class FormulaWidget extends EditWinWidget {
 

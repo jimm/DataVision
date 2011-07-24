@@ -17,7 +17,7 @@ import org.xml.sax.helpers.DefaultHandler;
 /**
  * A report reader reads an XML file and creates the innards of a report.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class ReportReader extends DefaultHandler {
 

@@ -7,7 +7,7 @@ import java.util.ListIterator;	// For reverse traversal
  * A compound command holds a list of commands and allows their use as
  * one single command.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class CompoundCommand extends CommandAdapter {
 

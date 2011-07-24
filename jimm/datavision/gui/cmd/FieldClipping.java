@@ -12,7 +12,7 @@ import jimm.datavision.gui.SectionWidget;
  * cut. It contains not only a field widget but also the widget's original
  * section area.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class FieldClipping implements Pasteable {
 

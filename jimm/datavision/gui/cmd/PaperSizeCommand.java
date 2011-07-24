@@ -7,7 +7,7 @@ import jimm.util.I18N;
 /**
  * Change a report's paper size.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class PaperSizeCommand extends CommandAdapter {
 

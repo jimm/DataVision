@@ -8,7 +8,7 @@ import javax.xml.parsers.SAXParserFactory;
 /**
  * Reads metadata from XML, creates columns, and hands them to a data source.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  * @see DataSource
  */
 class MetadataReader extends DefaultHandler {

@@ -8,7 +8,7 @@ import jimm.datavision.source.sql.SQLQuery;
  * selected, grouped, and sorted. This includes data columns and user
  * columns.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  * @see Group
  * @see jimm.datavision.source.Query
  * @see jimm.datavision.source.DataSource

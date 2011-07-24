@@ -15,7 +15,7 @@ import org.xml.sax.InputSource;
  * A designer suitable for use with applets. This designer is created
  * by a {@link DVApplet} in its <code>init</code> method.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 class DesignApplet extends Designer {
 

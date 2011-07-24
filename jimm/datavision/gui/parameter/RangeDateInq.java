@@ -9,7 +9,7 @@ import com.toedter.calendar.JCalendar;
  * A range date inquisitor knows how to display and control the widgets
  * needed to ask a user for two date parameter values.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 class RangeDateInq extends Inquisitor {
 

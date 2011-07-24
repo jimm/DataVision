@@ -7,7 +7,7 @@ import jimm.datavision.source.Column;
  * and its type. The id of a column is a string of the form
  * "table_name.column_name".
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class NCColumn extends Column {
 

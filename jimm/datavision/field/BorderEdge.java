@@ -7,7 +7,7 @@ import java.util.Observable;
  * It has its own line style, thickness, and number of lines. <p> Note: line
  * thickness is currently ignored.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class BorderEdge extends Observable implements Cloneable {
 

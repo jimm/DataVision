@@ -17,7 +17,7 @@ import javax.swing.*;
  * aggregates at each level (group footers, report footer). Never called
  * when multiple fields are selected.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class AggregatesWin extends EditWin {
 

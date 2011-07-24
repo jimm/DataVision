@@ -7,7 +7,7 @@ import jimm.util.XMLWriter;
  * A group uses a {@link Selectable} object to define record grouping. A group
  * may contain multiple header and footer sections.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class Group implements Writeable {
 

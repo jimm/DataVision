@@ -6,7 +6,7 @@ import jimm.datavision.gui.parameter.ParamEditWin;
 /**
  * The classes in this file are leaf nodes for the {@link FieldPickerTree}.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 
 // ================================================================

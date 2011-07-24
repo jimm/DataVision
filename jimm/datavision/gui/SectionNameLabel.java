@@ -10,7 +10,7 @@ import javax.swing.*;
  * Header (a)". A popup menu holds command affecting the section widget
  * with which this label is associated.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 class SectionNameLabel extends JLabel {
 

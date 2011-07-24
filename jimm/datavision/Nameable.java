@@ -3,7 +3,7 @@ package jimm.datavision;
 /**
  * Enough things have names that it's time to give them a common interface.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public interface Nameable {
 

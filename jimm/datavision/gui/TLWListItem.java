@@ -4,7 +4,7 @@ import jimm.datavision.Selectable;
 /**
  * Used in lists to hold and display database column and sort order.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  * @see TwoListWin
  * @see GroupWin
  * @see SortWin

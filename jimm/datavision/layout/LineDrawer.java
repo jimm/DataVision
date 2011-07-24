@@ -10,7 +10,7 @@ import jimm.datavision.Line;
  *    field.getBorderOrDefault().eachLine(fieldWalker);
  * </code></pre>
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public interface LineDrawer {
 

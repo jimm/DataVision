@@ -4,7 +4,7 @@ import jimm.datavision.source.*;
 /**
  * A table for no-connection database sources.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  * @see NCDatabase
  */
 public class NCTable extends Table {

@@ -12,7 +12,7 @@ import junit.framework.Test;
  * tab-delimited and lines that end with a backslash are continued
  * on the next line.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class DelimParserTest extends TestCase {
 

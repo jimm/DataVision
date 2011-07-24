@@ -9,7 +9,7 @@ import java.util.Iterator;
 /**
  * Cuts (copies to the clipboard then deletes) a list of field widgets.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class CutCommand extends DeleteCommand {
 

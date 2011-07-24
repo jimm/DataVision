@@ -10,7 +10,7 @@ import java.sql.SQLException;
  * Queries build SQL query strings. They contain tables, joins, and
  * where clauses.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  * @see ParserHelper
  */
 public class SubreportQuery extends SQLQuery {

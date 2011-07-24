@@ -16,7 +16,7 @@ import junit.framework.Test;
  * Tests the {@link Database} class and the ability to give a connection to a
  * report and the state of a connection's query after reconnecting.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class ConnectionTest extends TestCase {
 

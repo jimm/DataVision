@@ -8,7 +8,7 @@ import javax.swing.*;
 /**
  * A report description (name, title, author, etc.) editing dialog box.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class DescripWin extends EditWin {
 

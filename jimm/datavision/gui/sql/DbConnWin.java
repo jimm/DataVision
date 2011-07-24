@@ -14,7 +14,7 @@ import javax.swing.*;
  * separate values or copy values from an existing report XML file.
  *
  * @see DbConnReader
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class DbConnWin extends EditWin implements ActionListener {
 

@@ -10,7 +10,7 @@ import javax.swing.JDialog;
  * An abstract superclass for widgets that open separate windows used to
  * edit the widget.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public abstract class EditWinWidget extends FieldWidget {
 

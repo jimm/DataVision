@@ -7,7 +7,7 @@ import javax.swing.border.AbstractBorder;
 /**
  * A border for field widgets.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 class FWBorder extends AbstractBorder {
 

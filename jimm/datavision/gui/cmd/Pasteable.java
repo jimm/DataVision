@@ -8,7 +8,7 @@ import jimm.datavision.gui.Designer;
  * can't know what to do with whatever is there, so it relies on pasteables to
  * do the job.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 interface Pasteable {
 

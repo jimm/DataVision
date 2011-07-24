@@ -7,7 +7,7 @@ import java.sql.SQLException;
  * The only difference between this and a <code>Database</code> is the
  * type of the query that it holds and the single constructor.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class SubreportDatabase extends Database {
 

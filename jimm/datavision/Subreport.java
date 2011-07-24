@@ -14,7 +14,7 @@ import java.util.*;
  * to its SQL where clause, turning the columns from the current
  * report into parameters.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class Subreport extends Report implements Identity {
 

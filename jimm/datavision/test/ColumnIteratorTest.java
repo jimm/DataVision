@@ -8,7 +8,7 @@ import java.util.*;
 class TestTable extends Table {
 TestTable(String name) {
     super(null, name);
-    columns = new TreeMap();
+    columns = new TreeMap<String, Column>();
 }
 void add(Column col) { columns.put(col.getName(), col); }
 }
@@ -30,7 +30,7 @@ protected static final int NUM_COLUMNS = 9;
 
 protected TestTable[] tables;
 protected TestColumn[] columns;
-protected ArrayList tableList;
+protected ArrayList<Table> tableList;
 
 public static Test suite() {
     return new TestSuite(ColumnIteratorTest.class);
@@ -49,25 +49,20 @@ public void setUp() {
     for (int i = 0; i < NUM_COLUMNS; ++i)
 	columns[i] = new TestColumn("col" + i);
 
-    tableList = new ArrayList();
+    tableList = new ArrayList<Table>();
 }
 
+@SuppressWarnings("unused")
 public void testEmpty() {
-    for (Iterator iter = new ColumnIterator(tableList.iterator());
-	 iter.hasNext(); )
-    {
+    for (Column col : new ColumnIterator(tableList))
 	fail("should not return anything");
-    }
 }
 
+@SuppressWarnings("unused")
 public void testAllEmptyTables() {
-    ArrayList tables = new ArrayList();
-
-    for (Iterator iter = new ColumnIterator(tables.iterator());
-	 iter.hasNext(); )
-    {
+    ArrayList<Table> tables = new ArrayList<Table>();
+    for (Column col : new ColumnIterator(tables))
 	fail("should not return anything");
-    }
 }
 
 public void testOneTable() {
@@ -77,9 +72,8 @@ public void testOneTable() {
     tableList.add(tables[0]);
 
     int i = 0;
-    for (Iterator iter = new ColumnIterator(tableList.iterator());
-	 iter.hasNext(); ++i)
-	assertSame(columns[i], (Column)iter.next());
+    for (Column col : new ColumnIterator(tableList))
+	assertSame(columns[i], col);
     assertEquals(3, i);
 }
 
@@ -91,9 +85,8 @@ public void testManyTables() {
     }
 
     int i = 0;
-    for (Iterator iter = new ColumnIterator(tableList.iterator());
-	 iter.hasNext(); ++i)
-	assertSame(columns[i], (Column)iter.next());
+    for (Column col : new ColumnIterator(tableList))
+	assertSame(columns[i], col);
     assertEquals(NUM_COLUMNS, i);
 }
 
@@ -109,9 +102,8 @@ protected void skipTableTest(int skip) {
     }
 
     int i = 0;
-    for (Iterator iter = new ColumnIterator(tableList.iterator());
-	 iter.hasNext(); ++i)
-	assertSame(columns[i], (Column)iter.next());
+    for (Column col : new ColumnIterator(tableList))
+	assertSame(columns[i], col);
     assertEquals((NUM_TABLES - 1) * 3, i);
 }
 
@@ -128,7 +120,7 @@ public void testEmptyTable2() {
 }
 
 public void testBeyondEnd() {
-    Iterator iter = new ColumnIterator(tableList.iterator());
+    Iterator<Column> iter = new ColumnIterator(tableList);
     assertTrue("should not have more", !iter.hasNext());
     try {
 	iter.next();
@@ -140,7 +132,7 @@ public void testBeyondEnd() {
 public void testRemove() {
     try {
 	tableList.add(tables[0]);
-	new ColumnIterator(tableList.iterator()).remove();
+	new ColumnIterator(tableList).remove();
 	fail("remove not supported");
     }
     catch (UnsupportedOperationException e) {}

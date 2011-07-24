@@ -7,7 +7,7 @@ import jimm.util.I18N;
  * A command for changing the {@link Report}'s startup {@link Formula}'s code
  * text.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class ReportStartupScriptEditCommand extends CommandAdapter {
 

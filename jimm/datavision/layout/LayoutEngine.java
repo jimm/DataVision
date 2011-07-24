@@ -11,7 +11,7 @@ import java.util.*;
  * pattern is heavily used to provide a framework for concrete layout
  * engine subclasses.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public abstract class LayoutEngine {
 

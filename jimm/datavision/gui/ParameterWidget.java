@@ -10,7 +10,7 @@ import javax.swing.JDialog;
  * A parameter widget must be able to edit its parameter's settings and
  * perform a few other parameter-specific actions.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class ParameterWidget extends EditWinWidget {
 

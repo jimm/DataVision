@@ -7,7 +7,7 @@ import jimm.util.XMLWriter;
  * It is used by a query to build the SQL string necessary to retrieve data.
  *
  * @see jimm.datavision.source.Query
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class Join implements Writeable, Cloneable {
 

@@ -7,7 +7,7 @@ import java.awt.Point;
  * mouse position, we may need to the field's original position, and
  * because we need to know our original position when finally moving.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class PreMoveInfo {
 

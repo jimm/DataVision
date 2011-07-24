@@ -7,7 +7,7 @@ import javax.swing.JPanel;
  * A swing page is a single printable page from a report.
  *
  * @see SwingLE
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 class SwingPage extends JPanel implements Printable {
 

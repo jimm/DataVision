@@ -9,7 +9,7 @@ import javax.swing.border.BevelBorder;
 /**
  * A section resizer is a bar that the user can drag to resize a section.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 class SectionResizer extends JPanel implements MouseInputListener {
 

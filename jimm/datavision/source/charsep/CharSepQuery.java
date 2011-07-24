@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * A query used in character-separated file queries.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  * @see CharSepSource
  */
 public class CharSepQuery extends Query {

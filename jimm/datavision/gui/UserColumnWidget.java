@@ -9,7 +9,7 @@ import javax.swing.JDialog;
  * A user column widget must be able to edit its user column's code and
  * perform a few other user column-specific actions.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class UserColumnWidget extends EditWinWidget {
 

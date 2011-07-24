@@ -17,7 +17,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * or reader). That way the report object doesn't have to know how to hold
  * on to those multipule input types.
  * 
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class ParameterReader extends DefaultHandler {
 

@@ -7,7 +7,7 @@ import javax.swing.*;
  * A range string inquisitor knows how to display and control the widgets
  * needed to ask a user for two string parameter values.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 class RangeStringInq extends Inquisitor {
 

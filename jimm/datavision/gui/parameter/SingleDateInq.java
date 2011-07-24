@@ -9,7 +9,7 @@ import com.toedter.calendar.JCalendar;
  * A single date inquisitor knows how to display and control the widgets
  * needed to ask a user for a date parameter value.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 class SingleDateInq extends Inquisitor {
 

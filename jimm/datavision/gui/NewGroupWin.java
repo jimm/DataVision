@@ -13,7 +13,7 @@ import javax.swing.*;
  * This dialog should only be created if the report has at least one field.
  * The method {@link Designer#enableMenuItems} makes sure this is true.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 class NewGroupWin extends JDialog implements ActionListener {
 

@@ -20,7 +20,7 @@ import javax.swing.event.ListSelectionEvent;
  * A modal dialog used to ask the user for all runtime report parameter
  * values. The cards used to dispay editable values are lazily instantiated.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class ParamAskWin
     extends JDialog

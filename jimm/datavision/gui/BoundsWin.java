@@ -9,7 +9,7 @@ import javax.swing.*;
 /**
  * A field bounds (position and size) editing dialog box.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class BoundsWin extends EditWin implements FieldWalker {
 

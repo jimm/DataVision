@@ -13,7 +13,7 @@ import java.io.PrintWriter;
  * as you like and it will print the time elapsed since start. It would be
  * easy to change this behavior, but I haven't needed to.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class StopWatch {
 

@@ -4,7 +4,7 @@ package jimm.datavision.gui;
  * A simple clipboard class. Use <code>instance</code> to get the single
  * global clipboard instance.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class Clipboard {
 

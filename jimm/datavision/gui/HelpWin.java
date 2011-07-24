@@ -15,7 +15,7 @@ import javax.swing.event.HyperlinkEvent;
 /**
  * A help window. Opens on docs/DataVision/DataVision.html.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class HelpWin extends JFrame implements HyperlinkListener {
 

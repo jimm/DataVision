@@ -25,7 +25,7 @@ import org.apache.bsf.BSFException;
  * contain many different sections, each of which can contain logic for
  * surpressing itself.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class Report implements Nameable, Writeable {
 

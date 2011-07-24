@@ -11,7 +11,7 @@ import javax.swing.JPanel;
  * This is the panel that holds {@link FieldWidget}s within a {@link
  * SectionWidget}. It can handle dragged fields.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class SectionFieldPanel extends JPanel implements DropTargetListener {
 

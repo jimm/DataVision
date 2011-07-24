@@ -11,7 +11,7 @@ import javax.swing.Timer;
  * Based on code found at <a href="http://privat.schlund.de/b/bossung/prog/java/tips.html">http://privat.schlund.de/b/bossung/prog/java/tips.html</a>.
  * Modified to perform the focus request only once.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class FocusSetter implements ActionListener {
 

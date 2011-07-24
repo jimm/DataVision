@@ -7,7 +7,7 @@ import jimm.util.I18N;
  * After stretching a field using the mouse, this command lets us undo and
  * redo the size change.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class FieldStretchCommand extends CommandAdapter {
 

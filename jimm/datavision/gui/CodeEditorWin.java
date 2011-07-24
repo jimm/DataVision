@@ -14,7 +14,7 @@ import javax.swing.*;
  * code such as formulas and where clauses. The text field accepts dragged
  * report fields by using a {@link DropListenerTextArea}.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public abstract class CodeEditorWin extends JDialog implements ActionListener {
 

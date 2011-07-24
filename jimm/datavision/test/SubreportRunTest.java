@@ -16,7 +16,7 @@ import junit.framework.Test;
  * <code>test_sub.xml</code> and the contents of the test database generated
  * by the files in <code>jimm/datavision/testdata</code>.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class SubreportRunTest extends TestCase {
 
@@ -97,11 +97,9 @@ public void testReportRun() throws IOException, FileNotFoundException {
 }
 
 public void testMultipleJoins() throws IOException, FileNotFoundException {
-    for (Iterator iter = report.subreports(); iter.hasNext(); ) {
-	Subreport s = (Subreport)iter.next();
+    for (Subreport s : report.subreports())
 	s.addJoin(new Join(report.findColumn("office.name"), "=",
 			   report.findColumn("office.name")));
-    }
 
     // Run report in this thread, not a separate one. Running the
     // report closes the output stream.

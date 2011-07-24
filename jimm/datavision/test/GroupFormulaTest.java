@@ -15,7 +15,7 @@ import org.xml.sax.SAXException;
  * These tests are tightly coupled with the contents of the
  * <code>group_formulas_*</code> files.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class GroupFormulaTest extends TestCase {
 

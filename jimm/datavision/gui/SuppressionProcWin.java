@@ -10,7 +10,7 @@ import javax.swing.*;
 /**
  * An edit dialog for suppression procs.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  * @see jimm.datavision.SuppressionProc
  * @see jimm.datavision.Formula
  * @see jimm.datavision.gui.cmd.SuppressionProcEditCommand

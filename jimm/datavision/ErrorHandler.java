@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  * This class is also used by other parts of the system to determine
  * if the report is being run with or without a GUI.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class ErrorHandler {
 

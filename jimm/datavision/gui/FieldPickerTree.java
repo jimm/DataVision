@@ -9,7 +9,7 @@ import javax.swing.tree.*;
 /**
  * The {#link FieldPickerWin} uses this JTree subclass.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class FieldPickerTree
     extends JTree

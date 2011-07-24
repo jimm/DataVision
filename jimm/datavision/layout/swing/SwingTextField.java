@@ -10,7 +10,7 @@ import javax.swing.text.StyleConstants;
 /**
  * A Swing field is the visual representation of a report field.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  * @see SwingLE
  */
 public class SwingTextField extends AbstractSwingField {

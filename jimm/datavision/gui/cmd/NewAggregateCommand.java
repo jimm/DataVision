@@ -7,7 +7,7 @@ import jimm.util.I18N;
 /**
  * A command for adding a aggregate to a field for a particular section.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class NewAggregateCommand extends AbstractAggregateCommand {
 

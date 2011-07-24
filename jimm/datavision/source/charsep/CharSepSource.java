@@ -9,7 +9,7 @@ import java.util.*;
  * A data source for files whose lines are rows and columns are separated
  * by a character.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class CharSepSource extends DataSource {
 

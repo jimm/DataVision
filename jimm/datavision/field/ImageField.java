@@ -15,7 +15,7 @@ import javax.swing.GrayFilter;
  * Represents an external image. The <code>value</code> instance value
  * stores the images file's path.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class ImageField extends Field {
 

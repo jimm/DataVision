@@ -5,7 +5,7 @@ import jimm.util.I18N;
 /**
  * Shows or hides a field.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class FieldShowHideCommand extends CommandAdapter {
 

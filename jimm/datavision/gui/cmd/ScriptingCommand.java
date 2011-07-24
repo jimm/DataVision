@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * Performs changes to a report's scripting language information.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class ScriptingCommand extends CommandAdapter {
 

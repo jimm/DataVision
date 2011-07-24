@@ -10,15 +10,15 @@ public class MockDataSource extends DataSource {
 
 protected static final String DATABASE_NAME = "dv_example";
 
-protected Map tables;
-protected List tablesUsedInReport;
-protected List columns;
+protected Map<String, Table> tables;
+protected List<Table> tablesUsedInReport;
+protected List<Column> columns;
 protected String name;
 
 public MockDataSource(Report r) {
   super(r, new Query(r));
-  tables = new HashMap();
-  tablesUsedInReport = new ArrayList();
+  tables = new HashMap<String, Table>();
+  tablesUsedInReport = new ArrayList<Table>();
   name = DATABASE_NAME;
 
   createOfficeTable();
@@ -157,8 +157,7 @@ protected Table findTableWithId(String id) {
     if (!caseSensitive)
 	id = id.toLowerCase();
 
-    for (Iterator iter = tables.keySet().iterator(); iter.hasNext(); ) {
-	String key = (String)iter.next();
+    for (String key : tables.keySet()) {
 	if (caseSensitive)
 	    key = key.toLowerCase();
 	if (key.equals(id))
@@ -168,12 +167,12 @@ protected Table findTableWithId(String id) {
     return null;
 }
 
-public Iterator tables() { return tables.values().iterator(); }
+public Iterable<Table> tables() { return tables.values(); }
 
-public Iterator tablesUsedInReport() { return tablesUsedInReport.iterator(); }
+public Iterable<Table> tablesUsedInReport() { return tablesUsedInReport; }
 
-public Iterator columns() {
-  return new ColumnIterator(tables.values().iterator());
+public Iterable<Column> columns() {
+  return new ColumnIterator(tables.values());
 }
 
 protected void doWriteXML(XMLWriter out) { }

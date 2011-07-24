@@ -5,7 +5,7 @@ import javax.swing.*;
 /**
  * An image.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  * @see SwingLE
  * @see jimm.datavision.field.ImageField
  */

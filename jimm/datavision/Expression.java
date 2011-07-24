@@ -28,7 +28,7 @@ import java.util.*;
  * number, or date).</li>
  * <ul>
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public abstract class Expression
     extends Observable

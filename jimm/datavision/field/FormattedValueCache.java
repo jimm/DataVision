@@ -12,7 +12,7 @@ import javax.swing.JLabel;
  * (wrapped) version of its value or the height needed to output the formatted
  * value.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 class FormattedValueCache implements Observer {
 

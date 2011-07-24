@@ -7,7 +7,7 @@ import java.util.Iterator;
 /**
  * An internal table node for the {@link FieldPickerTree}.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 
 public class FPTableInfo {

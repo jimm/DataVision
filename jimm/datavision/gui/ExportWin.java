@@ -20,7 +20,7 @@ import javax.swing.*;
  * This dialog lets the user export report results using one of the
  * layout engines.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class ExportWin extends JDialog implements ActionListener {
 

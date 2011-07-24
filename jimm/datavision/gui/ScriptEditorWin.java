@@ -9,7 +9,7 @@ import java.awt.BorderLayout;
  * This is the abstract superclass of windows used for editing paragraphs of
  * scripting code such as formulas
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public abstract class ScriptEditorWin extends CodeEditorWin {
 

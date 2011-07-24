@@ -7,7 +7,7 @@ import java.util.Observable;
  * <code>Element</code> is the abstract superclass of <code>Field</code>
  * and <code>Line</code>. These are the visual elements of a report section.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 
 public abstract class Element

@@ -5,7 +5,7 @@ import jimm.util.I18N;
 /**
  * A command for changing a field's summary.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class SummaryCommand extends CommandAdapter {
 

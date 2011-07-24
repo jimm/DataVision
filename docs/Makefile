@@ -1,6 +1,6 @@
 # Makefile for DataVision documentation, both HTML and Web site.
 #
-# Jim Menard, jimm@io.com
+# Jim Menard, jim@jimmenard.com
 #
 # The .PHONY directives are not necessary. If you make doesn't support
 # them, delete them.

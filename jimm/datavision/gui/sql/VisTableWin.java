@@ -18,7 +18,7 @@ import javax.swing.*;
  * This dialog should only be created if the report uses more than one table.
  * The method {@link Designer#enableMenuItems} makes sure this is true.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class VisTableWin extends EditWin implements ActionListener {
 

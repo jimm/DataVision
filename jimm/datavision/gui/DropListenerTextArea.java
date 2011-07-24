@@ -10,7 +10,7 @@ import javax.swing.JTextArea;
  * A text area that accepts drags containing report fields. Used by
  * {@link CodeEditorWin}s.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class DropListenerTextArea
     extends JTextArea

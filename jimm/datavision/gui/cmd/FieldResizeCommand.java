@@ -8,7 +8,7 @@ import jimm.util.I18N;
  * Resizes a single field by comparing it with another field and copying
  * one of its dimensions.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class FieldResizeCommand extends CommandAdapter {
 

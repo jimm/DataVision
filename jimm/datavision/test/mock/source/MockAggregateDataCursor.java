@@ -36,12 +36,12 @@ public MockAggregateDataCursor(Query q) {
   recordIndex = -1;
 }
 
-protected List readRowData() {
+protected List<Object> readRowData() {
   ++recordIndex;
   if (recordIndex >= DATA.length)
     return null;
 
-  List row = new ArrayList(DATA[recordIndex].length);
+  List<Object> row = new ArrayList<Object>(DATA[recordIndex].length);
   for (int i = 0; i < DATA[recordIndex].length; ++i)
     row.add(DATA[recordIndex][i]);
 

@@ -7,7 +7,7 @@ import jimm.datavision.Selectable;
  * and the {@link jimm.datavision.gui.cmd.GroupEditCommand} to remember a
  * group and its sort order.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class GroupWinListItem extends TLWListItem {
 

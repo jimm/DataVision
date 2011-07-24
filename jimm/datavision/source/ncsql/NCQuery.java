@@ -8,7 +8,7 @@ import java.util.List;
  * Queries build NC query strings. They contain tables, joins, and
  * where clauses.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class NCQuery extends SQLQuery {
 

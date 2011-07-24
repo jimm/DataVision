@@ -9,7 +9,7 @@ import java.util.*;
 /**
  * A database knows about the tables in a database.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class Database extends DataSource {
 
@@ -19,8 +19,8 @@ protected String driverClassName;
 protected String connInfo;
 protected String name;
 protected String username;
-protected TreeMap tables;
-protected HashMap tableCacheMap;
+protected TreeMap<String, Table> tables;
+protected HashMap<String, Table> tableCacheMap;
 protected String schemaName;
 protected Connection conn;
 private String password;
@@ -224,12 +224,9 @@ protected Table findTable(String tableName) {
  */
 protected Table findTableWithId(String id) {
     boolean caseSensitive = getReport().caseSensitiveDatabaseNames();
-    for (Iterator iter = tables.keySet().iterator(); iter.hasNext(); ) {
-	String key = (String)iter.next();
+    for (String key : tables.keySet())
 	if (key.equals(id) || (!caseSensitive && key.equalsIgnoreCase(id)))
 	    return (Table)tables.get(key);
-    }
-
     return null;
 }
 
@@ -241,8 +238,8 @@ public Iterable<Table> tablesUsedInReport() {
     return ((SQLQuery)query).getTablesUsed();
 }
 
-public Iterator columns() {
-    return new ColumnIterator(tables.values().iterator());
+public Iterable<Column> columns() {
+    return new ColumnIterator(tables.values());
 }
 
 public DataCursor execute() throws SQLException {

@@ -15,7 +15,7 @@ import javax.swing.text.BadLocationException;
  *
  * A text field widget is a field widget that is editable.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class TextFieldWidget extends FieldWidget {
 

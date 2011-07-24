@@ -6,7 +6,7 @@ import javax.swing.*;
  * A single string inquisitor knows how to display and control the widgets
  * needed to ask a user for a string parameter value.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 class SingleStringInq extends Inquisitor {
 

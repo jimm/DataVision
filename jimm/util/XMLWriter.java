@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * Calling <code>indent</code> and <code>outdent</code> changes the
  * indentation level. The default indentation width is 4 spaces.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class XMLWriter extends PrintWriter {
 

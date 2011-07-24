@@ -8,7 +8,7 @@ import javax.swing.*;
  * to ask a user for parameter values. Inquisitors are used in
  * {@link ParamAskWin}s.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 abstract class Inquisitor {
 

@@ -4,7 +4,7 @@ import java.awt.*;
 /**
  * A custom layout manager for the section widgets inside a design window.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 class DesignWinLayout implements LayoutManager {
 

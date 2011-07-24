@@ -10,7 +10,7 @@ import java.util.HashMap;
  * option flags and values that it finds.
  *
  * @author Jim Menard,
- * <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class Getopts {
 String[] argv;

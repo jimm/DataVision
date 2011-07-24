@@ -6,7 +6,7 @@ import jimm.util.I18N;
 /**
  * This dialog is for editing {@link Formula} code.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  * @see FormulaWidget
  * @see jimm.datavision.gui.cmd.FormulaEditCommand
  */

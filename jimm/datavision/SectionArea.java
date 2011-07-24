@@ -7,7 +7,7 @@ import java.util.*;
  * A section area holds an ordered list of {@see Section}s and knows its
  * name and type.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class SectionArea implements Writeable {
 

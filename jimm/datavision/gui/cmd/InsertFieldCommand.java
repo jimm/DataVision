@@ -9,7 +9,7 @@ import jimm.util.I18N;
 /**
  * Abstract superclass for inserting new fields.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 abstract public class InsertFieldCommand extends CommandAdapter {
 

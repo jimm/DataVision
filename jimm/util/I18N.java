@@ -12,7 +12,7 @@ import java.util.MissingResourceException;
  * where XX is the language code (e.g., "en" for English, "fr" for French)
  * and YY is the country code (e.g., "US", "FR").
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class I18N {
 

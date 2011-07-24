@@ -12,7 +12,7 @@ import javax.swing.event.DocumentEvent;
 /**
  * Editor dialog for a report's scripting language list and default language.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class ScriptingWin
     extends EditWin

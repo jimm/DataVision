@@ -9,7 +9,7 @@ import java.util.Calendar;
  * Generates test data for the jobs table. Used by the <code>CreateData</code>
  * classes found in the database subdirectories.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class Job {
 

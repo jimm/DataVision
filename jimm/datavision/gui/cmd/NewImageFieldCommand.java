@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
 /**
  * Inserts a new image field.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class NewImageFieldCommand extends InsertFieldCommand {
 

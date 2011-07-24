@@ -8,7 +8,7 @@ import java.io.*;
  * Output is one line per row of data. Column data is separated by a
  * user-specified character.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class CharSepLE extends SortedLayoutEngine {
 

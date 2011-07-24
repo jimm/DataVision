@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * Writes the element of a list of {@link Writeable} objects as XML.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class ListWriter {
 

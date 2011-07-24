@@ -16,7 +16,7 @@ import javax.swing.*;
 /**
  * The abstract superclass of {@link Report} designer windows and applets.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public abstract class Designer implements ActionListener, Observer {
 

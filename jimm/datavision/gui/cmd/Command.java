@@ -8,7 +8,7 @@ import jimm.datavision.Nameable;
  * The concrete implementor <code>CommandAdapter</code> treats the name
  * as immutable; the <code>setName</code> method does nothing.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public interface Command extends Nameable {
 

@@ -8,7 +8,7 @@ import jimm.util.I18N;
 /**
  * This dialog lets the user edit the report query's where clause.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  * @see jimm.datavision.source.Query
  * @see jimm.datavision.gui.cmd.WhereClauseEditCommand
  */

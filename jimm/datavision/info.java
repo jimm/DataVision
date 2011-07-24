@@ -4,7 +4,7 @@ import jimm.util.Getopts;
 /**
  * This class is a holder of version and copyright information.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class info {
 
@@ -16,7 +16,7 @@ public static final String VERSION_SUFFIX = "";
 public static final String Version =
     "" + VERSION_MAJOR + "." + VERSION_MINOR + "." + VERSION_TWEAK + VERSION_SUFFIX;
 public static final String Copyright =
-    "Copyright (c) 2001-2008 Jim Menard, jimm@io.com";
+    "Copyright (c) 2001-2008 Jim Menard, jim@jimmenard.com";
 public static final String URL = "http://datavision.sourceforge.net";
 
 /**

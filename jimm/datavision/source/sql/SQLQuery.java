@@ -10,13 +10,13 @@ import java.sql.SQLException;
  * Queries build SQL query strings. They contain tables, joins, and
  * where clauses.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  * @see ParserHelper
  */
 public class SQLQuery extends Query {
 
-protected Set tables;
-protected ArrayList preparedStmtValues;
+protected Set<Table> tables;
+protected ArrayList<Object> preparedStmtValues;
 
 /**
  * Constructor.
@@ -25,7 +25,7 @@ protected ArrayList preparedStmtValues;
  */
 public SQLQuery(Report report) {
     super(report);
-    tables = new HashSet();
+    tables = new HashSet<Table>();
 }
 
 /**
@@ -122,6 +122,7 @@ public String prepare(String clause) {
  * @param prevWord the previous word
  * @param idAsString the parameter id
  */
+@SuppressWarnings("unchecked")
 protected void addParameter(StringBuffer buf, String prevWord,
 			    String idAsString)
 {
@@ -133,7 +134,7 @@ protected void addParameter(StringBuffer buf, String prevWord,
     // fill in the parameter's value.
     Object val = report.getParameterValue(paramId);
     if (val instanceof List) {
-	List list = (List)val;
+	List<Object> list = (List<Object>)val;
 	if (param.getArity() == Parameter.ARITY_RANGE) {
 	    // Modify prev word
 	    if ("!=".equals(prevWord) || "<>".equals(prevWord))
@@ -270,12 +271,11 @@ protected void addParameterForDisplay(StringBuffer buf, String prevWord,
 public void findSelectablesUsed() {
     super.findSelectablesUsed();
     tables.clear();
-    for (Iterator iter = selectables.iterator(); iter.hasNext(); )
-	addTable(((Selectable)iter.next()).getTable());
+    for (Selectable sel : selectables)
+	addTable(sel.getTable());
 
     // Add all tables used in joins.
-    for (Iterator iter = joins.iterator(); iter.hasNext(); ) {
-	Join join = (Join)iter.next();
+    for (Join join : joins) {
 	addTable(((Column)join.getFrom()).getTable());
 	addTable(((Column)join.getTo()).getTable());
     }
@@ -305,8 +305,8 @@ protected void addTable(Table t) {
 
     // Look for the same table name
     String tableName = t.getName();
-    for (Iterator iter = tables.iterator(); iter.hasNext(); )
-        if (((Table)iter.next()).getName().equals(tableName))
+    for (Table table : tables)
+        if (table.getName().equals(tableName))
             return;		// Don't add if we have the same table name
 
     tables.add(t);
@@ -326,7 +326,7 @@ public int getNumTables() { return tables.size(); }
  *
  * @return the collection of tables used by this query
  */
-public Collection getTablesUsed() {
+public Collection<Table> getTablesUsed() {
     findSelectablesUsed();
     return tables;
 }
@@ -418,7 +418,7 @@ public String toString() {
  * @return a SQL query string
  */
 public String toPreparedStatementString() {
-    preparedStmtValues = new ArrayList();
+    preparedStmtValues = new ArrayList<Object>();
     return queryAsString(false);
 }
 
@@ -451,22 +451,21 @@ protected void buildSelect(StringBuffer str) {
     str.append("select ");
 
     // Build list of database columns and user columns
-    ArrayList selectCols = new ArrayList();
-    for (Iterator iter = selectables.iterator(); iter.hasNext(); ) {
-	String sel = ((Selectable)iter.next()).getSelectString(this);
+    ArrayList<Selectable> selectCols = new ArrayList<Selectable>();
+    for (Selectable sel : selectables)
 	if (sel != null)
 	    selectCols.add(sel);
-    }
+
     str.append(StringUtils.join(selectCols, ", "));
 }
 
 protected void buildFrom(StringBuffer str) {
     str.append(" from ");
     boolean first = true;
-    for (Iterator iter = tables.iterator(); iter.hasNext(); ) {
+    for (Table t : tables) {
 	if (first) first = false;
 	else str.append(", ");
-	str.append(quoted(((Table)iter.next()).getName()));
+	str.append(quoted(t.getName()));
     }
 }
 
@@ -485,9 +484,8 @@ protected void buildWhereClause(StringBuffer str, boolean forDisplay) {
 }
 
 protected void buildJoins(StringBuffer str) {
-    ArrayList quotedJoins = new ArrayList();
-    for (Iterator iter = joins.iterator(); iter.hasNext(); ) {
-	Join j = (Join)iter.next();
+    ArrayList<String> quotedJoins = new ArrayList<String>();
+    for (Join j : joins) {
 	StringBuffer buf = new StringBuffer();
 	buf.append(quoted(((Column)j.getFrom()).fullName()));
 	buf.append(' ');
@@ -546,10 +544,9 @@ protected void buildOrderBy(StringBuffer str) {
  */
 public void setParameters(PreparedStatement stmt) throws SQLException {
     int i = 1;
-    for (Iterator iter = preparedStmtValues.iterator(); iter.hasNext(); ++i) {
+    for (Object val : preparedStmtValues) {
 	// In Oracle, Java Dates are turned into timestamps, or something
 	// like that. This is an attempt to fix this problem.
-	Object val = iter.next();
 	if (val instanceof java.util.Date)
 	    stmt.setDate(i,
 			 new java.sql.Date(((java.util.Date)val).getTime()));
@@ -571,10 +568,10 @@ public void setParameters(PreparedStatement stmt) throws SQLException {
 public String quoted(String name) {
     Database db = (Database)report.getDataSource();
 
-    List components = StringUtils.split(name, ".");
+    List<String> components = StringUtils.split(name, ".");
     int len = components.size();
     for (int i = 0; i < len; ++i) {
-	String component = (String)components.get(i);
+	String component = components.get(i);
 	// Put quotes around the component if (a) there is a space in the
 	// component, (b) the JDBC driver translates all names to lower
 	// case and we have non-lower-case letters, or (c) the JDBC driver

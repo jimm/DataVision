@@ -9,7 +9,7 @@ import java.util.List;
  * The only method subclasses <em>must</em> implement is
  * <code>readRowData()</code>.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public abstract class DataCursor {
 

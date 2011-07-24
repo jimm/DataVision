@@ -6,7 +6,7 @@ import java.util.Iterator;
 /**
  * Implements a sorted list model suitable for use with a <code>JList</code>.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class SortedListModel extends AbstractListModel {
 

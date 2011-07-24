@@ -5,7 +5,7 @@ import javax.swing.JApplet;
  * A report design applet. When initialized, it creates a
  * {@link DesignApplet} designer.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class DVApplet extends JApplet {
 

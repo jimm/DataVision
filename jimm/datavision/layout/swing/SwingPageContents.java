@@ -14,7 +14,7 @@ import java.util.Iterator;
  * Holds report page contents and creates {@link SwingPage} instances
  * when requested.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  * @see SwingLE
  * @see SwingPageField
  */
@@ -163,7 +163,7 @@ void forgetPage() {
  * Holds a report field, its value when this instance is created, and
  * a rectangle for page placement.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  * @see SwingPage
  * @see SwingLE
  * @see SwingPageContents

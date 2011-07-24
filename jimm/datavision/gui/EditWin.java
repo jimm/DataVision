@@ -8,7 +8,7 @@ import javax.swing.*;
  * The abstract parent of all edit windows except the main design window.
  * Handles common behavior.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public abstract class EditWin extends JDialog implements ActionListener
 {

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * Parses delimited data. Handles quotes and embedded delimiters.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class DelimParser {
 

@@ -9,7 +9,7 @@ import java.awt.Color;
  * Note that currently, line thickness is ignored in the Java GUI (but not
  * in layout engines such as the LaTeXLE).
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class Line extends Element {
 

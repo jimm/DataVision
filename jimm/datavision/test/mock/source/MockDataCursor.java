@@ -35,7 +35,7 @@ public MockDataCursor(Query q) {
   query = q;
 }
 
-protected List readRowData() {
+protected List<Object> readRowData() {
   ++jobIndex;
   if ((jobIndex % 100) == 0)	// 100 jobs per city
     ++cityIndex;
@@ -46,7 +46,7 @@ protected List readRowData() {
       cityIndex > 0)
     return null;
 
-  List row = new ArrayList();
+  List<Object> row = new ArrayList<Object>();
   row.add(CITIES[cityIndex]);	// office.name
   row.add(SHORT_NAMES[cityIndex]); // Short Office Name (id "2")
   row.add(new java.util.Date()); // jobs.post_date

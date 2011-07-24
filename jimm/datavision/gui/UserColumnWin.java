@@ -8,7 +8,7 @@ import java.util.Observer;
 /**
  * This dialog is for editing {@link UserColumn} code.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  * @see UserColumnWidget
  * @see UserColumnEditCommand
  */

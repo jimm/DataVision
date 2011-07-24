@@ -8,7 +8,7 @@ import java.util.*;
 /**
  * A DocBook col is used to represeent a column in a DocBook table.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 class DocBookCol {
 

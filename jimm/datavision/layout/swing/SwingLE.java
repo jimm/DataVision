@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * <code>SwingLE</code> is a layout engine that creates a Swing window.
  * The window can be printed by selecting the appropriate menu item.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  * @see SwingPageContents
  * @see SwingPage
  * @see SwingField

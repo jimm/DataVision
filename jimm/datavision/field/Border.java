@@ -14,7 +14,7 @@ import java.util.Observable;
  * edges (top, left, bottom, and right) is a {@link BorderEdge} and may be
  * <code>null</code>.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class Border
     extends Observable

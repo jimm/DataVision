@@ -9,7 +9,7 @@ import java.util.Iterator;
  * use tables. For those that don't, their columns' <code>getTable</code>
  * method will return <code>null</code>.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  * @see Column
  * @see DataSource
  */

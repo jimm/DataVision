@@ -16,7 +16,7 @@ import java.util.Observable;
  * To avoid repeated font size and line width calculations, a {@link
  * FormattedValueCache} holds the formatted version of this field's value.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public abstract class Field
     extends Element

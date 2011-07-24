@@ -3,7 +3,7 @@ package jimm.datavision.source.sql;
 /**
  * A helper class used by a SQL query while parsing the WHERE clause.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  * @see SQLQuery
  */
 public class ParserHelper {

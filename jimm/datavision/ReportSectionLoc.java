@@ -5,7 +5,7 @@ package jimm.datavision;
  * the report. Handed back to the report when it is asked to re-insert
  * a section. Used by <code>DeleteSectionCommand</code>.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  * @see jimm.datavision.gui.cmd.DeleteSectionCommand
  */
 public class ReportSectionLoc {

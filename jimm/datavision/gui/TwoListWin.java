@@ -13,7 +13,7 @@ import javax.swing.event.ListSelectionEvent;
  * An abstract superclass for edit windows that manipulate a list of
  * sortable, orderable items.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public abstract class TwoListWin extends EditWin
     implements ActionListener, ListSelectionListener

@@ -8,7 +8,7 @@ import java.util.*;
  * The class manages lists of paper sizes and instances represents specific
  * paper sizes and orientations. Instances are immutable.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class PaperFormat extends Paper implements Nameable, Writeable {
 

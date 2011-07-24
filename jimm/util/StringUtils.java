@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * Globally available utility classes, mostly for string manipulation.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class StringUtils {
 

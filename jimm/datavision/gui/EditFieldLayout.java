@@ -14,7 +14,7 @@ import java.awt.GridBagConstraints;
  * widget pairs. Calling <code>getPanel</code> returns a panel containing
  * the labels and edit widgets, arranged for your pleasure.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class EditFieldLayout {
 

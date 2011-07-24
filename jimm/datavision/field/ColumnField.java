@@ -8,7 +8,7 @@ import jimm.util.I18N;
  * A column field represents a data source column. The value of a column field
  * holds the {@link Column} object.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class ColumnField extends Field {
 

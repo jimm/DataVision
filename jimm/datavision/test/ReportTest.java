@@ -13,7 +13,7 @@ import junit.framework.Test;
  * Reads a report from an XML file, tests its structure, and tests various
  * pieces like parameter and formula substitution.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class ReportTest extends TestCase {
 

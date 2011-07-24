@@ -9,7 +9,7 @@ import java.util.*;
  * database data source but can't run reports. It gets its column
  * descriptions from metadata described in the report XML file.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class NCDatabase extends DataSource {
 

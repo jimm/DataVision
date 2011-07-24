@@ -14,7 +14,7 @@ import java.util.Observable;
  * of the report's default field's format (which will never be
  * <code>null</code>.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class Format extends Observable implements Writeable, Cloneable {
 

@@ -20,7 +20,7 @@ import java.text.ParsePosition;
  * type can be changed any time after the parameter gets created. Therefore,
  * we hold objects and change our output based on the type of the data.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class Parameter
     extends Observable

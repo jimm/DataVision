@@ -9,7 +9,7 @@ package jimm.datavision.gui.cmd;
  * provided at construction time. The <code>setName</code> method does
  * nothing.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public abstract class CommandAdapter implements Command {
 

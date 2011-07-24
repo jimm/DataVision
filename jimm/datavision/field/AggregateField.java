@@ -14,7 +14,7 @@ public double aggregate(double[] values, int numValues);
  * changes. The value of an aggregate field holds the id of some other field
  * whose value we are aggregating.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class AggregateField extends Field {
 

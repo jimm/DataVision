@@ -14,7 +14,7 @@ import junit.framework.Test;
  * These tests are tightly coupled with the contents of the files
  * <code>eval.xml</code> and <code>eval.csv</code>.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class FormulaEvalTest extends TestCase {
 

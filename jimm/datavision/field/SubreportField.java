@@ -7,7 +7,7 @@ import jimm.datavision.Subreport;
  * A subreport field represents an entire report within a field. The value
  * of a subreport field holds a report object.
  *
- * @author Jim Menard, <a href="mailto:jimm@io.com">jimm@io.com</a>
+ * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
 public class SubreportField extends Field {
 
