@@ -16,7 +16,7 @@ public class ListWriter {
  * @param out the writer
  * @param list the collection of objects to write
  */
-public static void writeList(XMLWriter out, Collection list) {
+public static void writeList(XMLWriter out, Collection<? extends Writeable> list) {
   writeList(out, list, null);
 }
 
@@ -31,14 +31,14 @@ public static void writeList(XMLWriter out, Collection list) {
  * @param name the XML tag name to use; if <code>null</code>, no begin/end
  * element is written
  */
-public static void writeList(XMLWriter out, Collection list, String name) {
+public static void writeList(XMLWriter out, Collection<? extends Writeable> list, String name) {
     if (list.isEmpty())
 	return;
 
     if (name != null)
       out.startElement(name);
-    for (Iterator iter = list.iterator(); iter.hasNext(); )
-	((Writeable)iter.next()).writeXML(out);
+    for (Writeable w : list)
+	w.writeXML(out);
     if (name != null)
       out.endElement();
 }

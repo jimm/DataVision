@@ -94,7 +94,7 @@ public StartupDialog() {
     getContentPane().add("South", p2);
 
     // Show it
-    show();
+    setVisible(true);
 
 }  // End StartupDialog()
 

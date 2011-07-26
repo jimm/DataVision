@@ -83,7 +83,7 @@ FieldPickerWin(Designer designer, Report report, int startingType) {
     buildWindow(startingType);
 
     pack();
-    show();
+    setVisible(true);
 }
 
 public void update(Observable o, Object arg) {

@@ -16,7 +16,7 @@ public SQLQueryWin(Frame owner, String queryString) {
     super(owner, I18N.get("SQLQueryWin.title"));
     buildWindow(queryString);
     pack();
-    show();
+    setVisible(true);
 }
 
 protected void buildWindow(String queryString) {

@@ -171,7 +171,7 @@ public String getName() {
  *
  * @return an unmodifiable version of our list of sections.
  */
-public List sections() {
+public List<Section> sections() {
     return Collections.unmodifiableList(sections);
 }
 

@@ -44,7 +44,7 @@ public DesignWin(File f, String databasePassword) {
     });
 
     frame.pack();
-    frame.show();
+    frame.setVisible(true);
 }
 
 /**
