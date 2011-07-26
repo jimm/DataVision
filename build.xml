@@ -94,8 +94,8 @@
 
   <!-- Compile everything except tests -->
   <target name="compile" depends="init, images, properties">
-    <javac source="1.4" target="1.4" srcdir="${src}" destdir="${build}"
-     debug="true" debuglevel="lines,vars,source"
+    <javac srcdir="${src}" destdir="${build}"
+     debug="true" debuglevel="lines,vars,source" includeAntRuntime="false"
      includes="jimm/**" deprecation="true"
      excludes="jimm/datavision/test/**,jimm/datavision/testdata/**,jimm/properties/**">
       <classpath refid="compile.classpath"/>
@@ -320,8 +320,8 @@ depends="all_plus_jar, clean, xlateomatic.distclean, docs.release, release.tgz, 
   <!-- ================ testing ================ -->
 
   <target name="compile.test" depends="help.html, init, images, properties">
-    <javac source="1.4" target="1.4" srcdir="${src}" destdir="${build}"
-     debug="true" debuglevel="lines,vars,source"
+    <javac srcdir="${src}" destdir="${build}"
+     debug="true" debuglevel="lines,vars,source" includeAntRuntime="false"
      includes="jimm/**" deprecation="true"
      excludes="jimm/datavision/testdata/**,jimm/properties/**">
       <classpath refid="test.compile.classpath"/>
@@ -346,8 +346,8 @@ depends="all_plus_jar, clean, xlateomatic.distclean, docs.release, release.tgz, 
   </target>
 
   <target name="conntest.compile" depends="init">
-    <javac source="1.4" target="1.4" srcdir="${src}" destdir="${build}" deprecation="true"
-      debug="true" debuglevel="lines,vars,source"
+    <javac srcdir="${src}" destdir="${build}" deprecation="true"
+      debug="true" debuglevel="lines,vars,source" includeAntRuntime="false"
       includes="examples/ConnectionTest.java">
       <classpath refid="test.compile.classpath"/>
     </javac>
@@ -372,8 +372,8 @@ depends="all_plus_jar, clean, xlateomatic.distclean, docs.release, release.tgz, 
   <macrodef name="compile.testdata">
     <attribute name="db"/>
     <sequential>
-      <javac source="1.4" target="1.4" srcdir="${src}" destdir="${build}" deprecation="true"
-       debug="true" debuglevel="lines,vars,source"
+      <javac srcdir="${src}" destdir="${build}" deprecation="true"
+       debug="true" debuglevel="lines,vars,source" includeAntRuntime="false"
        includes="jimm/datavision/testdata/*,jimm/datavision/testdata/@{db}/**">
 	<classpath refid="compile.classpath"/>
       </javac>
