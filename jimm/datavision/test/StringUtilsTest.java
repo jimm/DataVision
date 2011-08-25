@@ -49,12 +49,12 @@ public void testNewlines() {
 }
 
 public void testSplit() {
-    ArrayList typicalAnswer = new ArrayList();
+    ArrayList<String> typicalAnswer = new ArrayList<String>();
     typicalAnswer.add("a");
     typicalAnswer.add("b");
     typicalAnswer.add("c");
 
-    ArrayList origStringAnswer = new ArrayList();
+    ArrayList<String> origStringAnswer = new ArrayList<String>();
     origStringAnswer.add("abc");
 
     // Special cases
@@ -65,22 +65,22 @@ public void testSplit() {
     assertEquals(typicalAnswer, StringUtils.split("a.b.c", "."));
     assertEquals(typicalAnswer, StringUtils.split("a**&*b**&*c", "**&*"));
 
-    ArrayList answer = new ArrayList(typicalAnswer);
+    ArrayList<String> answer = new ArrayList<String>(typicalAnswer);
     answer.add(0, "");
     assertEquals(answer, StringUtils.split(".a.b.c", "."));
     assertEquals(answer, StringUtils.split("**&*a**&*b**&*c", "**&*"));
 
-    answer = new ArrayList(typicalAnswer);
+    answer = new ArrayList<String>(typicalAnswer);
     answer.add(1, "");
     assertEquals(answer, StringUtils.split("a..b.c", "."));
     assertEquals(answer, StringUtils.split("a**&***&*b**&*c", "**&*"));
 
-    answer = new ArrayList(typicalAnswer);
+    answer = new ArrayList<String>(typicalAnswer);
     answer.add("");
     assertEquals(answer, StringUtils.split("a.b.c.", "."));
     assertEquals(answer, StringUtils.split("a**&*b**&*c**&*", "**&*"));
 
-    answer = new ArrayList(typicalAnswer);
+    answer = new ArrayList<String>(typicalAnswer);
     answer.add(1, "");
     answer.add("");
     assertEquals(answer, StringUtils.split("a..b.c.", "."));
@@ -91,7 +91,7 @@ public void testJoin() {
     assertEquals("", StringUtils.join(null, null));
     assertEquals("", StringUtils.join(null, ","));
 
-    ArrayList list = new ArrayList();
+    ArrayList<String> list = new ArrayList<String>();
     assertEquals("", StringUtils.join(list, null));
     assertEquals("", StringUtils.join(list, ","));
 
@@ -171,10 +171,10 @@ public void testAvoidInfiniteLoop() {
 }
 
 public void testLineSplit() {
-    ArrayList answer = new ArrayList();
+    ArrayList<String> answer = new ArrayList<String>();
     answer.add("");
 
-    List split = StringUtils.splitIntoLines("");
+    List<String> split = StringUtils.splitIntoLines("");
     assertEquals(answer.size(), split.size());
     assertEquals(answer, split);
 
@@ -196,7 +196,7 @@ public void testLineSplit() {
 	assertEquals(answer, split);
     }
 
-    answer = new ArrayList();
+    answer = new ArrayList<String>();
     answer.add("line one");
     answer.add("part deux");
     answer.add("three's a crowd, eh?");
@@ -208,7 +208,7 @@ public void testLineSplit() {
     assertEquals(answer, split);
 
     // Test two newlines in a row
-    answer = new ArrayList();
+    answer = new ArrayList<String>();
     answer.add("two newlines after this line");
     answer.add("");
     answer.add("part deux");

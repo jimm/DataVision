@@ -5,7 +5,6 @@ import jimm.datavision.source.Query;
 import jimm.datavision.test.mock.source.MockDataSource;
 import java.io.*;
 import java.util.HashMap;
-import java.util.Iterator;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.framework.Test;
@@ -31,7 +30,7 @@ public void setUp() {
 }
 
 public void testSingleTokens() throws IOException {
-    HashMap testVals = new HashMap();
+    HashMap<String, Object> testVals = new HashMap<String, Object>();
     Long theAnswer = new Long(42);
     testVals.put("42", theAnswer);
     testVals.put(" 42", theAnswer);
@@ -49,7 +48,7 @@ public void testSingleTokens() throws IOException {
 }
 
 public void testExpressions() throws IOException {
-    HashMap testVals = new HashMap();
+    HashMap<String, Object> testVals = new HashMap<String, Object>();
     Long theAnswer = new Long(42);
     Double theAnswerAsDouble = new Double(42);
     String theAnswerAsString = "42";
@@ -108,10 +107,9 @@ public void testDisplay() throws Exception {
     assertEquals("{!Short Title}", f.getEditableExpression());
 }
 
-public void runTests(HashMap testVals) throws IOException {
+public void runTests(HashMap<String, Object> testVals) throws IOException {
     Formula f = new Formula(null, report, "Unnamed Formula");
-    for (Iterator iter = testVals.keySet().iterator(); iter.hasNext(); ) {
-	String evalStr = (String)iter.next();
+    for (String evalStr : testVals.keySet()) {
 	Object answer = testVals.get(evalStr);
 
 	f.setExpression(evalStr);

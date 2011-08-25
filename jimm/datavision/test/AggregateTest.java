@@ -28,7 +28,7 @@ protected static final File OUT_FILE =
 	     "datavision_aggregate_test_out.txt");
 
 protected Report report;
-protected Collection aggrFields;
+protected Collection<AggregateField> aggrFields;
 
 public static Test suite() {
     return new TestSuite(AggregateTest.class);
@@ -47,11 +47,11 @@ public void setUp() throws Exception {
     report.setLayoutEngine(new CharSepLE(out, '\t'));
 
     report.read(EXAMPLE_REPORT); // Must come after setting password
-    aggrFields = new ArrayList();
-    aggrFields.add(report.findField(new Long(23)));
-    aggrFields.add(report.findField(new Long(24)));
-    aggrFields.add(report.findField(new Long(25)));
-    aggrFields.add(report.findField(new Long(27)));
+    aggrFields = new ArrayList<AggregateField>();
+    aggrFields.add((AggregateField)report.findField(new Long(23)));
+    aggrFields.add((AggregateField)report.findField(new Long(24)));
+    aggrFields.add((AggregateField)report.findField(new Long(25)));
+    aggrFields.add((AggregateField)report.findField(new Long(27)));
 }
 
 public void tearDown() {
@@ -145,11 +145,10 @@ public void runTest(String funcName, String[] expected)
 }
 
 protected void setAggregateFieldFunction(String function) {
-    for (Iterator iter = aggrFields.iterator(); iter.hasNext(); ) {
-	AggregateField aggr = (AggregateField)iter.next();
+    for (AggregateField aggr : aggrFields)
 	aggr.setFunction(function);
-    }
 }
+
 protected void expect(int lineNum, String value, BufferedReader in)
     throws IOException
 {

@@ -200,6 +200,7 @@ public void testFieldReferences() {
 		   report.containsReferenceTo(f));
 }
 
+@SuppressWarnings("unchecked")
 public void testParameters() {
     Parameter param = report.findParameter("5");
     Long id = new Long(5);
@@ -233,7 +234,8 @@ public void testParameters() {
     assertTrue("range param value is not a list; class = "
 	       + obj.getClass().getName(),
 	       obj instanceof List);
-    List list = (List)obj;
+    // This is the line that calls for the warning suppression annotation:
+    List<Object> list = (List<Object>)obj;
 
     assertTrue("range param value list does not have length 2; it has length "
 	       + list.size(), list.size() == 2);

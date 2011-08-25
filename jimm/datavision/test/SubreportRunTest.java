@@ -3,7 +3,6 @@ import jimm.datavision.*;
 import jimm.datavision.layout.CharSepLE;
 import jimm.datavision.source.Join;
 import java.io.*;
-import java.util.Iterator;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.framework.Test;

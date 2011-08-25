@@ -29,8 +29,8 @@ public DelimParserTest(String name) {
     super(name);
 }
 
-protected void sepTest(List answer, DelimParser parser) {
-    List parsed = null;
+protected void sepTest(List<String> answer, DelimParser parser) {
+    List<String> parsed = null;
     try {
 	parsed = parser.parse();
     }
@@ -47,7 +47,7 @@ public void testParser() {
 	answers = new BufferedReader(new FileReader(TEST_ANSWERS));
 	DelimParser parser = new DelimParser(in, ',');
 
-	List answer;
+	List<String> answer;
 	while ((answer = getNextAnswer(answers)) != null)
 	    sepTest(answer, parser);
 	sepTest(null, parser);
@@ -64,7 +64,7 @@ public void testParser() {
     }
 }
 
-protected List getNextAnswer(BufferedReader in) throws IOException {
+protected List<String> getNextAnswer(BufferedReader in) throws IOException {
     String line = in.readLine();
     if (line == null)
 	return null;

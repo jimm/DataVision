@@ -33,7 +33,7 @@ protected static final String[] AREA_NAME_KEYS = {
     "Report.group_footer"
 };
 
-List sections;
+List<Section> sections;
 /** One of the <code>REPORT_*</code> constants. */
 int area;
 
@@ -54,7 +54,7 @@ public static String nameFromArea(int area) {
  */
 public SectionArea(int area) {
     this.area = area;
-    sections = new ArrayList();
+    sections = new ArrayList<Section>();
 }
 
 public int getArea() {
@@ -175,7 +175,7 @@ public List<Section> sections() {
     return Collections.unmodifiableList(sections);
 }
 
-public Iterator iterator() {
+public Iterator<Section> iterator() {
     return sections.iterator();
 }
 
@@ -188,14 +188,14 @@ public boolean isEmpty() {
 }
 
 public void clear() {
-    for (Iterator iter = sections.iterator(); iter.hasNext(); )
-	((Section)iter.next()).setArea(null);
+    for (Section s : sections)
+	s.setArea(null);
     sections.clear();
 }
 
-public void withSectionsDo(SectionWalker s) {
-    for (Iterator iter = sections.iterator(); iter.hasNext(); )
-	s.step((Section)iter.next());
+public void withSectionsDo(SectionWalker sw) {
+    for (Section s : sections)
+	sw.step(s);
 }
 
 public void writeXML(XMLWriter out) {

@@ -111,7 +111,7 @@ public void testSectionDelegation() {
 
 public void testUnmodifiable() {
     area.add(sect);
-    List sections = area.sections();
+    List<Section> sections = area.sections();
     try {
 	sections.add(new Section(report));
     }
