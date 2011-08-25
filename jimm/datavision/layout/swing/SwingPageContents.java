@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 // This file also contains the SwingPageField class.
 
@@ -20,7 +19,7 @@ import java.util.Iterator;
  */
 class SwingPageContents {
 
-ArrayList pageFields;
+ArrayList<SwingPageField> pageFields;
 SwingPage page;
 int pageNumber;
 JPanel parent;
@@ -36,7 +35,7 @@ Thread buildThread;
  * @param dim the page dimensions
  */
 SwingPageContents(JPanel parent, int pageNumber, Dimension dim) {
-    pageFields = new ArrayList();
+    pageFields = new ArrayList<SwingPageField>();
     this.pageNumber = pageNumber;
     this.parent = parent;
     pageDim = dim;
@@ -123,9 +122,7 @@ void buildPage() {
     SwingPage newPage = new SwingPage();
     newPage.setPreferredSize(pageDim);
 
-    for (Iterator iter = pageFields.iterator(); iter.hasNext();) {
-	SwingPageField spf = (SwingPageField)iter.next();
-
+    for (SwingPageField spf : pageFields) {
 	// Create field and add to page.
 	SwingField sf;
 	if (spf.field instanceof ImageField)

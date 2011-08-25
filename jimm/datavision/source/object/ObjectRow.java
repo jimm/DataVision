@@ -1,13 +1,8 @@
 package jimm.datavision.source.object;
 import jimm.datavision.Formula;
-import jimm.datavision.ErrorHandler;
 import jimm.datavision.source.DataCursor;
-import jimm.datavision.source.Column;
 import jimm.datavision.source.Query;
 import java.util.*;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.text.ParseException;
 
 /**
  * A concrete subclass of <code>DataCursor</code> that wraps an object parser.
@@ -20,10 +15,9 @@ protected ObjectSource source;
 protected Query query;
 protected Formula whereClauseFormula;
 protected boolean noMoreData;
-protected HashMap dateParsers;
-protected boolean dateParseErrorReported;
 
-private ArrayList data;
+private ArrayList<Object> data;
+
 ObjectRow(ObjectSource source, Query query) {
     this.source = source;
     this.query = query;
@@ -39,16 +33,16 @@ ObjectRow(ObjectSource source, Query query) {
  * Returns the next row of data. If there is a where clause, use that to
  * determine which rows we accept or reject.
  */
-public List readRowData() {
+public List<Object> readRowData() {
     if (noMoreData)
 	return null;
 
-    List data = null;
+    List<Object> rowData = null;
 
     boolean acceptRow;
     do {
-	data = retrieveNextRow();
-	if (whereClauseFormula != null && data != null) {
+	rowData = retrieveNextRow();
+	if (whereClauseFormula != null && rowData != null) {
 	    // Run the Ruby script and retrive its boolean value. If true,
 	    // accept the line. Else, reject it and move on to the next
 	    // line.
@@ -57,8 +51,8 @@ public List readRowData() {
 	    // the current row. We need to do this because the formula we
 	    // are about to evaluate may make use of data in the new
 	    // current row.
-	    List origCurrRowData = currRowData;
-	    currRowData = data;	// Need data available to formula
+	    List<Object> origCurrRowData = currRowData;
+	    currRowData = rowData;	// Need data available to formula
 
 	    // Evaulate the script and retrieve a boolean.
 	    Object obj = whereClauseFormula.eval();
@@ -72,7 +66,7 @@ public List readRowData() {
 	    acceptRow = true;
     } while (!acceptRow);
 
-    return data;
+    return rowData;
 }
 
 /**
@@ -81,12 +75,14 @@ public List readRowData() {
  * @return a list of column values
  */
 private int rowIndex = 0;
-protected List retrieveNextRow() {
+
+@SuppressWarnings("unchecked")
+protected List<Object> retrieveNextRow() {
 
     if (noMoreData) { return null; }
-    List row = null;
+    List<Object> row = null;
     try {
-      row = (ArrayList)data.get(rowIndex);
+      row = (ArrayList<Object>)data.get(rowIndex);
       rowIndex++;
     } catch (IndexOutOfBoundsException ioobe) {
       noMoreData = true;

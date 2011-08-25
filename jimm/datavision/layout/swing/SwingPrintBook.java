@@ -11,11 +11,11 @@ import java.util.List;
 class SwingPrintBook implements Pageable {
 
 protected StatusDialog statusDialog;
-protected List pageContents;
+protected List<SwingPageContents> pageContents;
 protected PageFormat pageFormat;
 protected boolean wasBuiltForUs;
 
-SwingPrintBook(List pages, PageFormat format) {
+SwingPrintBook(List<SwingPageContents> pages, PageFormat format) {
     pageContents = pages;
     pageFormat = format;
 }

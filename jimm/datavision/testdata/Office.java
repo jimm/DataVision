@@ -1,6 +1,6 @@
 package jimm.datavision.testdata;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.List;
 
 /**
  * Generates test data for the office table. Used by the
@@ -21,15 +21,15 @@ public boolean visible;
  *
  * @return an iterator over <code>Office</code> objects
  */
-public static Iterator offices() {
-    ArrayList offices = new ArrayList();
+public static List<Office> offices() {
+    ArrayList<Office> offices = new ArrayList<Office>();
     offices.add(new Office(1, "New York", "NY", "(212) 555-1234",
 			   "nyc_jobs@example.com", true));
     offices.add(new Office(2, "New Jersey", "NJ", "(973) 555-1234",
 			   "nj_jobs@example.com", true));
     offices.add(new Office(3, "Chicago", "Chicago", "(312) 555-1234",
 			   "chicago_jobs@example.com", true));
-    return offices.iterator();
+    return offices;
 }
 
 public Office(int i, String n, String a, String f, String e, boolean v) {

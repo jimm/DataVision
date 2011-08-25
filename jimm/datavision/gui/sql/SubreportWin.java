@@ -60,7 +60,7 @@ protected void doSave() {
     int returnVal = chooser.showOpenDialog(designer.getFrame());
     if (returnVal == JFileChooser.APPROVE_OPTION) {
     Designer.savePrefsDir(chooser,null); // save report directory
-	ArrayList newJoins = new ArrayList();
+	ArrayList<Join> newJoins = new ArrayList<Join>();
 	for (Iterator iter = joinFieldsList.iterator(); iter.hasNext(); ) {
 	    JoinFields jf = (JoinFields)iter.next();
 	    Column from = columnFromDropdown(jf.from);

@@ -33,7 +33,7 @@ protected static final int DEFAULT_INDENTATION_WIDTH = 4;
 protected int width;
 protected int level;
 protected boolean newline;
-protected ArrayList elementStack;
+protected ArrayList<ElementInfo> elementStack;
 protected boolean inElementStart;
 
 /**
@@ -92,7 +92,7 @@ protected void init(int indentationWidth) {
     width = indentationWidth;
     level = 0;
     newline = true;
-    elementStack = new ArrayList();
+    elementStack = new ArrayList<ElementInfo>();
     inElementStart = false;
 }
 

@@ -14,7 +14,7 @@ import java.util.HashMap;
  */
 public class Getopts {
 String[] argv;
-HashMap options = new HashMap();
+HashMap<Character, String> options = new HashMap<Character, String>();
 boolean errorFlag = false;
 
 /**

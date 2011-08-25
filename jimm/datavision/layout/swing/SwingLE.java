@@ -38,7 +38,7 @@ protected Dimension pageDim;
 protected JPanel cardPanel;
 protected JScrollPane scroller;
 protected int displayPageNum;	// Starts at 1
-protected ArrayList pageContents;
+protected ArrayList<SwingPageContents> pageContents;
 protected SwingPageContents pageBeingBuilt;
 protected JLabel pageCountLabel;
 protected Action printAction;
@@ -54,7 +54,7 @@ protected Action goLastAction;
  */
 public SwingLE() {
     super();
-    pageContents = new ArrayList();
+    pageContents = new ArrayList<SwingPageContents>();
     ErrorHandler.useGUI(true);
 }
 
@@ -127,6 +127,7 @@ protected void doEnd() {
 /**
  * Creates the actions used by menu items and toolbar widgets.
  */
+@SuppressWarnings("serial")
 protected void makeActions() {
     URL url = getClass().getClassLoader().getResource(PRINT_ICON);
     String str = I18N.get(I18N.MENU_FILE_PREFIX, "SwingLE.action_print");

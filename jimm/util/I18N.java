@@ -21,7 +21,7 @@ public static final String MENU_FILE_PREFIX = "menu";
 public static final String PAPER_FILE_PREFIX = "paper";
 
 protected static Locale locale;
-protected static HashMap bundles;
+protected static HashMap<String, ResourceBundle> bundles;
 
 // Initialize the language.
 static {
@@ -38,7 +38,7 @@ static {
 public static void setLanguage(Locale l) {
     if (!l.equals(locale)) {
 	locale = l;
-	bundles = new HashMap();
+	bundles = new HashMap<String, ResourceBundle>();
     }
 }
 

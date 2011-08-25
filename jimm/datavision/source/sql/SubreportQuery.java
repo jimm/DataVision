@@ -16,7 +16,7 @@ import java.sql.SQLException;
 public class SubreportQuery extends SQLQuery {
 
 protected Subreport subreport;
-protected ArrayList subreportJoins;
+protected ArrayList<Join> subreportJoins;
 
 /**
  * Constructor.
@@ -26,14 +26,14 @@ protected ArrayList subreportJoins;
 public SubreportQuery(Subreport report) {
     super(report);
     subreport = report;
-    subreportJoins = new ArrayList();
+    subreportJoins = new ArrayList<Join>();
 }
 
 public void addSubreportJoin(Join join) {
     subreportJoins.add(join);
 }
 
-public void addSubreportJoins(Collection coll) {
+public void addSubreportJoins(Collection<Join> coll) {
     subreportJoins.addAll(coll);
 }
 
@@ -46,8 +46,8 @@ public void addSubreportJoins(Collection coll) {
  */
 public Iterable<Column> parentColumns() {
     ArrayList<Column> list = new ArrayList<Column>();
-    for (Iterator iter = subreportJoins.iterator(); iter.hasNext(); )
-	list.add(((Join)iter.next()).getFrom());
+    for (Join j : subreportJoins)
+	list.add(j.getFrom());
     return list;
 }
 
@@ -68,15 +68,17 @@ public String getWhereClauseForDisplay() {
 	buf.append(super.getWhereClauseForPreparedStatement());
 	buf.append(") and (");
     }
-    for (Iterator iter = subreportJoins.iterator(); iter.hasNext(); ) {
-	Join j = (Join)iter.next();
+    boolean hasJoin = false;
+    for (Join j : subreportJoins) {
+	if (hasJoin)
+	    buf.append(" and ");
+	else
+	    hasJoin = true;
 	buf.append(((Column)j.getFrom()).fullName());
 	buf.append(' ');
 	buf.append(j.getRelation());
 	buf.append(' ');
 	buf.append(quoted(((Column)j.getTo()).fullName()));
-	if (iter.hasNext())
-	    buf.append(" and ");
     }
     if (whereClause != null && whereClause.length() > 0)
 	buf.append(')');
@@ -90,14 +92,16 @@ public String getWhereClauseForPreparedStatement() {
 	buf.append(super.getWhereClauseForPreparedStatement());
 	buf.append(") and (");
     }
-    for (Iterator iter = subreportJoins.iterator(); iter.hasNext(); ) {
-	Join j = (Join)iter.next();
+    boolean hasJoin = false;
+    for (Join j : subreportJoins) {
+	if (hasJoin)
+	    buf.append(" and ");
+	else
+	    hasJoin = true;
 	buf.append("? ");
 	buf.append(j.getRelation());
 	buf.append(' ');
 	buf.append(quoted(((Column)j.getTo()).fullName()));
-	if (iter.hasNext())
-	    buf.append(" and ");
     }
     if (whereClause != null && whereClause.length() > 0)
 	buf.append(')');
@@ -110,10 +114,10 @@ public void setParameters(PreparedStatement stmt) throws SQLException {
     // Continue with parameters after those filled in by superclass.
     // Remember that param indices start at 1.
     int i = preparedStmtValues.size() + 1;
-    for (Iterator iter = subreportJoins.iterator(); iter.hasNext(); ++i) {
+    for (Join j : subreportJoins) {
 	// In Oracle, Java Dates are turned into timestamps, or something
 	// like that. This is an attempt to fix this problem.
-	Column from = ((Join)iter.next()).getFrom();
+	Column from = j.getFrom();
 	Object val = subreport.getParentReport().columnValue(from);
 	if (val instanceof java.util.Date)
 	    stmt.setDate(i,
@@ -125,8 +129,8 @@ public void setParameters(PreparedStatement stmt) throws SQLException {
 
 protected void writeExtras(XMLWriter out) {
     out.startElement("subreport-joins");
-    for (Iterator iter = subreportJoins.iterator(); iter.hasNext(); )
-	((Join)iter.next()).writeXML(out);
+    for (Join j : subreportJoins)
+	j.writeXML(out);
     out.endElement();
 }
 

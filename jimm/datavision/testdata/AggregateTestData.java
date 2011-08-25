@@ -1,7 +1,7 @@
 package jimm.datavision.testdata;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.List;
 
 public class AggregateTestData {
 
@@ -9,8 +9,8 @@ protected String col1;
 protected String col2;
 protected int value;
 
-public static Iterator aggregateTestData(String filePath) {
-    ArrayList data = new ArrayList();
+public static List<AggregateTestData> aggregateTestData(String filePath) {
+    ArrayList<AggregateTestData> data = new ArrayList<AggregateTestData>();
     try {
 	BufferedReader in =
 	    new BufferedReader(new FileReader(filePath));
@@ -27,7 +27,7 @@ public static Iterator aggregateTestData(String filePath) {
     catch (IOException ioe) {
 	System.err.println(ioe);
     }
-    return data.iterator();
+    return data;
 }
 
 public AggregateTestData(String c1, String c2, int v) {
@@ -41,11 +41,8 @@ public String col2() { return col2; }
 public int value() { return value; }
 
 public static void main(String[] args) {
-    Iterator iter = AggregateTestData.aggregateTestData("aggregate_test.dat");
-    while (iter.hasNext()) {
-	AggregateTestData data = (AggregateTestData)iter.next();
+    for (AggregateTestData data : AggregateTestData.aggregateTestData("aggregate_test.dat"))
 	System.out.println(data.col1 + ", " + data.col2 + ", " + data.value);
-    }
 }
 
 }

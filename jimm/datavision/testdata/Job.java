@@ -1,9 +1,5 @@
 package jimm.datavision.testdata;
-import java.util.Random;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Date;
-import java.util.Calendar;
+import java.util.*;
 
 /**
  * Generates test data for the jobs table. Used by the <code>CreateData</code>
@@ -26,12 +22,12 @@ public String title, company, location, description;
 public Calendar post_date;
 public boolean visible;
 
-public static Iterator jobs() {
+public static List<Job> jobs() {
     Random rand = new Random();
-    ArrayList jobs = new ArrayList();
+    ArrayList<Job> jobs = new ArrayList<Job>();
     for (int i = 0; i < NUM_JOBS; ++i)
 	jobs.add(new Job(rand, i));
-    return jobs.iterator();
+    return jobs;
 }
 
 public Job(Random rand, int i)

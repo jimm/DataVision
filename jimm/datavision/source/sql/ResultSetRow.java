@@ -38,7 +38,7 @@ ResultSetRow(Connection conn, SQLQuery query) throws SQLException {
     }
 }
 
-public List readRowData() {
+public List<Object> readRowData() {
     // Avoid calling rset.next() if it has already returned false. Doing so
     // appears harmless in most cases but seems to be causing a problem
     // with at least one user's DB2 JDBC driver.
@@ -56,7 +56,7 @@ public List readRowData() {
 	return null;
     }
 
-    ArrayList list = new ArrayList();
+    ArrayList<Object> list = new ArrayList<Object>();
     try {
 	for (int i = 1; i <= numSelectables; ++i)
 	    list.add(rset.getObject(i));

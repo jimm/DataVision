@@ -13,7 +13,7 @@ import java.sql.*;
 public class SQLTable extends Table {
 
 protected DatabaseMetaData dbmd;
-    protected HashMap colCacheMap;
+    protected HashMap<String, Column> colCacheMap;
 
 /**
  * Constructor.
@@ -57,8 +57,7 @@ public Column findColumn(Object colIdObj) {
     // First try with table's schema name, if any.
     if (schemaName != null) {
 	String target = schemaName + '.' + colId;
-	for (Iterator iter = columns.keySet().iterator(); iter.hasNext(); ) {
-	    String key = (String)iter.next();
+	for (String key : columns.keySet()) {
 	    if (caseSensitive) {
 		if (key.equals(target)) {
 		    col = (Column)columns.get(key);
@@ -80,8 +79,7 @@ public Column findColumn(Object colIdObj) {
     // table's schema name.
     if (name != null && !name.equals(schemaName)) {
 	String target = name + '.' + colId;
-	for (Iterator iter = columns.keySet().iterator(); iter.hasNext(); ) {
-	    String key = (String)iter.next();
+	for (String key : columns.keySet()) {
 	    if (caseSensitive) {
 		if (key.equals(target)) {
 		    col = (Column)columns.get(key);
@@ -101,8 +99,7 @@ public Column findColumn(Object colIdObj) {
 
     // Finally, try with no schema name.
     String target = colId;
-    for (Iterator iter = columns.keySet().iterator(); iter.hasNext(); ) {
-	String key = (String)iter.next();
+    for (String key : columns.keySet()) {
 	if (caseSensitive) {
 	    if (key.equals(target))
 		return (Column)columns.get(key);
@@ -116,13 +113,13 @@ public Column findColumn(Object colIdObj) {
     return null;
 }
 
-public Iterator columns() {
+public Iterator<Column> columns() {
     if (dbmd != null) loadColumns();
     return super.columns();
 }
 
 protected void loadColumns() {
-    colCacheMap = new HashMap();
+    colCacheMap = new HashMap<String, Column>();
 
     String schemaName = null;
     String tableName = name;

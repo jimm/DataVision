@@ -3,7 +3,6 @@ import jimm.datavision.*;
 import jimm.datavision.source.Query;
 import jimm.datavision.source.Column;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * A query used in object data source queries.
@@ -13,11 +12,11 @@ import java.util.Iterator;
  */
 public class ObjectQuery extends Query {
 
-protected ArrayList objectCols;
+protected ArrayList<Column> objectCols;
 
 public ObjectQuery(Report r) {
     super(r);
-    objectCols = new ArrayList();
+    objectCols = new ArrayList<Column>();
 }
 
 void addColumn(Column col) {
@@ -26,10 +25,8 @@ void addColumn(Column col) {
 
 public void findSelectablesUsed() {
     super.findSelectablesUsed();
-    for (Iterator iter = objectCols.iterator(); iter.hasNext(); ) {
-	Column col = (Column)iter.next();
+    for (Column col : objectCols)
 	if (!selectables.contains(col)) selectables.add(col);
-    }
 }
 
 }

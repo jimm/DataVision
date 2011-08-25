@@ -9,6 +9,7 @@ import javax.swing.JPanel;
  * @see SwingLE
  * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
+@SuppressWarnings("serial")
 class SwingPage extends JPanel implements Printable {
 
 protected Dimension preferredSize;

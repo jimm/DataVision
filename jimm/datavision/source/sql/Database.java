@@ -357,8 +357,8 @@ public void reset(String driverClassName, String connInfo, String dbName,
  * <code>null</code> schema name.
  */
 protected void loadAllTables() throws SQLException {
-    tables = new TreeMap();
-    tableCacheMap = new HashMap();
+    tables = new TreeMap<String, Table>();
+    tableCacheMap = new HashMap<String, Table>();
     schemaName = null;
 
     DatabaseMetaData dbmd = getConnection().getMetaData();

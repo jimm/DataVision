@@ -4,7 +4,6 @@ import jimm.util.XMLWriter;
 import jimm.util.I18N;
 import java.io.IOException;
 import java.io.FileNotFoundException;
-import java.util.Iterator;
 import java.util.ArrayList;
 import org.xml.sax.InputSource;
 
