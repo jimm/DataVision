@@ -18,11 +18,12 @@ Report descriptions are stored as XML files. This means you can not only
 use the DataVision GUI but you may also edit reports using your favorite
 text editor.
 
-DataVision was developed by Jim Menard (jim@jimmenard.com). The project's leader is
-now Frank W. Zammetti (fzlists@omnytex.com). The latest version of DataVision
-can be found on the DataVision Web page at http://datavision.sourceforge.net.
-New releases are also announced on Freshmeat (http://freshmeat.net) and on the
-DataVision mailing list (http://sourceforge.net/mail/?group_id=33343).
+DataVision was developed by Jim Menard (jim@jimmenard.com). The project's
+leader is now Frank W. Zammetti (fzlists@omnytex.com). The latest version of
+DataVision can be found on the DataVision Web page at
+http://datavision.sourceforge.net. New releases are also announced on
+Freshmeat (http://freshmeat.net) and on the DataVision mailing list
+(http://sourceforge.net/mail/?group_id=33343).
 
 Documentation
 =============
