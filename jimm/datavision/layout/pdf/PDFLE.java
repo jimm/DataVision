@@ -19,13 +19,13 @@ public class PDFLE extends LayoutEngine implements LineDrawer {
 protected OutputStream outStream;
 protected Document doc;
 protected PdfContentByte content;
-protected HashMap baseFonts;
+protected HashMap<String, BaseFont> baseFonts;
 protected double prevThickness;
 
 //
 // The following code are modified to handle CJK fonts correctly
 //
-protected static HashMap cjkFontEncodingMap=new HashMap();
+protected static HashMap<String, String[]> cjkFontEncodingMap=new HashMap<String, String[]>();
 static{
 	cjkFontEncodingMap.put("STSong-Light", new String[]{"UniGB-UCS2-H","UniGB-UCS2-V"});
 	cjkFontEncodingMap.put("STSongStd-Light", new String[]{"UniGB-UCS2-H","UniGB-UCS2-V"});
@@ -53,7 +53,7 @@ public PDFLE(OutputStream out) {
  * Outputs the beginning of the document.
  */
 protected void doStart() {
-    baseFonts = new HashMap();
+    baseFonts = new HashMap<String, BaseFont>();
 
     PaperFormat fmt = report.getPaperFormat();
     doc = new Document(new com.lowagie.text.Rectangle(0, 0,
@@ -158,10 +158,9 @@ protected void doOutputField(Field field) {
     content.setFontAndSize(baseFont, fontSize);
     content.setColorFill(format.getColor());
 
-    java.util.List lines = StringUtils.splitIntoLines(fieldAsString);
+    java.util.List<String> lines = StringUtils.splitIntoLines(fieldAsString);
     double lineHeight = field.getOutputHeight() / lines.size();
-    for (Iterator iter = lines.iterator(); iter.hasNext(); ) {
-	String line = (String)iter.next();
+    for (String line : lines) {
 	content.showTextAligned(align, line, (float)bottomLeft.x,
 				(float)bottomLeft.y, 0f);
 	bottomLeft.y -= lineHeight;

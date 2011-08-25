@@ -25,8 +25,8 @@ protected static final double DEFAULT_HEIGHT = 20;
 protected Report report;
 protected SectionArea area;
 protected double minHeight;
-protected ArrayList fields;
-protected ArrayList lines;
+protected ArrayList<Field> fields;
+protected ArrayList<Line> lines;
 protected SuppressionProc suppressionProc;
 protected boolean pageBreak;
 
@@ -38,8 +38,8 @@ protected boolean pageBreak;
 public Section(Report r) {
     report = r;
     minHeight = DEFAULT_HEIGHT;
-    fields = new ArrayList();
-    lines = new ArrayList();
+    fields = new ArrayList<Field>();
+    lines = new ArrayList<Line>();
     suppressionProc = new SuppressionProc(report);
 }
 
@@ -181,7 +181,7 @@ public void removeField(Field f) {
  *
  * @return an iterator
  */
-public Iterator fields() { return fields.iterator(); }
+public List<Field> fields() { return fields; }
 
 /**
  * Returns an array of this section's fields sorted by <var>comp</var>.
@@ -229,7 +229,7 @@ public void removeLine(Line f) {
  *
  * @return an iterator
  */
-public Iterator lines() { return lines.iterator(); }
+public List<Line> lines() { return lines; }
 
 public boolean isHidden() {
     return suppressionProc.isHidden();
@@ -284,11 +284,9 @@ public boolean contains(Field f) {
  * this section
  */
 public boolean containsReferenceTo(Field f) {
-    for (Iterator iter = fields(); iter.hasNext(); ) {
-	Field field = (Field)iter.next();
+    for (Field field : fields)
 	if (field == f || field.refersTo(f))
 	    return true;
-    }
     return suppressionProc.refersTo(f);
 }
 
@@ -302,11 +300,9 @@ public boolean containsReferenceTo(Field f) {
  * this section
  */
 public boolean containsReferenceTo(Formula f) {
-    for (Iterator iter = fields(); iter.hasNext(); ) {
-	Field field = (Field)iter.next();
+    for (Field field : fields)
 	if (field.refersTo(f))
 	    return true;
-    }
     return suppressionProc.refersTo(f);
 }
 
@@ -320,11 +316,9 @@ public boolean containsReferenceTo(Formula f) {
  * this section
  */
 public boolean containsReferenceTo(UserColumn uc) {
-    for (Iterator iter = fields(); iter.hasNext(); ) {
-	Field field = (Field)iter.next();
+    for (Field field : fields)
 	if (field.refersTo(uc))
 	    return true;
-    }
     return suppressionProc.refersTo(uc);
 }
 
@@ -338,11 +332,9 @@ public boolean containsReferenceTo(UserColumn uc) {
  * this section
  */
 public boolean containsReferenceTo(Parameter p) {
-    for (Iterator iter = fields(); iter.hasNext(); ) {
-	Field field = (Field)iter.next();
+    for (Field field : fields)
 	if (field.refersTo(p))
 	    return true;
-    }
     return suppressionProc.refersTo(p);
 }
 
@@ -354,11 +346,9 @@ public boolean containsReferenceTo(Parameter p) {
  * @see jimm.datavision.layout.LayoutEngine#groupHeaders
  */
 public void evaluateFormulas() {
-    for (Iterator iter = fields(); iter.hasNext(); ) {
-	Field field = (Field)iter.next();
+    for (Field field : fields)
 	if (field instanceof FormulaField)
 	    field.getValue();
-    }
 }
 
 /**

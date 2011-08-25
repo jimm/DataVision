@@ -16,6 +16,7 @@ import javax.swing.*;
  * @see DbConnReader
  * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
+@SuppressWarnings("serial")
 public class DbConnWin extends EditWin implements ActionListener {
 
 protected static final int TEXT_FIELD_COLS = 32;

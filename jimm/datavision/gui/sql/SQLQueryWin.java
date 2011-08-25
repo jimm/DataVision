@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import jimm.util.I18N;
 import javax.swing.*;
 
+@SuppressWarnings("serial")
 public class SQLQueryWin extends JDialog {
 
 protected static final int PREFERRED_COLUMNS = 40;

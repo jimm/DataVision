@@ -17,8 +17,8 @@ import java.util.*;
  */
 public abstract class SortedLayoutEngine extends LayoutEngine {
 
-protected HashMap sectionFields;
-protected Comparator comp;
+protected HashMap<Section, Object[]> sectionFields;
+protected Comparator<Field> comp;
 
 /**
  * Constructor.
@@ -34,16 +34,16 @@ public SortedLayoutEngine() {
  */
 public SortedLayoutEngine(PrintWriter out) {
     super(out);
-    sectionFields = new HashMap();
+    sectionFields = new HashMap<Section, Object[]>();
 
     // Sorts fields by their y coordinates, then their x coordinates.
-    comp = new Comparator() {
-	public int compare(Object o1, Object o2) {
-	    double y1 = ((Field)o1).getBounds().y;
-	    double y2 = ((Field)o2).getBounds().y;
+    comp = new Comparator<Field>() {
+	public int compare(Field f1, Field f2) {
+	    double y1 = f1.getBounds().y;
+	    double y2 = f2.getBounds().y;
 	    if (y1 == y2) {
-		double x1 = ((Field)o1).getBounds().x;
-		double x2 = ((Field)o2).getBounds().x;
+		double x1 = f1.getBounds().x;
+		double x2 = f2.getBounds().x;
 		return (x1 < x2) ? -1 : ((x1 > x2) ? 1 : 0);
 	    }
 	    else
@@ -77,10 +77,8 @@ protected void doOutputSection(Section sect) {
 	}
     }
     // Output the lines
-    for (Iterator iter = sect.lines(); iter.hasNext(); ) {
-	Line l = (Line)iter.next();
+    for (Line l : sect.lines())
 	if (l.isVisible()) outputLine(l);
-    }
 }
 
 /**

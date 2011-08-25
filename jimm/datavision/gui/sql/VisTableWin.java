@@ -20,15 +20,16 @@ import javax.swing.*;
  *
  * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
+@SuppressWarnings("serial")
 public class VisTableWin extends EditWin implements ActionListener {
 
 /* ================================================================ */
 static class RevertInfo {
-ArrayList joins;
+ArrayList<Join> joins;
 RevertInfo(Query q) {
-    joins = new ArrayList();
+    joins = new ArrayList<Join>();
     for (Join j : q.joins())
-	joins.add(j.clone());
+	joins.add((Join)j.clone());
 }
 }
 
@@ -75,7 +76,7 @@ protected JComboBox buildRelDropdown(String rel) {
 
 protected Report report;
 protected Query query;
-protected ArrayList joinFieldsList;
+protected ArrayList<JoinFields> joinFieldsList;
 protected JPanel joinsPanel;
 protected Box delCheckBoxPanel;
 protected Box fromPanel;
@@ -166,8 +167,7 @@ protected void fillJoinsPanel() {
     for (Join j : query.joins())
 	joinFieldsList.add(new JoinFields(j, report.getDataSource()));
 
-    for (Iterator iter = joinFieldsList.iterator(); iter.hasNext(); ) {
-	JoinFields jf = (JoinFields)iter.next();
+    for (JoinFields jf : joinFieldsList) {
 	delCheckBoxPanel.add(jf.del);
 	fromPanel.add(jf.from);
 	relationPanel.add(jf.relation);
@@ -208,10 +208,10 @@ protected void addNewJoin() {
     pack();
 }
 
+@SuppressWarnings("unchecked")
 protected void deleteSelectedJoins() {
-    ArrayList copy = (ArrayList)joinFieldsList.clone();
-    for (Iterator iter = copy.iterator(); iter.hasNext(); ) {
-	JoinFields jf = (JoinFields)iter.next();
+    ArrayList<JoinFields> copy = (ArrayList<JoinFields>)joinFieldsList.clone();
+    for (JoinFields jf : copy) {
 	if (jf.del.isSelected()) {
 	    joinFieldsList.remove(jf);
 
@@ -226,9 +226,8 @@ protected void deleteSelectedJoins() {
 }
 
 protected void doSave() {
-    ArrayList newJoins = new ArrayList();
-    for (Iterator iter = joinFieldsList.iterator(); iter.hasNext(); ) {
-	JoinFields jf = (JoinFields)iter.next();
+    ArrayList<Join> newJoins = new ArrayList<Join>();
+    for (JoinFields jf : joinFieldsList) {
 	Column from = columnFromDropdown(jf.from);
 	String relation = (String)jf.relation.getSelectedItem();
 	Column to = columnFromDropdown(jf.to);

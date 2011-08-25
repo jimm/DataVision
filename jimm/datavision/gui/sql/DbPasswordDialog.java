@@ -15,6 +15,7 @@ import javax.swing.*;
  *
  * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
+@SuppressWarnings("serial")
 public class DbPasswordDialog extends JDialog implements ActionListener {
 
 protected static final int FIELD_COLUMNS = 20;

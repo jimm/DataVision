@@ -6,7 +6,6 @@
 
 package jimm.datavision.layout.excel;
 
-import jimm.datavision.*;
 import jimm.datavision.field.Border;
 import jimm.datavision.field.Field;
 import jimm.datavision.field.Format;

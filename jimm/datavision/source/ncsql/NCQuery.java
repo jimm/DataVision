@@ -31,7 +31,7 @@ public NCQuery(Report report) {
  * @return a quoted version of the name
  */
 public String quoted(String name) {
-    List components = StringUtils.split(name, ".");
+    List<String> components = StringUtils.split(name, ".");
     int len = components.size();
     for (int i = 0; i < len; ++i) {
 	String component = (String)components.get(i);

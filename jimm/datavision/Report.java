@@ -1466,11 +1466,9 @@ protected void resetCachedValues() {
  * @param s a section
  */
 public void evaluateFormulasIn(Section s) {
-    for (Iterator iter = s.fields(); iter.hasNext(); ) {
-	Field f = (Field)iter.next();
+    for (Field f : s.fields())
 	if (f instanceof FormulaField)
 	    ((FormulaField)f).getValue(); // Force evaluation
-    }
 }
 
 /**
@@ -1533,11 +1531,11 @@ public void withSectionsDo(SectionWalker s) {
  *
  * @param f a field walker
  */
-public void withFieldsDo(final FieldWalker f) {
+public void withFieldsDo(final FieldWalker fw) {
     withSectionsDo(new SectionWalker() {
 	public void step(Section s) {
-	    for (Iterator it = s.fields(); it.hasNext(); )
-		f.step((Field)it.next());
+	    for (Field f : s.fields())
+		fw.step(f);
 	}
 	});
 }

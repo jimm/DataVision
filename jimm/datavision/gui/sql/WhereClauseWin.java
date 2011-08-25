@@ -12,6 +12,7 @@ import jimm.util.I18N;
  * @see jimm.datavision.source.Query
  * @see jimm.datavision.gui.cmd.WhereClauseEditCommand
  */
+@SuppressWarnings("serial")
 public class WhereClauseWin extends CodeEditorWin {
 
 protected Report report;

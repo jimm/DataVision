@@ -123,8 +123,8 @@ protected void doStart() { }
  */
 public void end() {
     if (wantsMoreData) {
-	for (Iterator iter = report.footers().iterator(); iter.hasNext(); )
-	    outputSection((Section)iter.next(), SECT_REPORT_FOOTER);
+	for (Section s : report.footers())
+	    outputSection(s, SECT_REPORT_FOOTER);
 	endPage(true);
 	doEnd();
     }
@@ -167,8 +167,8 @@ public void groupHeaders(boolean isLastRow) {
     boolean headerWasOutput = false;
     for (Group g : report.groups()) {
 	if (headerWasOutput || g.isNewValue()) {
-	    for (Iterator i2 = g.headers().iterator(); i2.hasNext(); )
-		((Section)i2.next()).evaluateFormulas();
+	    for (Section s : g.headers())
+		s.evaluateFormulas();
 	    headerWasOutput = true;
 	}
     }
@@ -179,8 +179,8 @@ public void groupHeaders(boolean isLastRow) {
     headerWasOutput = false;
     for (Group g : report.groups()) {
 	if (headerWasOutput || g.isNewValue()) {
-	    for (Iterator i2 = g.headers().iterator(); i2.hasNext(); )
-		outputSection((Section)i2.next(), SECT_GROUP_HEADER);
+	    for (Section s : g.headers())
+		outputSection(s, SECT_GROUP_HEADER);
 	    headerWasOutput = true;
 	}
     }
@@ -196,8 +196,8 @@ public void detail(boolean isLastRow) {
 	return;
 
     checkRemainingPageLength(isLastRow, true);
-    for (Iterator iter = report.details().iterator(); iter.hasNext(); )
-	outputSection((Section)iter.next(), SECT_DETAIL);
+    for (Section s : report.details())
+	outputSection(s, SECT_DETAIL);
 }
 
 /**
@@ -219,7 +219,7 @@ public void groupFooters(boolean isLastRow) {
     // so we can see which group changed first and grab all groups
     // after that one.
     boolean footerWasOutput = false;
-    ArrayList groupsToOutput = new ArrayList();
+    ArrayList<Group> groupsToOutput = new ArrayList<Group>();
     for (Group g : report.groups()) {
 	if (footerWasOutput || g.isNewValue() || isLastRow) {
 	    if (footerWasOutput) g.forceFooterOutput();
@@ -230,11 +230,9 @@ public void groupFooters(boolean isLastRow) {
 
     // Now we reverse the list of groups and output them.
     Collections.reverse(groupsToOutput);
-    for (Iterator iter = groupsToOutput.iterator(); iter.hasNext(); ) {
-	Group g = (Group)iter.next();
-	for (Iterator i2 = g.footers().iterator(); i2.hasNext(); )
-	    outputSection((Section)i2.next(), SECT_GROUP_FOOTER);
-    }
+    for (Group g : groupsToOutput)
+	for (Section s : g.footers())
+	    outputSection(s, SECT_GROUP_FOOTER);
 }
 
 /**
@@ -281,11 +279,11 @@ protected void startPage() {
 
     doStartPage();
     if (pageNumber == 1) {
-	for (Iterator iter = report.headers().iterator(); iter.hasNext(); )
-	    outputSection((Section)iter.next(), SECT_REPORT_HEADER);
+	for (Section s : report.headers())
+	    outputSection(s, SECT_REPORT_HEADER);
     }
-    for (Iterator iter = report.pageHeaders().iterator(); iter.hasNext(); )
-	outputSection((Section)iter.next(), SECT_PAGE_HEADER);
+	for (Section s : report.pageHeaders())
+	outputSection(s, SECT_PAGE_HEADER);
 }
 
 /**
@@ -303,8 +301,8 @@ protected void endPage(boolean isLastPage) {
     if (!wantsMoreData)
 	return;
 
-    for (Iterator iter = report.pageFooters().iterator(); iter.hasNext(); )
-	outputSection((Section)iter.next(), SECT_PAGE_FOOTER);
+    for (Section s : report.pageFooters())
+	outputSection(s, SECT_PAGE_FOOTER);
 
     newPage = true;
     doEndPage();
@@ -367,8 +365,7 @@ protected void outputSection(Section sect, int which) {
  */
 protected void doOutputSection(Section sect) {
     // Output the fields in the section
-    for (Iterator iter = sect.fields(); iter.hasNext(); ) {
-	Field f = (Field)iter.next();
+    for (Field f : sect.fields()) {
 	if (f.isVisible()) {
 	    if (f instanceof ImageField)
 		outputImage((ImageField)f);
@@ -377,10 +374,8 @@ protected void doOutputSection(Section sect) {
 	}
     }
     // Output the lines
-    for (Iterator iter = sect.lines(); iter.hasNext(); ) {
-	Line l = (Line)iter.next();
+    for (Line l : sect.lines())
 	if (l.isVisible()) outputLine(l);
-    }
 }
 
 /**
@@ -463,11 +458,9 @@ protected String currentSectionTypeAsString() {
  */
 protected double calcSectionHeights(SectionArea area) {
     double sum = 0;
-    for (Iterator iter = area.iterator(); iter.hasNext(); ) {
-	Section s = (Section)iter.next();
+    for (Section s : area)
 	if (s.isVisibleForCurrentRow())
 	    sum += s.getOutputHeight();
-    }
     return sum;
 }
 

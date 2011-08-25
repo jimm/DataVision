@@ -9,7 +9,7 @@ import java.util.*;
  *
  * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
-public class SectionArea implements Writeable {
+public class SectionArea implements Writeable, Iterable<Section> {
 
 public static final int REPORT_HEADER = 0;
 public static final int REPORT_FOOTER = 1;

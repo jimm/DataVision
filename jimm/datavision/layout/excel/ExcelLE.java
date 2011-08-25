@@ -10,7 +10,6 @@ import jimm.datavision.*;
 import jimm.datavision.field.Field;
 import jimm.datavision.field.Format;
 import jimm.datavision.field.ImageField;
-import jimm.datavision.field.Rectangle;
 import jimm.datavision.layout.LayoutEngine;
 import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import java.io.OutputStream;
@@ -170,8 +169,6 @@ public class ExcelLE extends LayoutEngine {
     }
 
     protected void doOutputField(Field field) {
-        Rectangle rect = null;
-        rect = field.getBounds();
         boolean showRow = true;
         if(!this.showPageHeaders) {
             if((this.currentSection.getArea().getArea() == SectionArea.PAGE_HEADER) && (pageNum > 1)) showRow = false;

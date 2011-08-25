@@ -15,11 +15,11 @@ public class NCDatabase extends DataSource {
 
 protected static final String ORPHANS_TABLE = "no_table";
 
-protected TreeMap tables;
+protected TreeMap<String, Table> tables;
 
 public NCDatabase(Report report) {
     super(report, new NCQuery(report));
-    tables = new TreeMap();
+    tables = new TreeMap<String, Table>();
 }
 
 public boolean canRunReports() { return false; }
@@ -79,8 +79,8 @@ public Column findColumn(Object id) {
     if (tables == null)
 	return null;
 
-    for (Iterator iter = tables.values().iterator(); iter.hasNext(); ) {
-	Column col = ((Table)iter.next()).findColumn(id);
+    for (Table t : tables.values()) {
+	Column col = t.findColumn(id);
 	if (col != null)
 	    return col;
     }

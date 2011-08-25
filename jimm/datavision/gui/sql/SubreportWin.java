@@ -12,6 +12,7 @@ import javax.swing.*;
  *
  * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
+@SuppressWarnings("serial")
 public class SubreportWin extends VisTableWin {
 
 JLabel thisReportLabel, subreportLabel;
@@ -61,8 +62,7 @@ protected void doSave() {
     if (returnVal == JFileChooser.APPROVE_OPTION) {
     Designer.savePrefsDir(chooser,null); // save report directory
 	ArrayList<Join> newJoins = new ArrayList<Join>();
-	for (Iterator iter = joinFieldsList.iterator(); iter.hasNext(); ) {
-	    JoinFields jf = (JoinFields)iter.next();
+	for (JoinFields jf : joinFieldsList) {
 	    Column from = columnFromDropdown(jf.from);
 	    String relation = (String)jf.relation.getSelectedItem();
 	    Column to = columnFromDropdown(jf.to);
