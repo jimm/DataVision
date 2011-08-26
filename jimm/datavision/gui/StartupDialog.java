@@ -16,6 +16,7 @@ import java.util.prefs.Preferences;
  *
  * @author Frank W. Zammetti, <a href="mailto:fzammetti@omnytex.com">fzammetti@omnytex.com</a>
  */
+@SuppressWarnings("serial")
 public class StartupDialog extends JDialog implements ActionListener {
 
 /** This string is what is returned when we're creating a new report */

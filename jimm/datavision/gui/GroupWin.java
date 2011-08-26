@@ -11,6 +11,7 @@ import java.util.*;
  *
  * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
+@SuppressWarnings("serial")
 public class GroupWin extends TwoListWin {
 
 /**
@@ -60,11 +61,12 @@ public void actionPerformed(ActionEvent e) {
 	super.actionPerformed(e);
 }
 
+@SuppressWarnings("unchecked")
 protected void doSave() {
     // Turn the model's vector into a collection
-    ArrayList items = new ArrayList();
-    for (Enumeration e = rightModel.elements(); e.hasMoreElements(); )
-	items.add(e.nextElement());
+    ArrayList<GroupWinListItem> items = new ArrayList<GroupWinListItem>();
+    for (Enumeration<GroupWinListItem> e = (Enumeration<GroupWinListItem>)rightModel.elements(); e.hasMoreElements(); )
+	items.add((GroupWinListItem)e.nextElement());
 
     GroupEditCommand cmd = new GroupEditCommand(report, designer, items);
     cmd.perform();

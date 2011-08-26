@@ -4,7 +4,6 @@ import jimm.datavision.field.Field;
 import jimm.datavision.gui.cmd.Command;
 import jimm.datavision.gui.cmd.SectionResizeCommand;
 import jimm.datavision.gui.cmd.SectionPageBreakCommand;
-import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -14,6 +13,7 @@ import javax.swing.*;
  *
  * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
+@SuppressWarnings("serial")
 public class SectionWidget extends JPanel implements ActionListener {
 
 public static final int LHS_WIDTH = 125;
@@ -75,8 +75,7 @@ public SectionWidget(Designer win, Section sect, String name) {
     fieldPanel = new SectionFieldPanel(this);
     fieldPanel.setLayout(null);
     add(fieldPanel);
-    for (Iterator iter = section.fields(); iter.hasNext(); ) {
-	Field f = (Field)iter.next();
+    for (Field f : section.fields()) {
 	FieldWidget fw = f.makeWidget(this);
 	fieldPanel.add(fw.getComponent(), 0);	// Add to top of visual stack.
     }

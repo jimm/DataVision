@@ -2,7 +2,6 @@ package jimm.datavision.gui;
 import jimm.datavision.source.Table;
 import jimm.datavision.source.Column;
 import javax.swing.tree.DefaultMutableTreeNode;
-import java.util.Iterator;
 
 /**
  * An internal table node for the {@link FieldPickerTree}.
@@ -35,8 +34,7 @@ public void loadColumns() {
     tableNode.remove(0);
 
     // Add columns.
-    for (Iterator iter = table.columns(); iter.hasNext(); ) {
-	Column column = (Column)iter.next();
+    for (Column column : table.columns()) {
 	ColumnInfo info = new ColumnInfo(column, designer);
 	tableNode.add(new DefaultMutableTreeNode(info, false));
     }

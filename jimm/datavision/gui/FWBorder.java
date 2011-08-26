@@ -9,6 +9,7 @@ import javax.swing.border.AbstractBorder;
  *
  * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
+@SuppressWarnings("serial")
 class FWBorder extends AbstractBorder {
 
 protected static final int CORNER_LINE_LEN = 5;

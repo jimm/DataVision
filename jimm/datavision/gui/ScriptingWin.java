@@ -14,6 +14,7 @@ import javax.swing.event.DocumentEvent;
  *
  * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
+@SuppressWarnings("serial")
 public class ScriptingWin
     extends EditWin
     implements ItemListener, ActionListener, DocumentListener
@@ -29,7 +30,7 @@ protected JTextField langClass;
 protected JButton addLangButton;
 protected JButton testLangButton;
 protected String defaultLang;
-protected Map languages;
+protected Map<String, String> languages;
 
 /**
  * Constructor.
@@ -42,7 +43,7 @@ public ScriptingWin(Designer designer, Scripting scripting) {
 
     this.scripting = scripting;
     defaultLang = scripting.getDefaultLanguage();
-    languages = new HashMap(scripting.getLanguages()); // Make a copy
+    languages = new HashMap<String, String>(scripting.getLanguages()); // Make a copy
 
     buildWindow();
     pack();

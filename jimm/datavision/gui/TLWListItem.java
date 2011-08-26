@@ -9,7 +9,7 @@ import jimm.datavision.Selectable;
  * @see GroupWin
  * @see SortWin
  */
-abstract class TLWListItem implements Comparable {
+abstract class TLWListItem implements Comparable<TLWListItem> {
 
 Selectable selectable;
 int sortOrder;
@@ -31,8 +31,8 @@ public Selectable getSelectable() { return selectable; }
 
 public int getSortOrder() { return sortOrder; }
 
-public int compareTo(Object o) {
-    String otherName = ((TLWListItem)o).selectable.getDisplayName();
+public int compareTo(TLWListItem o) {
+    String otherName = o.selectable.getDisplayName();
     return selectable.getDisplayName().compareTo(otherName);
 }
 

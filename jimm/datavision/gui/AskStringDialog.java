@@ -13,6 +13,7 @@ import javax.swing.*;
  *
  * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
+@SuppressWarnings("serial")
 public class AskStringDialog extends JDialog implements ActionListener {
 
 protected static final int TEXT_FIELD_COLUMNS = 24;

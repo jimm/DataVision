@@ -12,6 +12,7 @@ import javax.swing.*;
  *
  * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
+@SuppressWarnings("serial")
 class SectionNameLabel extends JLabel {
 
 protected static Font DEFAULT_FONT = new Font("Serif", Font.PLAIN, 10);

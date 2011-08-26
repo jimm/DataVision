@@ -11,6 +11,7 @@ import javax.swing.tree.*;
  *
  * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
+@SuppressWarnings("serial")
 public class FieldPickerTree
     extends JTree
     implements DragGestureListener, DragSourceListener

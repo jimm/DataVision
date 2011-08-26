@@ -2,7 +2,7 @@ package jimm.datavision.source.sql;
 import jimm.datavision.source.Table;
 import jimm.datavision.source.Column;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.Collection;
 import java.sql.*;
 
 /**
@@ -113,7 +113,7 @@ public Column findColumn(Object colIdObj) {
     return null;
 }
 
-public Iterator<Column> columns() {
+public Collection<Column> columns() {
     if (dbmd != null) loadColumns();
     return super.columns();
 }

@@ -13,6 +13,7 @@ import javax.swing.JPanel;
  *
  * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
+@SuppressWarnings("serial")
 public class SectionFieldPanel extends JPanel implements DropTargetListener {
 
 protected SectionWidget sectionWidget;

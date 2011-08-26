@@ -10,6 +10,7 @@ import javax.swing.*;
  *
  * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
+@SuppressWarnings("serial")
 public abstract class EditWin extends JDialog implements ActionListener
 {
 

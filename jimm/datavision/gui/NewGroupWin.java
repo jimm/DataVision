@@ -15,6 +15,7 @@ import javax.swing.*;
  *
  * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
+@SuppressWarnings("serial")
 class NewGroupWin extends JDialog implements ActionListener {
 
 protected Designer designer;

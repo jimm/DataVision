@@ -11,6 +11,7 @@ import javax.swing.*;
  *
  * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
+@SuppressWarnings("serial")
 public class BoundsWin extends EditWin implements FieldWalker {
 
 protected static final int TEXT_FIELD_COLS = 8;

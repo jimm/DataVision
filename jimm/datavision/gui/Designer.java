@@ -34,7 +34,7 @@ public static final int SIZE_SAME_WIDTH = 0;
 public static final int SIZE_SAME_HEIGHT = 1;
 public static final int SIZE_SAME_SIZE = 2;
 
-protected static ArrayList designWindows = new ArrayList();
+protected static ArrayList<Designer> designWindows = new ArrayList<Designer>();
 protected static boolean exitWhenLastWindowClosed = true;
 protected static JFileChooser chooser;
 
@@ -44,10 +44,10 @@ protected JFrame frame;
 /** The container of the root pane---the highest level widget. */
 protected RootPaneContainer rootPaneContainer;	// Set by subclasses
 protected CommandHistory commandHistory;
-protected ArrayList sectionWidgets;
+protected ArrayList<SectionWidget> sectionWidgets;
 protected String reportFilePath;
 protected JLayeredPane sectionContainer;
-protected ArrayList selectedFields;
+protected ArrayList<FieldWidget> selectedFields;
 protected JScrollPane scroller;
 protected JMenuItem undoItem, redoItem, cutItem, copyItem, pasteItem,
     delSelectionItem, delGroupItem, delSectionItem, aggrItem, groupItem,
@@ -77,11 +77,9 @@ public static void addWindow(Designer win) {
  * @return a design window or <code>null</code> if one is not found
  */
 public static Designer findWindowFor(Report r) {
-    for (Iterator iter = designWindows.iterator(); iter.hasNext(); ) {
-	Designer win = (Designer)iter.next();
+    for (Designer win : designWindows)
 	if (win.report == r)
 	    return win;
-    }
     return null;
 }
 
@@ -111,12 +109,12 @@ protected static void deleteWindow(Designer win) {
  * Closes each open design window (unless user cancels). If all are closed,
  * quits the application.
  */
+@SuppressWarnings("unchecked")
 protected static void maybeQuit() {
     // Can't use iterator over original list 'cause we're deleting items
     // from the list.
-    ArrayList copy = (ArrayList)designWindows.clone();
-    for (Iterator iter = copy.iterator(); iter.hasNext(); )
-	((Designer)iter.next()).maybeClose();
+    for (Designer d : (ArrayList<Designer>)designWindows.clone())
+	d.maybeClose();
 }
 
 public static JFileChooser getChooser() {
@@ -202,7 +200,7 @@ public Designer(File f, String databasePassword,
 	rootPaneContainer = frame;
 
     ErrorHandler.useGUI(true);	// Must set before opening report
-    selectedFields = new ArrayList();
+    selectedFields = new ArrayList<FieldWidget>();
 
     // Must create command history before asking for database information
     // because that can cause a command to be created.
@@ -528,7 +526,7 @@ protected JMenu buildHelpMenu() {
 protected void buildSections() {
     rootPaneContainer.getContentPane().setLayout(new BorderLayout());
 
-    sectionWidgets = new ArrayList();
+    sectionWidgets = new ArrayList<SectionWidget>();
     sectionContainer = new JLayeredPane();
     sectionContainer.setLayout(new DesignWinLayout());
 
@@ -572,8 +570,7 @@ protected void buildSections() {
  * @param area contains sections
  */
 protected void buildSectionsInArea(SectionArea area) {
-    for (Iterator iter = area.iterator(); iter.hasNext(); ) {
-	Section sect = (Section)iter.next();
+    for (Section sect : area) {
 	sect.addObserver(this);	// Start observing changes
 
 	SectionWidget sw = new SectionWidget(this, sect, "");
@@ -630,8 +627,7 @@ protected void renameSectionWidgetsIn(SectionArea area, String prefix,
     SectionWidget firstSectionWidget = null;
     boolean firstSectionFixed = false;
     int i = 0;
-    for (Iterator iter = area.iterator(); iter.hasNext(); ++i) {
-	Section s = (Section)iter.next();
+    for (Section s : area) {
 	SectionWidget sw = findSectionWidgetFor(s);
 	if (firstSectionWidget == null) {
 	    sw.setDisplayName(prefix);
@@ -655,7 +651,7 @@ public void enableMenuItems() {
     int numSelected = countSelectedFields();
     boolean someFieldSelected = numSelected > 0;
     boolean multipleFieldsSelected = numSelected > 1;
-    FieldWidget first = someFieldSelected ? (FieldWidget)selectedFields.get(0)
+    FieldWidget first = someFieldSelected ? selectedFields.get(0)
 	: null;
 
     DataSource ds = report.getDataSource();
@@ -715,8 +711,8 @@ public void enableMenuItems() {
  * be formatted
  */
 public boolean someSelectedFieldUsesFormat() {
-    for (Iterator iter = selectedFields.iterator(); iter.hasNext(); )
-	if (((FieldWidget)iter.next()).usesFormat())
+    for (FieldWidget fw : selectedFields)
+	if (fw.usesFormat())
 	    return true;
     return false;
 }
@@ -756,11 +752,11 @@ public void actionPerformed(ActionEvent e) {
     else if (cmd.equals(action("edit_paste"))) paste();
     else if (cmd.equals(action("edit_del_fields"))) deleteSelectedFields();
     else if (cmd.equals(action("edit_del_group"))) {
-	FieldWidget fw = (FieldWidget)selectedFields.get(0);
+	FieldWidget fw = selectedFields.get(0);
 	deleteGroupContaining(fw.getSectionWidget().getSection());
     }
     else if (cmd.equals(action("edit_del_section"))) {
-	FieldWidget fw = (FieldWidget)selectedFields.get(0);
+	FieldWidget fw = selectedFields.get(0);
 	deleteSection(fw.getSectionWidget().getSection());
     }
 
@@ -855,16 +851,14 @@ public void updatePaperSizeMenu(PaperFormat p) {
 			     ? 0 : 1)
 	.setSelected(true);
     int i = 3;
-    for (Iterator iter = PaperFormat.names(); iter.hasNext(); ++i) {
-	String name = (String)iter.next();
+    for (String name : PaperFormat.names())
 	if (name.equals(p.getName()))
 	    paperSizeSubmenu.getItem(i).setSelected(true);
-    }
 }
 
 public void paperSizeChanged(PaperFormat p) {
-    for (Iterator iter = sectionWidgets.iterator(); iter.hasNext(); )
-	((SectionWidget)iter.next()).paperSizeChanged();
+    for (SectionWidget sw : sectionWidgets)
+	sw.paperSizeChanged();
 
     Dimension d = new Dimension(SectionWidget.LHS_WIDTH
 				+ (int)report.getPaperFormat().getWidth(),
@@ -989,8 +983,7 @@ int countSelectedFields() {
  * @param perambulator a field widget walker
  */
 void withWidgetsDo(FieldWidgetWalker perambulator) {
-    for (Iterator iter = sectionWidgets.iterator(); iter.hasNext(); ) {
-	SectionWidget sw = (SectionWidget)iter.next();
+    for (SectionWidget sw : sectionWidgets) {
 	Object[] kids = sw.fieldPanel.getComponents();
 	for (int i = 0; i < kids.length; ++i) {
 	    FieldWidget fw = FieldWidget.findFieldWidgetOwning(kids[i]);
@@ -1007,8 +1000,8 @@ void withWidgetsDo(FieldWidgetWalker perambulator) {
  * @param perambulator a field walker
  */
 void withSelectedFieldsDo(FieldWalker perambulator) {
-    for (Iterator iter = selectedFields.iterator(); iter.hasNext(); )
-	perambulator.step(((FieldWidget)iter.next()).getField());
+    for (FieldWidget fw : selectedFields)
+	perambulator.step(fw.getField());
 }
 
 /**
@@ -1162,8 +1155,8 @@ protected void align(int which) {
     CompoundCommand cmd =
 	new CompoundCommand(I18N.get("FieldAlignCommand.name"));
     Field first = firstSelectedFieldWidget().getField();
-    for (Iterator iter = selectedFields.iterator(); iter.hasNext(); )
-	cmd.add(new FieldAlignCommand((FieldWidget)iter.next(), which, first));
+    for (FieldWidget fw : selectedFields)
+	cmd.add(new FieldAlignCommand(fw, which, first));
 
     commandHistory.perform(cmd);
 }
@@ -1182,9 +1175,8 @@ protected void size(int which) {
     CompoundCommand cmd =
 	new CompoundCommand(I18N.get("FieldResizeCommand.name"));
     Field first = firstSelectedFieldWidget().getField();
-    for (Iterator iter = selectedFields.iterator(); iter.hasNext(); )
-	cmd.add(new FieldResizeCommand((FieldWidget)iter.next(), which,
-				       first));
+    for (FieldWidget fw : selectedFields)
+	cmd.add(new FieldResizeCommand(fw, which, first));
 
     commandHistory.perform(cmd);
 }
@@ -1197,8 +1189,7 @@ protected void size(int which) {
  * no fields are selected
  */
 FieldWidget firstSelectedFieldWidget() {
-    return selectedFields.isEmpty()
-	? null : (FieldWidget)selectedFields.get(0);
+    return selectedFields.isEmpty() ? null : selectedFields.get(0);
 }
 
 /**
@@ -1232,8 +1223,8 @@ public void select(FieldWidget fieldWidget, boolean makeSelected,
  * Deselect all fields. Called from {@link SectionWidget#deselectAll}.
  */
 public void deselectAll() {
-    for (Iterator iter = selectedFields.iterator(); iter.hasNext(); )
-	((FieldWidget)iter.next()).doSelect(false);
+    for (FieldWidget fw : selectedFields)
+	fw.doSelect(false);
     selectedFields.clear();
 
     enableMenuItems();
@@ -1244,9 +1235,9 @@ public void deselectAll() {
  * jimm.datavision.gui.cmd.Pasteable} objects.
  */
 protected void copySelectedFields() {
-    ArrayList pasteables = new ArrayList();
-    for (Iterator iter = selectedFields.iterator(); iter.hasNext(); )
-	pasteables.add(new FieldClipping((FieldWidget)iter.next()));
+    ArrayList<FieldClipping> pasteables = new ArrayList<FieldClipping>();
+    for (FieldWidget fw : selectedFields)
+	pasteables.add(new FieldClipping(fw));
     Clipboard.instance().setContents(pasteables);
 
     pasteItem.setEnabled(true);
@@ -1273,7 +1264,7 @@ protected void deleteSelectedFields() {
  * @param oneMore an additional field to delete; may be <code>null</code>
  */
 protected void deleteSelectedFieldsAnd(FieldWidget oneMore) {
-    ArrayList fields = new ArrayList(selectedFields);
+    ArrayList<FieldWidget> fields = new ArrayList<FieldWidget>(selectedFields);
     if (oneMore != null && !fields.contains(oneMore))
 	fields.add(oneMore);
     commandHistory.perform(new DeleteCommand(this, fields));
@@ -1293,9 +1284,8 @@ void setFieldVisibility(boolean newVisiblity, FieldWidget fw) {
 	: "FieldHideCommand.name";
 
     CompoundCommand cmd = new CompoundCommand(I18N.get(nameKey));
-    for (Iterator iter = selectedFields.iterator(); iter.hasNext(); )
-	cmd.add(new FieldShowHideCommand((FieldWidget)iter.next(), nameKey,
-					 newVisiblity));
+    for (FieldWidget fw2 : selectedFields)
+	cmd.add(new FieldShowHideCommand(fw2, nameKey, newVisiblity));
     if (fw != null && !selectedFields.contains(fw))
 	cmd.add(new FieldShowHideCommand(fw, nameKey, newVisiblity));
 
@@ -1326,8 +1316,7 @@ void pickUp(java.awt.Point mouseScreenPos) {
     sectionContainer.setPreferredSize(size);
     sectionContainer.setMinimumSize(size);
 
-    for (Iterator iter = selectedFields.iterator(); iter.hasNext(); ) {
-	FieldWidget fw = (FieldWidget)iter.next();
+    for (FieldWidget fw : selectedFields) {
 	fw.pickUp(mouseScreenPos);
 
 	// Add to the drag layer of our section container.
@@ -1357,8 +1346,8 @@ void putDown(FieldWidget f, java.awt.Point origScreenPos,
 {
     // Move all dragged fields under everything else so getComponentAt()
     // will not return this field.
-    for (Iterator iter = selectedFields.iterator(); iter.hasNext(); )
-	sectionContainer.setLayer(((FieldWidget)iter.next()).getComponent(),
+    for (FieldWidget fw : selectedFields)
+	sectionContainer.setLayer(fw.getComponent(),
 				  JLayeredPane.DEFAULT_LAYER.intValue());
 
     CompoundCommand cmd =
@@ -1366,8 +1355,7 @@ void putDown(FieldWidget f, java.awt.Point origScreenPos,
 
     // Move to new section. Each field may be dropped into a different
     // section.
-    for (Iterator iter = selectedFields.iterator(); iter.hasNext(); ) {
-	FieldWidget fw = (FieldWidget)iter.next();
+    for (FieldWidget fw : selectedFields) {
 	SectionWidget sw =
 	    getSectionWidgetUnder(fw.getComponent().getLocationOnScreen());
 	if (sw == null)		// Field snaps back to orig pos if sw is null
@@ -1387,10 +1375,8 @@ void putDown(FieldWidget f, java.awt.Point origScreenPos,
  * @param mouseScreenPos the location of the mouse in screen coordinates
  */
 void startStretching(java.awt.Point mouseScreenPos) {
-    for (Iterator iter = selectedFields.iterator(); iter.hasNext(); ) {
-	FieldWidget fw = (FieldWidget)iter.next();
+    for (FieldWidget fw : selectedFields)
 	fw.startStretching(mouseScreenPos);
-    }
 }
 
 /**
@@ -1406,8 +1392,7 @@ void stopStretching(FieldWidget f, jimm.datavision.field.Rectangle origBounds)
     CompoundCommand cmd =
 	new CompoundCommand(I18N.get("FieldStretchCommand.name"));
 
-    for (Iterator iter = selectedFields.iterator(); iter.hasNext(); ) {
-	FieldWidget fw = (FieldWidget)iter.next();
+    for (FieldWidget fw : selectedFields) {
 	cmd.add(new FieldStretchCommand(fw, origBounds));
 	fw.stopStretching();
     }
@@ -1451,8 +1436,8 @@ protected SectionWidget getSectionWidgetUnder(java.awt.Point screenPos) {
  * @param mouseScreenPos mouse screen position
 */
 protected void dragSelectedWidgets(int action, java.awt.Point mouseScreenPos) {
-    for (Iterator iter = selectedFields.iterator(); iter.hasNext(); )
-	((FieldWidget)iter.next()).doDrag(action, mouseScreenPos);
+    for (FieldWidget fw : selectedFields)
+	fw.doDrag(action, mouseScreenPos);
 }
 
 /**
@@ -1651,11 +1636,9 @@ protected void showSQL() {
  * @return the section widget containing the section
  */
 public SectionWidget findSectionWidgetFor(Section s) {
-    for (Iterator iter = sectionWidgets.iterator(); iter.hasNext(); ) {
-	SectionWidget sw = (SectionWidget)iter.next();
+    for (SectionWidget sw : sectionWidgets)
 	if (sw.section == s)
 	    return sw;
-    }
     return null;
 }
 

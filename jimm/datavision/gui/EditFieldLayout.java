@@ -1,6 +1,5 @@
 package jimm.datavision.gui;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -30,12 +29,12 @@ Row(JLabel l, Component c) {
 }
 /* ================================================================ */
 
-protected ArrayList rows;
+protected ArrayList<Row> rows;
 protected Border border;
 protected JPanel panel;
 
 public EditFieldLayout() {
-    rows = new ArrayList();
+    rows = new ArrayList<Row>();
 }
 
 /**
@@ -335,8 +334,7 @@ protected void buildPanel() {
 	panel.setBorder(border);
 
     c.gridy = 0;
-    for (Iterator iter = rows.iterator(); iter.hasNext(); ++c.gridy) {
-	Row row = (Row)iter.next();
+    for (Row row : rows) {
 	if (row == null)
 	    continue;
 

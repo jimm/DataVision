@@ -15,6 +15,7 @@ import javax.swing.event.ListSelectionEvent;
  *
  * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
+@SuppressWarnings("serial")
 public abstract class TwoListWin extends EditWin
     implements ActionListener, ListSelectionListener
 {

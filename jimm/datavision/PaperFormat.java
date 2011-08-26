@@ -98,9 +98,7 @@ public static PaperFormat getDefault() {
     return defaultPaper;
 }
 
-public static Iterator<String> names() {
-    return names.iterator();
-}
+public static Collection<String> names() { return names; }
 
 PaperFormat(int orientation, String name, double w, double h, double hMargin,
 	    double vMargin, String latexPaperSizeString)

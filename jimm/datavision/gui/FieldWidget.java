@@ -38,7 +38,7 @@ protected static final int MIN_SIZE = 2;
 
 protected static final Font POPUP_FONT = new Font("Serif", Font.PLAIN, 10);
 
-protected static HashMap componentMap = new HashMap();
+protected static HashMap<Object, FieldWidget> componentMap = new HashMap<Object, FieldWidget>();
 
 protected AbstractSwingField swingField;
 protected SectionWidget sectionWidget;

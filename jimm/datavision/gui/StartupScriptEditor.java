@@ -10,6 +10,7 @@ import jimm.util.I18N;
  * @see FormulaWidget
  * @see jimm.datavision.gui.cmd.FormulaEditCommand
  */
+@SuppressWarnings("serial")
 public class StartupScriptEditor extends ScriptEditorWin {
 
 protected Report report;

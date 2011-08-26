@@ -5,7 +5,6 @@ import jimm.util.StringUtils;
 import java.awt.Font;
 import java.awt.event.*;
 import java.util.List;
-import java.util.Iterator;
 import javax.swing.*;
 
 /**
@@ -170,7 +169,7 @@ protected static void setKeys(JMenuItem item, String key) {
     if (keys == null)
 	return;
 
-    List split = StringUtils.split(keys, " ");
+    List<String> split = StringUtils.split(keys, " ");
 
     if (split.size() >= 1) {	// Mnemonic key
 	key = (String)split.get(0);
@@ -282,8 +281,7 @@ public static JMenu buildPaperSizeMenu(ActionListener listener,
     menu.addSeparator();
 
     // Paper sizes
-    for (Iterator iter = PaperFormat.names(); iter.hasNext();) {
-	String name = (String)iter.next();
+    for (String name : PaperFormat.names()) {
 	item = new JRadioButtonMenuItem(name);
 	nameGroup.add(item);
 	if (listener != null) item.addActionListener(listener);

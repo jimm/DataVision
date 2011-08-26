@@ -17,6 +17,7 @@ import javax.swing.event.HyperlinkEvent;
  *
  * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
+@SuppressWarnings("serial")
 public class HelpWin extends JFrame implements HyperlinkListener {
 
 protected static final int START_WIDTH = 400;

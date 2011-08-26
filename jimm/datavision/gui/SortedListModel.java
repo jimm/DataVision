@@ -8,6 +8,7 @@ import java.util.Iterator;
  *
  * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
+@SuppressWarnings({"serial", "unchecked", "rawtypes"})
 public class SortedListModel extends AbstractListModel {
 
 ArrayList list;

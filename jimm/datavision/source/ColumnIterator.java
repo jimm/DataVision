@@ -51,14 +51,14 @@ protected void findNext() {
 	if (!tableIter.hasNext()) // No more tables
 	    return;		// nextCol will be null
 	table = (Table)tableIter.next();
-	colIter = table.columns();
+	colIter = table.columns().iterator();
     }
 
     while (!colIter.hasNext()) {
 	if (!tableIter.hasNext()) // No more tables
 	    return;		// nextCol will be null
 	table = (Table)tableIter.next();
-	colIter = table.columns();
+	colIter = table.columns().iterator();
     }
 
     nextCol = (Column)colIter.next();

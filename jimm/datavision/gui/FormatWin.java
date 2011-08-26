@@ -23,6 +23,7 @@ import javax.swing.*;
  *
  * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
+@SuppressWarnings("serial")
 public class FormatWin extends EditWin implements FieldWalker {
 
 // ================================================================
@@ -286,7 +287,7 @@ protected JButton createBorderColorChooserButton() {
  */
 protected Integer[] sizeChoices() {
     if (SIZE_CHOICES == null) {
-	ArrayList list = new ArrayList();
+	ArrayList<Integer> list = new ArrayList<Integer>();
 
 	for (int size = 6; size <= 12; ++size)
 	    list.add(new Integer(size));

@@ -11,6 +11,7 @@ import java.awt.BorderLayout;
  *
  * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
+@SuppressWarnings("serial")
 public abstract class ScriptEditorWin extends CodeEditorWin {
 
 protected JComboBox languageMenu;

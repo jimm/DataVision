@@ -11,6 +11,7 @@ import javax.swing.border.BevelBorder;
  *
  * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
+@SuppressWarnings("serial")
 class SectionResizer extends JPanel implements MouseInputListener {
 
 public static final int HEIGHT = 6;

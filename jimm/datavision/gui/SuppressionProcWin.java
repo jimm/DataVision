@@ -15,6 +15,7 @@ import javax.swing.*;
  * @see jimm.datavision.Formula
  * @see jimm.datavision.gui.cmd.SuppressionProcEditCommand
  */
+@SuppressWarnings("serial")
 public class SuppressionProcWin extends ScriptEditorWin {
 
 protected static final int CHECK_BOX_INDENT_WIDTH = 32;

@@ -14,6 +14,7 @@ import java.util.*;
  *
  * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
+@SuppressWarnings("serial")
 public class SortWin extends TwoListWin {
 
 protected Query query;
@@ -72,10 +73,11 @@ public void actionPerformed(ActionEvent e) {
 	super.actionPerformed(e);
 }
 
+@SuppressWarnings("unchecked")
 protected void doSave() {
     // Turn the model's vector into a collection
-    ArrayList items = new ArrayList();
-    for (Enumeration e = rightModel.elements(); e.hasMoreElements(); )
+    ArrayList<SortWinListItem> items = new ArrayList<SortWinListItem>();
+    for (Enumeration<SortWinListItem> e = (Enumeration<SortWinListItem>)rightModel.elements(); e.hasMoreElements(); )
 	items.add(e.nextElement());
 
     SortEditCommand cmd = new SortEditCommand(query, items);

@@ -30,6 +30,7 @@ import javax.swing.tree.*;
  * @see FPTableInfo
  * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
+@SuppressWarnings("serial")
 class FieldPickerWin
     extends JDialog
     implements ActionListener, TreeSelectionListener, TreeWillExpandListener,
@@ -57,7 +58,7 @@ protected DefaultMutableTreeNode parameterCategoryNode;
 protected DefaultMutableTreeNode userColumnCategoryNode;
 protected DefaultMutableTreeNode selectedNode;
 protected FPLeafInfo selectedInfo;
-protected Comparator nameComparator;
+protected Comparator<Nameable> nameComparator;
 
 /**
  * Constructor.
@@ -73,11 +74,9 @@ FieldPickerWin(Designer designer, Report report, int startingType) {
 
     // Note: this comparator imposes orderings that are inconsistent with
     // equals.
-    nameComparator = new Comparator() {
-	public int compare(Object o1, Object o2) {
-	    String name1 = ((Nameable)o1).getName();
-	    String name2 = ((Nameable)o2).getName();
-	    return name1.compareTo(name2);
+    nameComparator = new Comparator<Nameable>() {
+	public int compare(Nameable n1, Nameable n2) {
+	    return n1.getName().compareTo(n2.getName());
 	}};
 
     buildWindow(startingType);
@@ -230,8 +229,8 @@ protected void createUsedDatabaseTables(DefaultMutableTreeNode top) {
     top.add(categoryNode);
 
     // Store list of tables actually used by the report in a sorted set.
-    final TreeSet tables = new TreeSet(nameComparator);
-    final TreeSet noTableCols = new TreeSet(nameComparator);
+    final TreeSet<Table> tables = new TreeSet<Table>(nameComparator);
+    final TreeSet<Column> noTableCols = new TreeSet<Column>(nameComparator);
 
     // Walk the list of all columns used by the report, adding the table
     // to the sorted set of tables.
@@ -249,12 +248,11 @@ protected void createUsedDatabaseTables(DefaultMutableTreeNode top) {
 	});
 
     // Add tables and columns under tables
-    for (Iterator iter = tables.iterator(); iter.hasNext(); )
-	addTableNode(categoryNode,  (Table)iter.next());
+    for (Table t : tables)
+	addTableNode(categoryNode,  t);
 
     // Add colums that have no table
-    for (Iterator iter = noTableCols.iterator(); iter.hasNext(); ) {
-	Column column = (Column)iter.next();
+    for (Column column : noTableCols) {
 	ColumnInfo info = new ColumnInfo(column, designer);
 	categoryNode.add(new DefaultMutableTreeNode(info, false));
     }
@@ -270,13 +268,11 @@ protected void createFormulas(DefaultMutableTreeNode top) {
 	new DefaultMutableTreeNode(I18N.get("FieldPickerWin.formulas"));
     top.add(formulaCategoryNode);
 
-    TreeSet formulas = new TreeSet(nameComparator);
+    TreeSet<Formula> formulas = new TreeSet<Formula>(nameComparator);
+    for (Formula f : report.formulas())
+	formulas.add(f);
 
-    for (Iterator iter = report.formulas(); iter.hasNext(); )
-	formulas.add(iter.next());
-
-    for (Iterator iter = formulas.iterator(); iter.hasNext(); ) {
-	Formula f = (Formula)iter.next();
+    for (Formula f : formulas) {
 	FormulaInfo info = new FormulaInfo(report, f, designer);
 	formulaCategoryNode.add(new DefaultMutableTreeNode(info));
 	f.addObserver(this);
@@ -293,13 +289,11 @@ protected void createParameters(DefaultMutableTreeNode top) {
 	new DefaultMutableTreeNode(I18N.get("FieldPickerWin.parameters"));
     top.add(parameterCategoryNode);
 
-    TreeSet parameters = new TreeSet(nameComparator);
+    TreeSet<Parameter> parameters = new TreeSet<Parameter>(nameComparator);
+    for (Parameter p : report.parameters())
+	parameters.add(p);
 
-    for (Iterator iter = report.parameters(); iter.hasNext(); )
-	parameters.add(iter.next());
-
-    for (Iterator iter = parameters.iterator(); iter.hasNext(); ) {
-	Parameter p = (Parameter)iter.next();
+    for (Parameter p : parameters) {
 	ParameterInfo info = new ParameterInfo(report, p, designer);
 	parameterCategoryNode.add(new DefaultMutableTreeNode(info));
 	p.addObserver(this);
@@ -316,13 +310,11 @@ protected void createUserColumns(DefaultMutableTreeNode top) {
 	new DefaultMutableTreeNode(I18N.get("FieldPickerWin.usercols"));
     top.add(userColumnCategoryNode);
 
-    TreeSet usercols = new TreeSet(nameComparator);
-
+    TreeSet<UserColumn> usercols = new TreeSet<UserColumn>(nameComparator);
     for (UserColumn uc : report.userColumns())
 	usercols.add(uc);
 
-    for (Iterator iter = usercols.iterator(); iter.hasNext(); ) {
-	UserColumn uc = (UserColumn)iter.next();
+    for (UserColumn uc : usercols) {
 	UserColumnInfo info = new UserColumnInfo(report, uc, designer);
 	userColumnCategoryNode.add(new DefaultMutableTreeNode(info));
 	uc.addObserver(this);
@@ -339,12 +331,11 @@ protected void createSpecialFields(DefaultMutableTreeNode top) {
 	new DefaultMutableTreeNode(I18N.get("FieldPickerWin.specials"));
     top.add(categoryNode);
 
-    HashMap strs = SpecialField.specialFieldNames();
-    TreeSet sortedKeys = new TreeSet(strs.keySet());
+    HashMap<String, String> strs = SpecialField.specialFieldNames();
+    TreeSet<String> sortedKeys = new TreeSet<String>(strs.keySet());
 
-    for (Iterator iter = sortedKeys.iterator(); iter.hasNext(); ) {
-	String key = (String)iter.next();
-	String val = (String)strs.get(key);
+    for (String key : sortedKeys) {
+	String val = strs.get(key);
 	key = SpecialField.TYPE_STRING + ':' + key;
 	SpecialInfo info = new SpecialInfo(val, key, designer);
 					   

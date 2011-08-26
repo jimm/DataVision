@@ -1,8 +1,8 @@
 package jimm.datavision.source;
 import jimm.datavision.Identity;
 import jimm.datavision.Nameable;
+import java.util.Collection;
 import java.util.TreeMap;
-import java.util.Iterator;
 
 /**
  * Represents a table that contains columns. Not all data sources will
@@ -78,10 +78,10 @@ public void addColumn(Column col) {
 }
 
 /**
- * Returns an iterator over the columns in this table.
+ * Returns the columns in this table.
  *
- * @return an iterator over the columns in this table
+ * @return the columns in this table
  */
-public Iterator<Column> columns() { return columns.values().iterator(); }
+public Collection<Column> columns() { return columns.values(); }
 
 }

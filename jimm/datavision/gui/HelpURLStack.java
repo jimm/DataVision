@@ -17,19 +17,19 @@ import javax.swing.JEditorPane;
  */
 class HelpURLStack {
 
-protected Stack back;
+protected Stack<URL> back;
 protected URL home;
 protected URL current;
-protected Stack forward;
+protected Stack<URL> forward;
 protected JEditorPane contentField;
 protected JTextField urlField;
 
 HelpURLStack(JEditorPane htmlField, JTextField textField) {
     contentField = htmlField;
     urlField = textField;
-    back = new Stack();
+    back = new Stack<URL>();
     current = null;
-    forward = new Stack();
+    forward = new Stack<URL>();
 }
 
 boolean hasPrevious() {

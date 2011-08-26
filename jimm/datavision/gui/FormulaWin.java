@@ -12,6 +12,7 @@ import java.util.Observer;
  * @see FormulaWidget
  * @see jimm.datavision.gui.cmd.FormulaEditCommand
  */
+@SuppressWarnings("serial")
 public class FormulaWin extends ScriptEditorWin implements Observer {
 
 protected Formula formula;

@@ -16,6 +16,7 @@ import javax.swing.*;
  *
  * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
+@SuppressWarnings("serial")
 public abstract class CodeEditorWin extends JDialog implements ActionListener {
 
 protected static final Dimension EDIT_SIZE = new Dimension(400, 225);

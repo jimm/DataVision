@@ -10,6 +10,7 @@ import javax.swing.*;
  *
  * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
+@SuppressWarnings("serial")
 public class DescripWin extends EditWin {
 
 protected static final int TEXT_FIELD_COLS = 32;

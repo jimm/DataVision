@@ -12,6 +12,7 @@ import javax.swing.JTextArea;
  *
  * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
+@SuppressWarnings("serial")
 public class DropListenerTextArea
     extends JTextArea
     implements DropTargetListener

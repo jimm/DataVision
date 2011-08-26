@@ -12,6 +12,7 @@ import java.util.Observer;
  * @see UserColumnWidget
  * @see UserColumnEditCommand
  */
+@SuppressWarnings("serial")
 public class UserColumnWin extends CodeEditorWin implements Observer {
 
 protected UserColumn userColumn;

@@ -19,6 +19,7 @@ import javax.swing.*;
  *
  * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
+@SuppressWarnings("serial")
 public class AggregatesWin extends EditWin {
 
 static class Slot {
@@ -40,7 +41,7 @@ protected static final int TEXT_FIELD_COLS = 8;
 
 protected Report report;
 protected FieldWidget fieldWidget;
-protected HashMap slots;
+protected HashMap<Group, Slot> slots;
 
 /**
  * Constructor.
@@ -75,8 +76,8 @@ public AggregatesWin(Designer designer, FieldWidget fw) {
 
     // Create a hash that maps either a group or a report footer section to
     // the associated existing aggregate widget.
-    final HashMap aggregates = new HashMap();
-    final AbstractList subs =
+    final HashMap<Object, FieldWidget> aggregates = new HashMap<Object, FieldWidget>();
+    final AbstractList<AggregateField> subs =
 	designer.report.getAggregateFieldsFor(fieldWidget.getField());
     designer.withWidgetsDo(new FieldWidgetWalker() {
 	public void step(FieldWidget fw) {
@@ -101,7 +102,7 @@ public AggregatesWin(Designer designer, FieldWidget fw) {
  * @param aggregates a hash that maps either a group or a report footer
  * section to the associated existing aggregate widget
  */
-protected void buildWindow(HashMap aggregates) {
+protected void buildWindow(HashMap<Object, FieldWidget> aggregates) {
     JPanel editorPanel = buildAggregatesEditor(aggregates);
 
     // OK, Apply, Revert, and Cancel Buttons
@@ -121,21 +122,21 @@ protected void buildWindow(HashMap aggregates) {
  * @param aggregates a hash that maps either a group or a report footer
  * section to the associated existing aggregate widget
  */
-protected JPanel buildAggregatesEditor(HashMap aggregates) {
+protected JPanel buildAggregatesEditor(HashMap<Object, FieldWidget> aggregates) {
     Object[] functionNames = AggregateField.functionNameArray();
     JPanel panel = new JPanel();
     panel.setLayout(new GridLayout(0, 1));
     panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
     JCheckBox cb = null;
     JComboBox menu = null;
-    slots = new HashMap();
+    slots = new HashMap<Group, Slot>();
 
     // For each footer in the report, create a checkbox and a slot.
 
     // Group footer sections
     int i = report.countGroups();
     for (Group g : report.groupsReversed()) {
-	FieldWidget fw = (FieldWidget)aggregates.get(g);
+	FieldWidget fw = aggregates.get(g);
 
 	cb = new JCheckBox(I18N.get("AggregatesWin.group") + " #" + i + " ("
 			   + g.getSelectableName() + ")");
@@ -156,11 +157,8 @@ protected JPanel buildAggregatesEditor(HashMap aggregates) {
     menu = new JComboBox(functionNames);
     panel.add(menu);
     boolean addedSlot = false;
-    for (Iterator iter = report.footers().iterator();
-	 iter.hasNext() && !addedSlot; )
-    {
-	Section s = (Section)iter.next();
-	FieldWidget fw = (FieldWidget)aggregates.get(s);
+    for (Section s : report.footers()) {
+	FieldWidget fw = aggregates.get(s);
 	if (fw != null) {
 	    cb.setSelected(true);
 	    menu.setSelectedItem(getAggregateField(fw).getFunction());
@@ -175,9 +173,8 @@ protected JPanel buildAggregatesEditor(HashMap aggregates) {
     JButton all = new JButton(I18N.get("GUI.all"));
     all.addActionListener(new ActionListener() {
 	public void actionPerformed(ActionEvent e) {
-	    for (Iterator iter = slots.values().iterator();
-		 iter.hasNext(); )
-		((Slot)iter.next()).checkBox.setSelected(true);
+	    for (Slot s : slots.values())
+		s.checkBox.setSelected(true);
 	}
 	});
     JPanel buttonPanel = new JPanel();
@@ -206,8 +203,7 @@ protected void doSave() {
     // Hide existing aggregates that are unchecked and show existing
     // aggregates that are checked. For checked aggregates, modify function
     // (no harm done if function is not changed).
-    for (Iterator iter = slots.keySet().iterator(); iter.hasNext(); ) {
-	Object key = iter.next();
+    for (Object key : slots.keySet()) {
 	Slot slot = (Slot)slots.get(key);
 	if (slot.checkBox.isSelected()) {
 	  String functionName = slot.functionMenu.getSelectedItem().toString();
@@ -246,8 +242,8 @@ protected void doSave() {
 }
 
 protected void doRevert() {
-    for (Iterator iter = slots.keySet().iterator(); iter.hasNext(); ) {
-	Slot slot = (Slot)slots.get(iter.next());
+    for (Group g : slots.keySet()) {
+	Slot slot = slots.get(g);
 	if (slot.existedAlready) {
 	    slot.aggregate.getComponent().setVisible(true);
 	    slot.checkBox.setSelected(true);
