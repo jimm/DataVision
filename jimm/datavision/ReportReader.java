@@ -58,7 +58,7 @@ protected static final double DEFAULT_DTD_VERSION = 0.2;
  */
 protected static final double DTD_VERSION_FORMULA_IDS = 0.2;
 
-protected Stack tagNameStack;
+protected Stack<String> tagNameStack;
 protected Report report;
 protected Subreport subreport;
 protected Parameter parameter;
@@ -71,7 +71,7 @@ protected String textData;
 protected Border border;
 protected Line line;
 protected double dtdVersion;
-protected HashMap formulasToConvert;
+protected HashMap<String, FormulaConversion> formulasToConvert;
 protected int nextSectionLocation;
 protected boolean missingColumnSeen;
 protected boolean inSubreportJoins;
@@ -83,7 +83,7 @@ protected boolean inSubreportJoins;
  */
 public ReportReader(Report report) {
     this.report = report;
-    tagNameStack = new Stack();
+    tagNameStack = new Stack<String>();
     dtdVersion = DEFAULT_DTD_VERSION;
 }
 
@@ -168,8 +168,8 @@ public void startElement(final String namespaceURI, final String localName,
         tagName = qName;
 
     String parentTag = tagNameStack.empty() ? null
-	: (String)tagNameStack.peek();
-    tagNameStack.push(new String(tagName));
+	: tagNameStack.peek();
+    tagNameStack.push(tagName);
 
     // Get ready to start collecting text
     if (textData == null || textData.length() > 0)
@@ -490,7 +490,7 @@ protected void formula(String parentTag, Attributes attributes)
     // to the current format.
     if (id == null) {
 	if (formulasToConvert == null)
-	    formulasToConvert = new HashMap();
+	    formulasToConvert = new HashMap<String, FormulaConversion>();
 	FormulaConversion fc = new FormulaConversion(formula, null);
 	formulasToConvert.put(formula.getName(), fc);
     }
@@ -515,10 +515,7 @@ protected void usercol(Attributes attributes) throws SAXException {
  */
 protected void convertFormulas() throws SAXException {
     if (formulasToConvert != null) {
-	for (Iterator iter = formulasToConvert.values().iterator();
-	     iter.hasNext(); )
-	{
-	    FormulaConversion fc = (FormulaConversion)iter.next();
+	for (FormulaConversion fc : formulasToConvert.values()) {
 	    Formula f = fc.formula;
 	    try {
 		f.setEditableExpression(fc.expression);

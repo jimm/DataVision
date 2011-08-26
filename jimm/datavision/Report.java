@@ -3,7 +3,6 @@ import jimm.datavision.field.*;
 import jimm.datavision.layout.LayoutEngine;
 import jimm.datavision.source.*;
 import jimm.datavision.source.sql.Database;
-import jimm.datavision.source.charsep.CharSepSource;
 import jimm.datavision.gui.sql.DbPasswordDialog;
 import jimm.datavision.gui.Designer;
 import jimm.datavision.gui.StatusDialog;
@@ -460,7 +459,7 @@ public void addParameter(Parameter p) {
 public void removeParameter(Parameter p) {
     parameters.remove(p.getId());
 }
-public Iterator parameters() { return parameters.values().iterator(); }
+public Collection<Parameter> parameters() { return parameters.values(); }
 
 // ---------------- formulas
 
@@ -501,7 +500,7 @@ public void addFormula(Formula f) {
 public void removeFormula(Formula f) {
     formulas.remove(f.getId());
 }
-public Iterator formulas() { return formulas.values().iterator(); }
+public Collection<Formula> formulas() { return formulas.values(); }
 
 // ---------------- user columns
 
@@ -732,42 +731,22 @@ public boolean contains(Field f) {
  * if the field is not in the report
  */
 public Section sectionContaining(Field f) {
-    Section s;
-    Iterator iter, iter2;
-    for (iter = reportHeaders.iterator(); iter.hasNext(); ) {
-	s = (Section)iter.next();
+    for (Section s : reportHeaders)
 	if (s.contains(f)) return s;
-    }
-    for (iter = pageHeaders.iterator(); iter.hasNext(); ) {
-	s = (Section)iter.next();
+    for (Section s : pageHeaders)
 	if (s.contains(f)) return s;
-    }
-    for (iter = groups.iterator(); iter.hasNext(); ) {
-	for (iter2 = ((Group)iter.next()).headers().iterator();
-	     iter2.hasNext(); ) {
-	    s = (Section)iter2.next();
+    for (Group g : groups)
+	for (Section s : g.headers())
 	    if (s.contains(f)) return s;
-	}
-    }
-    for (iter = details.iterator(); iter.hasNext(); ) {
-	s = (Section)iter.next();
+    for (Section s : details)
 	if (s.contains(f)) return s;
-    }
-    for (iter = groups.iterator(); iter.hasNext(); ) {
-	for (iter2 = ((Group)iter.next()).footers().iterator();
-	     iter2.hasNext(); ) {
-	    s = (Section)iter2.next();
+    for (Group g : groups)
+	for (Section s : g.footers())
 	    if (s.contains(f)) return s;
-	}
-    }
-    for (iter = reportFooters.iterator(); iter.hasNext(); ) {
-	s = (Section)iter.next();
+    for (Section s : reportFooters)
 	if (s.contains(f)) return s;
-    }
-    for (iter = pageFooters.iterator(); iter.hasNext(); ) {
-	s = (Section)iter.next();
-	if (s.contains(f)) return s;
-    }
+    for (Section s : pageFooters)
+        if (s.contains(f)) return s;
 
     return null;
 }
@@ -1185,7 +1164,7 @@ public void parametersSetManually(boolean val) { paramsSetManually = val; }
  * <code>UserCancellationException</code>.
  */
 protected void askForParameters() throws UserCancellationException {
-    List usedParameters = null;
+    List<Parameter> usedParameters = null;
     if (askedForParameters || paramsSetManually
 	|| (usedParameters = collectUsedParameters()).isEmpty())
     {
@@ -1338,13 +1317,13 @@ public void runReport() {
     }
 
     // Pre-report initialization
-    for (Iterator iter = groups.iterator(); iter.hasNext(); )
-	((Group)iter.next()).reset();
+    for (Group g : groups)
+	g.reset();
     collectAggregateFields();
     if (startFormula != null)
 	startFormula.eval();
-    for (Iterator iter = formulas(); iter.hasNext(); )
-	((Formula)iter.next()).useCache();
+    for (Formula f : formulas())
+	f.useCache();
     resetCachedValues();
 
     rset = null;
@@ -1405,8 +1384,8 @@ public void runReport() {
 	if (rset != null) rset.close();
 
 	aggregateFields = null;
-	for (Iterator iter = groups.iterator(); iter.hasNext(); )
-	  ((Group)iter.next()).reset();
+	for (Group g : groups)
+	    g.reset();
 	resetCachedValues();
 
 	if (statusDialog != null)
@@ -1516,11 +1495,11 @@ public DataCursor getCurrentRow() {
 public void withSectionsDo(SectionWalker s) {
     reportHeaders.withSectionsDo(s);
     pageHeaders.withSectionsDo(s);
-    for (Iterator iter = groups.iterator(); iter.hasNext(); )
-	((Group)iter.next()).headers().withSectionsDo(s);
+    for (Group g : groups)
+	g.headers().withSectionsDo(s);
     details.withSectionsDo(s);
-    for (Iterator iter = groups.iterator(); iter.hasNext(); )
-	((Group)iter.next()).footers().withSectionsDo(s);
+    for (Group g : groups)
+	g.footers().withSectionsDo(s);
     reportFooters.withSectionsDo(s);
     pageFooters.withSectionsDo(s);
 }
@@ -1564,14 +1543,14 @@ protected void collectAggregateFields() {
  * @param field a field
  * @return a list of aggregate fields
  */
-public AbstractList getAggregateFieldsFor(final Field field) {
-    final ArrayList subs = new ArrayList();
+public AbstractList<AggregateField> getAggregateFieldsFor(final Field field) {
+    final ArrayList<AggregateField> subs = new ArrayList<AggregateField>();
     withFieldsDo(new FieldWalker() {
 	public void step(Field f) {
 	    if (f instanceof AggregateField
 		&& ((AggregateField)f).getField() == field)
 	    {
-		subs.add(f);
+		subs.add((AggregateField)f);
 	    }
 	}
 	});
@@ -1582,8 +1561,8 @@ public AbstractList getAggregateFieldsFor(final Field field) {
  * Updates each aggregate field.
  */
 protected void updateAggregates() {
-    for (Iterator iter = aggregateFields.iterator(); iter.hasNext(); )
-	((AggregateField)iter.next()).updateAggregate();
+    for (AggregateField af : aggregateFields)
+	af.updateAggregate();
 }
 
 /**
@@ -1591,20 +1570,16 @@ protected void updateAggregates() {
  * each group uses.
  */
 protected void updateGroups() {
-    for (Iterator iter = groups.iterator(); iter.hasNext(); ) {
-	Group g = (Group)iter.next();
+    for (Group g : groups)
 	g.setValue(this);
-    }
 }
 
 /**
  * Lets each group update its line counter.
  */
 protected void updateGroupCounters() {
-    for (Iterator iter = groups.iterator(); iter.hasNext(); ) {
-	Group g = (Group)iter.next();
+    for (Group g : groups)
 	g.updateCounter();
-    }
 }
 
 /**

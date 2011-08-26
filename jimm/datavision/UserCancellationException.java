@@ -8,6 +8,7 @@ package jimm.datavision;
  *
  * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
+@SuppressWarnings("serial")
 public class UserCancellationException extends RuntimeException {
 
 public UserCancellationException() {

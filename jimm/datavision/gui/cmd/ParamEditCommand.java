@@ -3,7 +3,6 @@ import jimm.datavision.Parameter;
 import jimm.util.I18N;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * A command for changing a {@link Parameter}'s values---not the runtime
@@ -18,12 +17,12 @@ String newName;
 String newQuestion;
 int newType;
 int newArity;
-List newDefaultValues;
+List<Object> newDefaultValues;
 String oldName;
 String oldQuestion;
 int oldType;
 int oldArity;
-List oldDefaultValues;
+List<Object> oldDefaultValues;
 
 /**
  * Constructor.
@@ -40,7 +39,7 @@ List oldDefaultValues;
  * @param defaultValues the new list of parameter default values
  */
 public ParamEditCommand(Parameter param, String name, String question,
-			    int type, int arity, List defaultValues)
+			    int type, int arity, List<Object> defaultValues)
 {
     super(I18N.get("ParamEditCommand.name"));
 
@@ -55,9 +54,8 @@ public ParamEditCommand(Parameter param, String name, String question,
     oldQuestion = param.getQuestion();
     oldType = param.getType();
     oldArity = param.getArity();
-    oldDefaultValues = new ArrayList();
-    for (Iterator iter = param.defaultValues(); iter.hasNext(); )
-	oldDefaultValues.add(iter.next());
+    oldDefaultValues = new ArrayList<Object>();
+    oldDefaultValues.addAll(param.defaultValues());
 }
 
 public void perform() {
@@ -69,7 +67,7 @@ public void undo() {
 }
 
 protected void editParam(String name, String question, int type, int arity,
-			 List defaultValues)
+			 List<Object> defaultValues)
 {
     param.setName(name);
     param.setQuestion(question);
@@ -92,8 +90,8 @@ protected void editParam(String name, String question, int type, int arity,
 	break;
     case Parameter.ARITY_LIST_SINGLE:
     case Parameter.ARITY_LIST_MULTIPLE:
-	for (Iterator iter = defaultValues.iterator(); iter.hasNext(); )
-	    param.addDefaultValue(iter.next());
+	for (Object obj : defaultValues)
+	    param.addDefaultValue(obj);
 	break;
     }
 }

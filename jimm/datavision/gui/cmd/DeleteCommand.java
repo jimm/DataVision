@@ -13,45 +13,44 @@ import java.util.*;
 public class DeleteCommand extends CommandAdapter {
 
 protected Designer designer;
-protected Collection fieldWidgets;
+protected Collection<FieldWidget> fieldWidgets;
 
 /**
  * Constructor.
  */
-public DeleteCommand(Designer designer, ArrayList selectedFields) {
+public DeleteCommand(Designer designer, ArrayList<FieldWidget> selectedFields) {
     this(designer, selectedFields, I18N.get("DeleteCommand.name"));
 }
 
 /**
  * The delegated constructor.
  */
-protected DeleteCommand(Designer designer, ArrayList selectedFields,
+@SuppressWarnings("unchecked")
+protected DeleteCommand(Designer designer, ArrayList<FieldWidget> selectedFields,
 			String name)
 {
     super(name);
     this.designer = designer;
-    fieldWidgets = (ArrayList)selectedFields.clone();
+    fieldWidgets = (ArrayList<FieldWidget>)selectedFields.clone();
 }
 
 public void perform() {
-    HashSet affectedSections = new HashSet();
+    HashSet<SectionWidget> affectedSections = new HashSet<SectionWidget>();
     designer.deselectAll();
 
-    for (Iterator iter = fieldWidgets.iterator(); iter.hasNext(); ) {
-	FieldWidget fw = (FieldWidget)iter.next();
+    for (FieldWidget fw : fieldWidgets) {
 	fw.doDelete();		// Widget deletes itself and field from report
 	affectedSections.add(fw.getSectionWidget());
     }
 
-    for (Iterator iter = affectedSections.iterator(); iter.hasNext(); )
-	((SectionWidget)iter.next()).repaint();
+    for (SectionWidget sw : affectedSections)
+	sw.repaint();
 
     designer.enableMenuItems();
 }
 
 public void undo() {
-    for (Iterator iter = fieldWidgets.iterator(); iter.hasNext(); ) {
-	FieldWidget fw = (FieldWidget)iter.next();
+    for (FieldWidget fw : fieldWidgets) {
 	fw.moveToSection(fw.getSectionWidget());
 	designer.select(fw, true, false);
     }

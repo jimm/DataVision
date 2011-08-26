@@ -6,7 +6,6 @@ import jimm.datavision.gui.cmd.ParamEditCommand;
 import jimm.util.I18N;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.Iterator;
 import java.util.Enumeration;
 import java.util.ArrayList;
 import javax.swing.*;
@@ -18,6 +17,7 @@ import com.toedter.calendar.JCalendar;
  *
  * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
+@SuppressWarnings("serial")
 public class ParamEditWin extends EditWin {
 
 protected static final int HORIZ_GAP = 20;
@@ -410,8 +410,8 @@ protected void selectAndFillCard() {
 	// Erase list and re-fill it
 	DefaultListModel model = (DefaultListModel)list.getModel();
 	model.clear();
-	for (Iterator iter = param.defaultValues(); iter.hasNext(); )
-	    model.addElement(iter.next());
+	for (Object obj : param.defaultValues())
+	    model.addElement(obj);
 	break;
     }
 }
@@ -476,7 +476,7 @@ public void actionPerformed(ActionEvent e) {
 }
 
 protected void doSave() {
-    ArrayList defaultValues = new ArrayList();
+    ArrayList<Object> defaultValues = new ArrayList<Object>();
     int type = typeFromWidgets();
     int arity = arityFromWidgets();
 
@@ -500,7 +500,7 @@ protected void doSave() {
     case Parameter.ARITY_LIST_SINGLE:
     case Parameter.ARITY_LIST_MULTIPLE:
 	DefaultListModel model = (DefaultListModel)list.getModel();
-	for (Enumeration e = model.elements(); e.hasMoreElements(); )
+	for (Enumeration<? extends Object> e = model.elements(); e.hasMoreElements(); )
 	    defaultValues.add(e.nextElement());
 	break;
     }

@@ -1,9 +1,10 @@
 package jimm.datavision;
 import jimm.util.XMLWriter;
 import jimm.util.I18N;
+
+import java.util.List;
 import java.util.Observable;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Date;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
@@ -47,8 +48,8 @@ protected String name;
 protected String question;
 protected int type;
 protected int arity;
-protected ArrayList defaultValues;
-protected ArrayList values;
+protected ArrayList<Object> defaultValues;
+protected ArrayList<Object> values;
 
 /**
  * Constructor. Creates a string parameter with no name or question
@@ -180,14 +181,13 @@ private void initialize(Long id) {
 	break;
     }
 
-    defaultValues = new ArrayList();
-    values = new ArrayList();
+    defaultValues = new ArrayList<Object>();
+    values = new ArrayList<Object>();
 }
 
 public Object clone() {
     Parameter p = new Parameter(null, report, type, name, question, arity);
-    for (Iterator iter = defaultValues.iterator(); iter.hasNext(); ) {
-	Object obj = iter.next();
+    for (Object obj : defaultValues) {
 	if (obj instanceof Boolean)
 	    p.defaultValues.add(obj);
 	else if (obj instanceof String)
@@ -363,7 +363,7 @@ public void setArity(int newArity) {
  *
  * @return an interator
  */
-public Iterator defaultValues() { return defaultValues.iterator(); }
+public List<Object> defaultValues() { return defaultValues; }
 
 /**
  * Returns the i'th defaultValue for this parameter. If none has been
@@ -459,7 +459,7 @@ public void setDefaultValue(int i, Object newDefaultValue) {
  *
  * @return an interator
  */
-public Iterator values() { return values.iterator(); }
+public List<Object> values() { return values; }
 
 /**
  * Returns the parameter value(s) the user has previously specified. If
@@ -474,7 +474,7 @@ public Object getValue() {
     case ARITY_LIST_SINGLE:
 	return getValue(0);
     case ARITY_RANGE:
-	ArrayList list = new ArrayList();
+	ArrayList<Object> list = new ArrayList<Object>();
 	list.add(getValue(0));
 	list.add(getValue(1));
 	return list;
@@ -658,8 +658,8 @@ public void writeXML(XMLWriter out) {
     out.attr("question", question);
     out.attr("arity", arityString);
 
-    for (Iterator iter = defaultValues.iterator(); iter.hasNext(); )
-	out.textElement("default", iter.next().toString());
+    for (Object obj : defaultValues)
+	out.textElement("default", obj.toString());
 
     out.endElement();
 }

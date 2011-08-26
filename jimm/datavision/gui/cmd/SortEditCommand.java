@@ -5,7 +5,6 @@ import jimm.datavision.gui.SortWinListItem;
 import jimm.util.I18N;
 import java.util.Collection;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * A command for changing the sort orders in a {@link Query}.
@@ -19,16 +18,16 @@ protected static final int ONLY_SORTING_CHANGE = 1;
 protected static final int DRASTIC_CHANGE = 2;
 
 protected Query query;
-protected Collection newSortItems;
-protected Collection oldSortItems;
+protected Collection<SortWinListItem> newSortItems;
+protected Collection<SortWinListItem> oldSortItems;
 
-public SortEditCommand(Query query, Collection sortItems) {
+public SortEditCommand(Query query, Collection<SortWinListItem> sortItems) {
     super(I18N.get("SortEditCommand.name"));
     this.query = query;
     this.newSortItems = sortItems;
 
     // Create list of current sorts
-    oldSortItems = new ArrayList();
+    oldSortItems = new ArrayList<SortWinListItem>();
     for (Selectable s : query.sortedSelectables())
 	oldSortItems.add(new SortWinListItem(s, query.sortOrderOf(s)));
 }
@@ -41,13 +40,11 @@ public void undo() {
     setSorts(oldSortItems);
 }
 
-protected void setSorts(Collection itemList) {
+protected void setSorts(Collection<SortWinListItem> itemList) {
     query.clearSorts();
-    for (Iterator iter = itemList.iterator(); iter.hasNext(); ) {
-	SortWinListItem item = (SortWinListItem)iter.next();
+    for (SortWinListItem item : itemList)
 	query.addSort(item.getSelectable(), item.sortsAscending()
 		      ? Query.SORT_ASCENDING : Query.SORT_DESCENDING);
-    }
 }
 
 }

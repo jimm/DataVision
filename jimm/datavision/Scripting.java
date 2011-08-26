@@ -17,19 +17,19 @@ protected static final String DEFAULT_CLASS =
 
 protected Report report;
 protected String defaultLanguage;
-protected Map languages;
-protected Map managers;
+protected Map<String, String> languages;
+protected Map<String, BSFManager> managers;
 
 public Scripting(Report report) {
     this.report = report;
     defaultLanguage = DEFAULT_LANGUAGE;
-    languages = new HashMap();
+    languages = new HashMap<String, String>();
     languages.put(DEFAULT_LANGUAGE, DEFAULT_CLASS);
-    managers = new HashMap();
+    managers = new HashMap<String, BSFManager>();
 }
 
 /** Returns an immutable copy of the map of languages. */
-public Map getLanguages() { return Collections.unmodifiableMap(languages); }
+public Map<String, String> getLanguages() { return Collections.unmodifiableMap(languages); }
 
 /** Adds a language to our list. */
 public void addLanguage(String language, String className) {
@@ -42,7 +42,7 @@ public void addLanguage(String language, String className) {
  *
  * @param langs maps language names to class names
  */
-public void replaceLanguages(Map langs) {
+public void replaceLanguages(Map<String, String> langs) {
     languages.clear();
     languages.putAll(langs);
 }
@@ -109,8 +109,7 @@ public void writeXML(XMLWriter out) {
     out.startElement("bean-scripting-framework");
     out.attr("default-language", defaultLanguage);
 
-    for (Iterator iter = languages.keySet().iterator(); iter.hasNext(); ) {
-	String language = (String)iter.next();
+    for (String language: languages.keySet()) {
 	out.startElement("language");
 	out.attr("name", language);
 	out.attr("class", languages.get(language));

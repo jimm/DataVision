@@ -7,6 +7,7 @@ import javax.swing.JApplet;
  *
  * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
+@SuppressWarnings("serial")
 public class DVApplet extends JApplet {
 
 protected static final String COLUMN_PARAM_DELIM = ";";

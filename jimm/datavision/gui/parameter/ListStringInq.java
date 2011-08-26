@@ -1,6 +1,5 @@
 package jimm.datavision.gui.parameter;
 import jimm.datavision.Parameter;
-import java.util.Iterator;
 import javax.swing.*;
 
 /**
@@ -30,8 +29,8 @@ ListStringInq(Parameter param, boolean allowMultipleSelection) {
     panel.add(box);
 
     // Copy default value into "real" value
-    for (Iterator iter = parameter.defaultValues(); iter.hasNext(); )
-	model.addElement(iter.next());
+    for (Object obj : parameter.defaultValues())
+	model.addElement(obj);
 
     if (!allowMultipleSelection)
 	list.setSelectedIndex(0); // Select first item
@@ -47,8 +46,8 @@ void copyGUIIntoParam() {
 void copyParamIntoGUI() {
     list.clearSelection();
     boolean first = true;
-    for (Iterator iter = parameter.values(); iter.hasNext(); ) {
-	list.setSelectedValue(iter.next(), first); // Scroll if first
+    for (Object obj : parameter.values()) {
+	list.setSelectedValue(obj, first); // Scroll if first
 	first = false;
     }
 }

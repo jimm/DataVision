@@ -10,6 +10,7 @@ import java.util.*;
  *
  * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
+@SuppressWarnings("unchecked") // needed for first line in static block below
 public class PaperFormat extends Paper implements Nameable, Writeable {
 
 public static final int PORTRAIT = 0;
@@ -17,8 +18,8 @@ public static final int LANDSCAPE = 1;
 
 protected static final String RESOURCE_FILE_PREFIX = "paper";
 
-protected static HashMap[] orientations;
-protected static TreeSet names;
+protected static HashMap<String, PaperFormat>[] orientations;
+protected static TreeSet<String> names;
 protected static PaperFormat defaultPaper;
 
 protected String name;		// Immutable
@@ -28,9 +29,9 @@ protected String latexPaperSizeString;
 
 static {
     orientations = new HashMap[2];
-    orientations[PORTRAIT] = new HashMap();
-    orientations[LANDSCAPE] = new HashMap();
-    ArrayList nameList = new ArrayList();
+    orientations[PORTRAIT] = new HashMap<String, PaperFormat>();
+    orientations[LANDSCAPE] = new HashMap<String, PaperFormat>();
+    ArrayList<String> nameList = new ArrayList<String>();
 
     ResourceBundle bundle = ResourceBundle.getBundle(RESOURCE_FILE_PREFIX,
 						     Locale.getDefault());
@@ -73,7 +74,7 @@ static {
     }
     finally {
 	// Copy list of names to a sorted set
-	names = new TreeSet(nameList);
+	names = new TreeSet<String>(nameList);
     }
 }
 
@@ -97,7 +98,7 @@ public static PaperFormat getDefault() {
     return defaultPaper;
 }
 
-public static Iterator names() {
+public static Iterator<String> names() {
     return names.iterator();
 }
 

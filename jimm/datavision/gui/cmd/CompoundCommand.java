@@ -1,7 +1,7 @@
 package jimm.datavision.gui.cmd;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.ListIterator;	// For reverse traversal
+import java.util.List;
+import java.util.Collections;
 
 /**
  * A compound command holds a list of commands and allows their use as
@@ -11,11 +11,11 @@ import java.util.ListIterator;	// For reverse traversal
  */
 public class CompoundCommand extends CommandAdapter {
 
-protected ArrayList commands;
+protected ArrayList<Command> commands;
 
 public CompoundCommand(String name) {
     super(name);
-    commands = new ArrayList();
+    commands = new ArrayList<Command>();
 }
 
 public void add(Command c) {
@@ -25,19 +25,21 @@ public void add(Command c) {
 public int numCommands() { return commands.size(); }
 
 public void perform() {
-    for (Iterator iter = commands.iterator(); iter.hasNext(); )
-	((Command)iter.next()).perform();
+    for (Command c : commands)
+	c.perform();
 }
 
+@SuppressWarnings("unchecked")
 public void undo() {
-    for (ListIterator iter = commands.listIterator(commands.size());
-	 iter.hasPrevious(); )
-	((Command)iter.previous()).undo();
+    List<Command> rc = (List<Command>)commands.clone();
+    Collections.reverse(rc);
+    for (Command c : rc)
+	c.undo();
 }
 
 public void redo() {
-    for (Iterator iter = commands.iterator(); iter.hasNext(); )
-	((Command)iter.next()).redo();
+    for (Command c : commands)
+	c.redo();
 }
 
 }

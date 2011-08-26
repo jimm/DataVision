@@ -13,7 +13,7 @@ import javax.swing.JMenuItem;
  */
 public class CommandHistory {
 
-protected ArrayList commands;
+protected ArrayList<Command> commands;
 protected int commandIndex;
 /**
  * If the command index is different than the baseline index then something
@@ -30,7 +30,7 @@ public CommandHistory() {
 public CommandHistory(JMenuItem undoMenuItem, JMenuItem redoMenuItem) {
     this.undoMenuItem = undoMenuItem;
     this.redoMenuItem = redoMenuItem;
-    commands = new ArrayList();
+    commands = new ArrayList<Command>();
     commandIndex = 0;
     baselineIndex = 0;
 }

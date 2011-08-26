@@ -10,21 +10,19 @@ public class PasteCommand extends CommandAdapter {
 
 // ================================================================
 static class PasteInfo {
-HashSet fieldWidgets;
+HashSet<FieldWidget> fieldWidgets;
 SectionResizeCommand sectionResizeCommand;
 
 PasteInfo(SectionWidget sw) {
-    fieldWidgets = new HashSet();
+    fieldWidgets = new HashSet<FieldWidget>();
     sectionResizeCommand = new SectionResizeCommand(sw);
 }
 void add(FieldWidget fw) { fieldWidgets.add(fw); }
-Iterator fieldWidgets() { return fieldWidgets.iterator(); }
+Iterator<FieldWidget> fieldWidgets() { return fieldWidgets.iterator(); }
 }
 // ================================================================
 
 protected Designer designer;
-/** Maps section widgets to sets of field widgets contained within them. */
-protected HashMap sectionFields;
 
 /**
  * Constructor.
@@ -35,16 +33,16 @@ public PasteCommand(Designer designer) {
     this.designer = designer;
 }
 
+@SuppressWarnings("unchecked")
 public void perform() {
-    Iterator iter = ((List)Clipboard.instance().getContents()).iterator();
-    while (iter.hasNext())
-	((Pasteable)iter.next()).paste(designer);
+    for (Pasteable p : (List<Pasteable>)Clipboard.instance().getContents())
+	p.paste(designer);
 }
 
+@SuppressWarnings("unchecked")
 public void undo() {
-    Iterator iter = ((List)Clipboard.instance().getContents()).iterator();
-    while (iter.hasNext())
-	((Pasteable)iter.next()).undo(designer);
+    for (Pasteable p : (List<Pasteable>)Clipboard.instance().getContents())
+	p.undo(designer);
 }
 
 }

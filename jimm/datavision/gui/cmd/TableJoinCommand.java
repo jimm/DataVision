@@ -4,7 +4,6 @@ import jimm.datavision.source.Join;
 import jimm.util.I18N;
 import java.util.Collection;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * A command for changing a field's table join.
@@ -14,14 +13,14 @@ import java.util.Iterator;
 public class TableJoinCommand extends CommandAdapter {
 
 protected Query query;
-protected Collection newJoins;
-protected Collection origJoins;
+protected Collection<Join> newJoins;
+protected Collection<Join> origJoins;
 
-public TableJoinCommand(Query query, Collection joins) {
+public TableJoinCommand(Query query, Collection<Join> joins) {
     super(I18N.get("TableJoinCommand.name"));
     this.query = query;
 
-    origJoins = new ArrayList();
+    origJoins = new ArrayList<Join>();
     for (Join j : query.joins())
 	origJoins.add(j);
 

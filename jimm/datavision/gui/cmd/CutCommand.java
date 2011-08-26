@@ -4,7 +4,6 @@ import jimm.datavision.gui.FieldWidget;
 import jimm.datavision.gui.Clipboard;
 import jimm.util.I18N;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * Cuts (copies to the clipboard then deletes) a list of field widgets.
@@ -13,14 +12,14 @@ import java.util.Iterator;
  */
 public class CutCommand extends DeleteCommand {
 
-public CutCommand(Designer designer, ArrayList selectedFields) {
+public CutCommand(Designer designer, ArrayList<FieldWidget> selectedFields) {
     super(designer, selectedFields, I18N.get("CutCommand.name"));
 }
 
 public void perform() {
-    ArrayList pasteables = new ArrayList();
-    for (Iterator iter = fieldWidgets.iterator(); iter.hasNext(); )
-	pasteables.add(new FieldClipping((FieldWidget)iter.next()));
+    ArrayList<Pasteable> pasteables = new ArrayList<Pasteable>();
+    for (FieldWidget fw : fieldWidgets)
+	pasteables.add(new FieldClipping(fw));
     Clipboard.instance().setContents(pasteables);
 
     super.perform();

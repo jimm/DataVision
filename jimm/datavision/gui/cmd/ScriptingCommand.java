@@ -13,12 +13,12 @@ public class ScriptingCommand extends CommandAdapter {
 
 protected Scripting scripting;
 protected String newDefaultLang;
-protected Map newLangs;
+protected Map<String, String> newLangs;
 protected String origDefaultLang;
-protected Map origLangs;
+protected Map<String, String> origLangs;
 
 public ScriptingCommand(Scripting scripting, String newDefaultLang,
-			Map newLangs)
+			Map<String, String> newLangs)
 {
     super(I18N.get("ScriptingCommand.name"));
 
@@ -27,7 +27,7 @@ public ScriptingCommand(Scripting scripting, String newDefaultLang,
     this.newLangs = newLangs;
 
     origDefaultLang = scripting.getDefaultLanguage();
-    origLangs = new HashMap(scripting.getLanguages()); // Make a copy
+    origLangs = new HashMap<String, String>(scripting.getLanguages()); // Make a copy
 }
 
 public void perform() {

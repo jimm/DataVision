@@ -5,6 +5,7 @@ import jimm.datavision.Subreport;
 import jimm.datavision.Point;
 import jimm.datavision.field.Field;
 import jimm.datavision.field.Rectangle;
+import jimm.datavision.source.Join;
 import jimm.datavision.source.sql.Database;
 import jimm.datavision.source.sql.SubreportDatabase;
 import jimm.datavision.gui.Designer;
@@ -19,7 +20,7 @@ protected Report report;
 protected Subreport subreport;
 
 public NewSubreportCommand(Designer designer, Report report, File f,
-			   Collection newJoins)
+			   Collection<Join> newJoins)
     throws Exception
 {
     super(designer.findSectionWidgetFor(report.getFirstSectionByArea(SectionArea.DETAIL)),

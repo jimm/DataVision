@@ -39,7 +39,7 @@ public void addJoin(Join join) {
     ((SubreportQuery)getDataSource().getQuery()).addSubreportJoin(join);
 }
 
-public void addAllJoins(Collection coll) {
+public void addAllJoins(Collection<Join> coll) {
     ((SubreportQuery)getDataSource().getQuery()).addSubreportJoins(coll);
 }
 
@@ -91,13 +91,13 @@ public Object getValue() {
  * Returns an array of strings, each containing the values returned by the
  * subreport query separated by spaces.
  */
-protected Collection makeRowStrings() {
-    ArrayList rowStrings = new ArrayList();
+protected Collection<String> makeRowStrings() {
+    ArrayList<String> rowStrings = new ArrayList<String>();
     Section detail = getFirstSectionByArea(SectionArea.DETAIL);
     while (rset.next()) {
-	ArrayList values = new ArrayList();
-	for (Iterator iter = detail.fields(); iter.hasNext(); ) {
-	    String str = ((Field)iter.next()).toString();
+	ArrayList<Object> values = new ArrayList<Object>();
+	for (Field f : detail.fields()) {
+	    String str = f.toString();
 	    values.add(str == null ? "" : str);
 	}
 	rowStrings.add(StringUtils.join(values, " "));

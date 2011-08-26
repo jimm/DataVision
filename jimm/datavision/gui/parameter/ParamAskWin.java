@@ -11,7 +11,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
 import java.util.HashMap;
-import java.util.Iterator;
 import javax.swing.*;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
@@ -22,6 +21,7 @@ import javax.swing.event.ListSelectionEvent;
  *
  * @author Jim Menard, <a href="mailto:jim@jimmenard.com">jim@jimmenard.com</a>
  */
+@SuppressWarnings("serial")
 public class ParamAskWin
     extends JDialog
     implements ActionListener, ListSelectionListener
@@ -43,12 +43,12 @@ protected static final String CARD_LIST_MULTIPLE_STRING_NAME =
 protected static final String CARD_SINGLE_DATE_NAME = "single-date";
 protected static final String CARD_RANGE_DATE_NAME = "range-date";
 
-protected List parameters;
+protected List<Parameter> parameters;
 protected Parameter selectedParameter;
 protected boolean cancelled;
 protected JList questionList;
 protected JPanel cardPanel;
-protected HashMap createdInquisitors;
+protected HashMap<Parameter, Inquisitor> createdInquisitors;
 
 /**
  * Constructor.
@@ -56,10 +56,10 @@ protected HashMap createdInquisitors;
  * @param parent frame with which this dialog should be associated
  * @param parameters a list of parameters
  */
-public ParamAskWin(Frame parent, List parameters) {
+public ParamAskWin(Frame parent, List<Parameter> parameters) {
     super(parent, I18N.get("ParamAskWin.title"), true); // Modal
     this.parameters = parameters;
-    createdInquisitors = new HashMap();
+    createdInquisitors = new HashMap<Parameter, Inquisitor>();
     selectedParameter = null;
     buildWindow();
     questionList.setSelectedIndex(0); // Select first question
@@ -91,8 +91,8 @@ protected JPanel questionPanel() {
     questionList.addListSelectionListener(this);
     questionList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-    for (Iterator iter = parameters.iterator(); iter.hasNext(); )
-	model.addElement(((Parameter)iter.next()).getQuestion());
+    for (Parameter p : parameters)
+	model.addElement(p.getQuestion());
 
     panel.add(new JScrollPane(questionList));
     return panel;

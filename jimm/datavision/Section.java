@@ -83,8 +83,7 @@ public void setMinHeight(double newMinHeight) {
  */
 public double getOutputHeight() {
     double h = minHeight;
-    for (Iterator iter = fields.iterator(); iter.hasNext(); ) {
-	Field f = (Field)iter.next();
+    for (Field f : fields) {
 	double y = f.getBounds().y + f.getOutputHeight();
 	if (y > h) h = y;
     }
@@ -140,11 +139,9 @@ public Field findField(Object id) {
     else
 	lid = (Long)id;
 
-    for (Iterator iter = fields.iterator(); iter.hasNext(); ) {
-	Field f = (Field)iter.next();
+    for (Field f : fields)
 	if (f.getId().equals(lid))
 	    return f;
-    }
     return null;
 }
 
@@ -189,8 +186,8 @@ public List<Field> fields() { return fields; }
  * @param comp the comparator to use for sorting
  * @return an array of fields sorted by <var>comp</var>
  */
-public Object[] fieldsSortedBy(Comparator comp) {
-    Object[] sorted = fields.toArray();
+public Field[] fieldsSortedBy(Comparator<Field> comp) {
+    Field[] sorted = fields.toArray(new Field[0]);
     Arrays.sort(sorted, comp);
     return sorted;
 }
