@@ -333,7 +333,7 @@ String escape(String str) {
     if (str == null || str.length() == 0)
 	return str;
 
-    StringBuffer buf = new StringBuffer();
+    StringBuilder buf = new StringBuilder();
 
     int len = str.length();
     for (int i = 0; i < len; ++i) {

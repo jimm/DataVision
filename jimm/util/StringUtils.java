@@ -60,7 +60,7 @@ public static String join(Collection<? extends Object> c, String joinWith) {
     if (c == null)
 	return "";
 
-    StringBuffer buf = new StringBuffer();
+    StringBuilder buf = new StringBuilder();
     boolean first = true;
     for (Object obj : c) {
 	if (first) first = false;
@@ -126,7 +126,7 @@ public static List<String> splitIntoLines(String str) {
  * @param buf the string buffer
  * @param str the string
  */
-public static void splitUp(StringBuffer buf, String str) {
+public static void splitUp(StringBuilder buf, String str) {
     splitUp(buf, str, DEFAULT_MAX_MESSAGE_WIDTH);
 }
 
@@ -144,7 +144,7 @@ public static void splitUp(StringBuffer buf, String str) {
  * @param str the string
  * @param maxWidth maximum number of chars in each line
  */
-public static void splitUp(StringBuffer buf, String str, int maxWidth) {
+public static void splitUp(StringBuilder buf, String str, int maxWidth) {
     if (str == null)
 	return;
 
@@ -275,7 +275,7 @@ public static String escapeHTML(String str) {
     if (str == null || str.length() == 0)
 	return "";
 
-    StringBuffer buf = new StringBuffer();
+    StringBuilder buf = new StringBuilder();
     int len = str.length();
     for (int i = 0; i < len; ++i) {
 	char c = str.charAt(i);
@@ -307,7 +307,7 @@ public static String newlinesToXHTMLBreaks(String str) {
     if (str == null || str.length() == 0)
 	return "";
 
-    StringBuffer buf = new StringBuffer();
+    StringBuilder buf = new StringBuilder();
     int len = str.length();
     for (int i = 0; i < len; ++i) {
 	char c = str.charAt(i);
@@ -346,7 +346,7 @@ public static String unescapeXML(String str) {
     if (str == null || str.length() == 0)
 	return "";
 
-    StringBuffer buf = new StringBuffer();
+    StringBuilder buf = new StringBuilder();
     int len = str.length();
     for (int i = 0; i < len; ++i) {
 	char c = str.charAt(i);

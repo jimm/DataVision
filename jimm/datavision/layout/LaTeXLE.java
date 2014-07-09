@@ -327,7 +327,7 @@ protected void putLine(Line line, double xslope, double yslope) {
  * @return a string safe for LaTeX2e output
  */
 protected String makeSafe(String str) {
-    StringBuffer buf = new StringBuffer();
+    StringBuilder buf = new StringBuilder();
     int len = str.length();
     for (int i = 0; i < len; ++i) {
 	char c = str.charAt(i);

@@ -272,7 +272,7 @@ public void setLanguage(String newLang) {
  */
 protected String quoted(Object obj) {
     String val = obj.toString();
-    StringBuffer buf = new StringBuffer("\"");
+    StringBuilder buf = new StringBuilder("\"");
     int len = val.length();
     for (int i = 0; i < len; ++i) {
 	char c = val.charAt(i);
@@ -304,7 +304,7 @@ public Object unquoted(Object obj) {
 	String str = (String)obj;
 	if (str.startsWith("\"") && str.endsWith("\"")) {
 	    str = str.substring(1, str.length() - 1);
-	    StringBuffer buf = new StringBuffer();
+	    StringBuilder buf = new StringBuilder();
 	    int oldPos = 0;
 	    for (int pos = str.indexOf("\\"); pos != -1;
 		 pos = str.indexOf("\\", oldPos))

@@ -54,7 +54,7 @@ public static String expressionToDisplay(Report report, String str) {
     if (str == null || str.length() == 0 || str.indexOf("{") == -1)
 	return str;
 
-    StringBuffer buf = new StringBuffer();
+    StringBuilder buf = new StringBuilder();
     int len = str.length();
     for (int i = 0; i < len; ++i) {
 	char c = str.charAt(i);
@@ -119,7 +119,7 @@ public static String displayToExpression(Report report, String str) {
     if (str == null || str.length() == 0 || str.indexOf("{") == -1)
 	return str;
 
-    StringBuffer buf = new StringBuffer();
+    StringBuilder buf = new StringBuilder();
     int len = str.length();
     for (int i = 0; i < len; ++i) {
 	char c = str.charAt(i);

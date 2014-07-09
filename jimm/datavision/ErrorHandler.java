@@ -106,7 +106,7 @@ public static void error(Throwable t, String windowTitle) {
  * <code>null</code>
  */
 public static void error(String message, Throwable t, String windowTitle) {
-    StringBuffer buf = new StringBuffer();
+    StringBuilder buf = new StringBuilder();
     if (message != null) StringUtils.splitUp(buf, message, MAX_MESSAGE_WIDTH);
     if (t != null) {
 	if (message != null) buf.append("\n");

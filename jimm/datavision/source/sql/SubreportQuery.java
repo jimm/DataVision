@@ -51,7 +51,7 @@ public Iterable<Column> parentColumns() {
     return list;
 }
 
-protected void buildWhereClause(StringBuffer str, boolean forDisplay) {
+protected void buildWhereClause(StringBuilder str, boolean forDisplay) {
     // We always have a where clauses, even if the user didn't specify one
     str.append(" where ");
     if (!joins.isEmpty()) {
@@ -62,7 +62,7 @@ protected void buildWhereClause(StringBuffer str, boolean forDisplay) {
 }
 
 public String getWhereClauseForDisplay() {
-    StringBuffer buf = new StringBuffer();
+    StringBuilder buf = new StringBuilder();
     if (whereClause != null && whereClause.length() > 0) {
 	buf.append('(');
 	buf.append(super.getWhereClauseForPreparedStatement());
@@ -86,7 +86,7 @@ public String getWhereClauseForDisplay() {
 }
 
 public String getWhereClauseForPreparedStatement() {
-    StringBuffer buf = new StringBuffer();
+    StringBuilder buf = new StringBuilder();
     if (whereClause != null && whereClause.length() > 0) {
 	buf.append('(');
 	buf.append(super.getWhereClauseForPreparedStatement());

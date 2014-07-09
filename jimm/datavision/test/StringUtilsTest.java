@@ -232,23 +232,23 @@ public void testLineSplit() {
 }
 
 public void testSplitUp() {
-    StringBuffer buf = new StringBuffer();
+    StringBuilder buf = new StringBuilder();
     StringUtils.splitUp(buf, null);
     assertEquals("", buf.toString());
 
-    buf = new StringBuffer();
+    buf = new StringBuilder();
     StringUtils.splitUp(buf, "abcde abcde abcde abcde", 12);
     assertEquals("abcde abcde\nabcde abcde", buf.toString());
 
-    buf = new StringBuffer();
+    buf = new StringBuilder();
     StringUtils.splitUp(buf, "abcdeabcdeabcdeabcde", 12);
     assertEquals("abcdeabcdeabcdeabcde", buf.toString());
 
-    buf = new StringBuffer();
+    buf = new StringBuilder();
     StringUtils.splitUp(buf, "  abcde", 12);
     assertEquals("abcde", buf.toString());
 
-    buf = new StringBuffer();
+    buf = new StringBuilder();
     StringUtils.splitUp(buf, "  abcde      abcde     abcde    abcde  ", 12);
     assertEquals("abcde\nabcde\nabcde\nabcde", buf.toString());
 }

@@ -80,7 +80,7 @@ protected String asSafeSepString(String str) {
     if (str == null)
 	return "";
 
-    StringBuffer buf = new StringBuffer();
+    StringBuilder buf = new StringBuilder();
     boolean needsToBeQuoted = false;
     int len = str.length();
     for (int i = 0; i < len; ++i) {

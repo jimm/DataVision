@@ -58,7 +58,7 @@ public String prepare(String clause) {
     if (clause == null || clause.indexOf("{") == -1)
 	return clause;
 
-    StringBuffer buf = new StringBuffer();
+    StringBuilder buf = new StringBuilder();
 
     int pos, endPos;
     for (pos = 0, endPos = -1;
@@ -123,7 +123,7 @@ public String prepare(String clause) {
  * @param idAsString the parameter id
  */
 @SuppressWarnings("unchecked")
-protected void addParameter(StringBuffer buf, String prevWord,
+protected void addParameter(StringBuilder buf, String prevWord,
 			    String idAsString)
 {
     String word = null;
@@ -180,7 +180,7 @@ protected void addParameter(StringBuffer buf, String prevWord,
 		    buf.append(' ');
 		}
 
-		StringBuffer wordBuf = new StringBuffer("(");
+		StringBuilder wordBuf = new StringBuilder("(");
 		boolean first = true;
 		int len = list.size();
 		for (int i = 0; i < len; ++i) {
@@ -214,7 +214,7 @@ protected void addParameter(StringBuffer buf, String prevWord,
  * @param idAsString the parameter id
  * @see #addParameter
  */
-protected void addParameterForDisplay(StringBuffer buf, String prevWord,
+protected void addParameterForDisplay(StringBuilder buf, String prevWord,
 				      String idAsString)
 {
     String word = null;
@@ -349,7 +349,7 @@ protected String getWhereClauseForDisplay() {
     if (whereClause.indexOf("{") == -1)
 	return whereClause;
 
-    StringBuffer buf = new StringBuffer();
+    StringBuilder buf = new StringBuilder();
 
     int pos, endPos;
     for (pos = 0, endPos = -1;
@@ -439,7 +439,7 @@ protected String queryAsString(boolean forDisplay) {
     if (tables.size() == 0 || selectables.size() == 0)
 	return "";
 
-    StringBuffer str = new StringBuffer();
+    StringBuilder str = new StringBuilder();
     buildSelect(str);
     buildFrom(str);
     buildWhereClause(str, forDisplay);
@@ -447,7 +447,7 @@ protected String queryAsString(boolean forDisplay) {
     return str.toString();
 }
 
-protected void buildSelect(StringBuffer str) {
+protected void buildSelect(StringBuilder str) {
     str.append("select ");
 
     // Build list of database columns and user columns
@@ -459,7 +459,7 @@ protected void buildSelect(StringBuffer str) {
     str.append(StringUtils.join(selectCols, ", "));
 }
 
-protected void buildFrom(StringBuffer str) {
+protected void buildFrom(StringBuilder str) {
     str.append(" from ");
     boolean first = true;
     for (Table t : tables) {
@@ -469,7 +469,7 @@ protected void buildFrom(StringBuffer str) {
     }
 }
 
-protected void buildWhereClause(StringBuffer str, boolean forDisplay) {
+protected void buildWhereClause(StringBuilder str, boolean forDisplay) {
     if (joins.isEmpty() && (whereClause == null || whereClause.length() == 0))
 	return;
 
@@ -483,10 +483,10 @@ protected void buildWhereClause(StringBuffer str, boolean forDisplay) {
     }
 }
 
-protected void buildJoins(StringBuffer str) {
+protected void buildJoins(StringBuilder str) {
     ArrayList<String> quotedJoins = new ArrayList<String>();
     for (Join j : joins) {
-	StringBuffer buf = new StringBuffer();
+	StringBuilder buf = new StringBuilder();
 	buf.append(quoted(((Column)j.getFrom()).fullName()));
 	buf.append(' ');
 	buf.append(j.getRelation());
@@ -500,7 +500,7 @@ protected void buildJoins(StringBuffer str) {
     str.append(")");
 }
 
-protected void buildUserWhereClause(StringBuffer str, boolean forDisplay) {
+protected void buildUserWhereClause(StringBuilder str, boolean forDisplay) {
     str.append("(");
     if (forDisplay)
 	str.append(getWhereClauseForDisplay());
@@ -512,20 +512,20 @@ protected void buildUserWhereClause(StringBuffer str, boolean forDisplay) {
     str.append(")");
 }
 
-protected void buildOrderBy(StringBuffer str) {
+protected void buildOrderBy(StringBuilder str) {
     if (report.hasGroups() || !sortSelectables.isEmpty()) {
 	str.append(" order by ");
 	ArrayList<String> orders = new ArrayList<String>();
 	for (Group g : report.groups()) {
-	    StringBuffer buf =
-		new StringBuffer(g.getSelectable().getSortString(this));
+	    StringBuilder buf =
+		new StringBuilder(g.getSelectable().getSortString(this));
 	    buf.append(' ');
 	    buf.append(g.getSortOrder() == Group.SORT_DESCENDING
 			    ? "desc" : "asc");
 	    orders.add(buf.toString());
 	}
 	for (Selectable s : sortedSelectables()) {
-	    StringBuffer buf = new StringBuffer(s.getSortString(this));
+	    StringBuilder buf = new StringBuilder(s.getSortString(this));
 	    buf.append(' ');
 	    buf.append(sortOrderOf(s) == Query.SORT_DESCENDING ? "desc" : "asc");
 	    orders.add(buf.toString());

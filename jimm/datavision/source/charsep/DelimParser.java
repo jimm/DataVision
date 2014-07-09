@@ -51,7 +51,7 @@ public List<String> parse() throws IOException {
     ArrayList<String> columns = null;
     boolean insideQuotes = false;
     int numQuotesSeen = 0;
-    StringBuffer buf = new StringBuffer();
+    StringBuilder buf = new StringBuilder();
 
     int charAsInt;
     char c;
@@ -110,7 +110,7 @@ public List<String> parse() throws IOException {
 		if (!insideQuotes) {
 		    if (columns == null) columns = new ArrayList<String>();
 		    columns.add(buf.toString());
-		    buf = new StringBuffer();
+		    buf = new StringBuilder();
 		}
 		else {		// Inside quoted column
 		    // Delimiter at end of quoted column data
@@ -118,7 +118,7 @@ public List<String> parse() throws IOException {
 			insideQuotes = false;
 			if (columns == null) columns = new ArrayList<String>();
 			columns.add(buf.toString());
-			buf = new StringBuffer();
+			buf = new StringBuilder();
 		    }
 		    // Delimiter inside quoted column
 		    else
