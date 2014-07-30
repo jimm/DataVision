@@ -11,7 +11,6 @@ import jimm.datavision.field.Field;
 import jimm.datavision.field.Format;
 import jimm.datavision.field.ImageField;
 import jimm.datavision.layout.LayoutEngine;
-import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import java.io.OutputStream;
 import java.util.*;
 import org.apache.poi.hssf.usermodel.*;
