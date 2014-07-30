@@ -32,7 +32,7 @@ JUNIT_JAR = $(LIB_DIR)/junit.jar
 JRUBY_JARS = $(LIB_DIR)/jruby.jar
 
 BUILD_CLASSPATH = -classpath .:$(LIB_DIR)/jcalendar.jar:$(LIB_DIR)/iText.jar:$(JRUBY_JARS):$(LIB_DIR)/bsf.jar:$(LIB_DIR)/poi.jar
-RUN_CLASSPATH = $(BUILD_CLASSPATH):$(DB_JARS):$(CLASSES_DIR)
+RUN_CLASSPATH = $(BUILD_CLASSPATH):$(DB_JARS):$(LIB_DIR)/commons-logging.jar:$(LIB_DIR)/asm.jar:$(CLASSES_DIR)
 TEST_BUILD_CLASSPATH = $(BUILD_CLASSPATH):$(JUNIT_JAR)
 TEST_RUN_CLASSPATH = $(RUN_CLASSPATH):$(JUNIT_JAR)
 MAIN_CLASS = jimm.datavision.DataVision
