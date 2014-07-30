@@ -12,7 +12,7 @@
 # One more thing: we make sure the files have permission 644.
 #
 
-require 'ftools'
+require 'fileutils'
 
 DV_DIR = File.join(File.dirname(__FILE__), '..')
 FROM = File.join(DV_DIR, 'jimm', 'properties')
@@ -23,7 +23,7 @@ Dir[File.join(TO, "*.properties")].each { | f | File.delete(f) }
 
 # Copy properties files.
 %w(datavision paper menu).each { | t |
-  Dir[File.join(FROM, "#{t}*.properties")].each { | f | File.cp(f, TO) }
+  Dir[File.join(FROM, "#{t}*.properties")].each { | f | FileUtils.cp(f, TO) }
 }
 
 # Fill in the holes by providing "superclass" properties files. For example,
@@ -34,14 +34,14 @@ Dir[File.join(TO, "*.properties")].each { | f | File.delete(f) }
   %w(datavision paper menu).each { | t |
     f = File.join(FROM, "#{t}_#{s}.properties")
     lang = s.sub(/_../, '')
-    File.cp(f, File.join(TO, "#{t}_#{lang}.properties")) if File.exist?(f)
+    FileUtils.cp(f, File.join(TO, "#{t}_#{lang}.properties")) if File.exist?(f)
   }
 }
 
 # Copy the default (US English) files explicitly as en_US.
 %w(datavision paper menu).each { | s |
-  File.cp(File.join(FROM, "#{s}.properties"),
-	  File.join(TO, "#{s}_en_US.properties"))
+  FileUtils.cp(File.join(FROM, "#{s}.properties"),
+               File.join(TO, "#{s}_en_US.properties"))
 }
 
 # Change permissions.

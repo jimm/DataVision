@@ -28,8 +28,7 @@ class TableOfContents
 	if level >= @level_stack.length
 	    @level_stack << 1
 	elsif level < (@level_stack.length - 1)
-	    @level_stack[level+1 .. -1] = nil
-	    @level_stack[level] += 1
+            @level_stack = @level_stack[0..level] + [1]
 	else
 	    @level_stack[level] += 1
 	end
