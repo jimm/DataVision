@@ -26,12 +26,12 @@ TESTDATA_DIR = $(D)/testdata
 POSTGRESQL_JAR = /usr/local/lib/postgresql.jdbc.jar
 MYSQL_JAR = /usr/local/lib/mysql-connector-java-3.0.8-stable-bin.jar
 DB_JARS = $(POSTGRESQL_JAR):$(MYSQL_JAR)
-JUNIT_JAR = /usr/local/lib/junit.jar
+JUNIT_JAR = $(LIB_DIR)/junit.jar
 
 
 JRUBY_JARS = $(LIB_DIR)/jruby.jar
 
-BUILD_CLASSPATH = -classpath .:$(LIB_DIR)/jcalendar.jar:$(LIB_DIR)/iText.jar:$(JRUBY_JARS):$(LIB_DIR)/bsf.jar
+BUILD_CLASSPATH = -classpath .:$(LIB_DIR)/jcalendar.jar:$(LIB_DIR)/iText.jar:$(JRUBY_JARS):$(LIB_DIR)/bsf.jar:$(LIB_DIR)/poi.jar
 RUN_CLASSPATH = $(BUILD_CLASSPATH):$(DB_JARS):$(CLASSES_DIR)
 TEST_BUILD_CLASSPATH = $(BUILD_CLASSPATH):$(JUNIT_JAR)
 TEST_RUN_CLASSPATH = $(RUN_CLASSPATH):$(JUNIT_JAR)
