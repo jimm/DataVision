@@ -72,8 +72,10 @@ public void testOneTable() {
     tableList.add(tables[0]);
 
     int i = 0;
-    for (Column col : new ColumnIterator(tableList))
+    for (Column col : new ColumnIterator(tableList)) {
 	assertSame(columns[i], col);
+        ++i;
+    }
     assertEquals(3, i);
 }
 
@@ -85,8 +87,10 @@ public void testManyTables() {
     }
 
     int i = 0;
-    for (Column col : new ColumnIterator(tableList))
+    for (Column col : new ColumnIterator(tableList)){
 	assertSame(columns[i], col);
+        ++i;
+    }
     assertEquals(NUM_COLUMNS, i);
 }
 
@@ -102,8 +106,10 @@ protected void skipTableTest(int skip) {
     }
 
     int i = 0;
-    for (Column col : new ColumnIterator(tableList))
+    for (Column col : new ColumnIterator(tableList)) {
 	assertSame(columns[i], col);
+        ++i;
+    }
     assertEquals((NUM_TABLES - 1) * 3, i);
 }
 

@@ -98,28 +98,30 @@ protected List<Object> retrieveNextRow() {
     }
 
     int numColumnsInData = parsed.size();
-    int i = 0;
     List<Object> data = new ArrayList<Object>();
+    int i = 0;
     for (Column col : source.columns()) {
 	if (i >= numColumnsInData) {
-	    parsed.add(null);
+	    data.add(null);
 	    continue;
 	}
 
 	String str = parsed.get(i);
 	if (col.isNumeric()) {
 	    if (str == null || str.length() == 0)
-		data.set(i, new Integer(0));
+		data.add(new Integer(0));
 	    else if (str.indexOf('.') == -1)
-		data.set(i, new Integer(str));
+		data.add(new Integer(str));
 	    else
-		data.set(i, new Double(str));
+		data.add(new Double(str));
 	}
 	else if (col.isDate())
-	    data.set(i, parseDate(col, str));
+	    data.add(parseDate(col, str));
 	else
 	    data.add(str);
 	// else, it's a string; there is nothing to modify
+
+        ++i;
     }
 
     return data;
