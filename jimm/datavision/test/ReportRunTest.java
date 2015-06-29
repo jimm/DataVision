@@ -76,14 +76,13 @@ public void setUp() throws Exception {
     if (report.hasParameterFields())
 	report.setParameterXMLInput(PARAM_INPUT_FILE);
 
-    OUT_FILE.deleteOnExit();
     PrintWriter out = new PrintWriter(new FileWriter(OUT_FILE));
     report.setLayoutEngine(new CharSepLE(out, '\t'));
 }
 
 public void tearDown() {
     if (OUT_FILE.exists())
-	OUT_FILE.delete();
+        OUT_FILE.delete();
 }
 
 public void testReportRun() throws IOException, FileNotFoundException {
